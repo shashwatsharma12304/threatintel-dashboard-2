@@ -64,19 +64,18 @@ const ActModal = ({ threat, open, onClose }: ActModalProps) => {
           const asmPrompt = `Perform Attack Surface Management (ASM) assessment for the following threat:
 
 **Threat Details:**
-- Name: ${threat.name}
-- Asset: ${threat.asset}
+- Name: ${threat.threat_name}
+- Asset: ${threat.assets_impacted && threat.assets_impacted.length > 0 ? threat.assets_impacted[0].product_name : 'Unknown'}
 - Severity: ${threat.severity}
 - Status: ${threat.status}
 - Source: ${threat.source}
 - First Seen: ${new Date(threat.first_seen).toLocaleDateString('en-GB')}
-${threat.description ? `\n**Description:**\n${threat.description}` : ''}
-${threat.cves && threat.cves.length > 0 ? `\n**CVEs:**\n${threat.cves.join(', ')}` : ''}
-${threat.iocs && threat.iocs.length > 0 ? `\n**IOCs:**\n${threat.iocs.map(ioc => `${ioc.type}: ${ioc.value}`).join('\n')}` : ''}
-${threat.recommended_actions && threat.recommended_actions.length > 0 ? `\n**Recommended Actions:**\n${threat.recommended_actions.join('\n- ')}` : ''}
+${threat.summary ? `\n**Summary:**\n${threat.summary}` : ''}
+${threat.cve_ids && threat.cve_ids.filter(cve => cve && cve !== 'NA').length > 0 ? `\n**CVEs:**\n${threat.cve_ids.filter(cve => cve && cve !== 'NA').join(', ')}` : ''}
+${threat.relevance_reasons && threat.relevance_reasons.length > 0 ? `\n**Relevance Reasons:**\n${threat.relevance_reasons.join('\n- ')}` : ''}
 
 Please perform a comprehensive ASM assessment focusing on:
-1. Identifying all attack surfaces related to ${threat.asset}
+1. Identifying all attack surfaces related to ${threat.assets_impacted && threat.assets_impacted.length > 0 ? threat.assets_impacted[0].product_name : 'the affected assets'}
 2. Analyzing potential vulnerabilities and exposure points
 3. Assessing the current security posture
 4. Providing remediation recommendations`;
@@ -100,17 +99,17 @@ Please perform a comprehensive ASM assessment focusing on:
         case 'jira':
           // Stub: Create Jira ticket
           await new Promise(resolve => setTimeout(resolve, 800));
-          toast.success('Jira ticket created', { description: `Ticket created for threat: ${threat.name}` });
+          toast.success('Jira ticket created', { description: `Ticket created for threat: ${threat.threat_name}` });
           break;
         case 'slack':
           // Stub: Ping Slack channel
           await new Promise(resolve => setTimeout(resolve, 800));
-          toast.success('Slack notification sent', { description: `Security team notified about ${threat.name}` });
+          toast.success('Slack notification sent', { description: `Security team notified about ${threat.threat_name}` });
           break;
         case 'isolate':
           // Stub: Isolate asset
           await new Promise(resolve => setTimeout(resolve, 800));
-          toast.success('Asset isolation initiated', { description: `Isolating asset: ${threat.asset}` });
+          toast.success('Asset isolation initiated', { description: `Isolating asset: ${threat.assets_impacted && threat.assets_impacted.length > 0 ? threat.assets_impacted[0].product_name : 'Unknown'}` });
           break;
         default:
           const result = await executeAction(threat.id, actionType);
@@ -132,7 +131,7 @@ Please perform a comprehensive ASM assessment focusing on:
         <DialogHeader>
           <DialogTitle>Take Action on Threat</DialogTitle>
           <DialogDescription>
-            Select an action to respond to: <strong>{threat.name}</strong>
+            Select an action to respond to: <strong>{threat.threat_name}</strong>
           </DialogDescription>
         </DialogHeader>
 

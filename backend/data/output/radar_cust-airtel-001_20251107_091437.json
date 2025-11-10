@@ -1,0 +1,3706 @@
+{
+  "meta": {
+    "generated_at": "2025-11-07T09:14:37.572696Z",
+    "customer_id": "cust-airtel-001",
+    "total_threats": 54
+  },
+  "points": [
+    {
+      "id": "3660e6a8a92d43910a85e0d0c1c95608b840d648",
+      "threat_name": "Scattered Spider, LAPSUS$, and ShinyHunters extortion alliance",
+      "title": "Scattered Spider, LAPSUS$, and ShinyHunters form extortion alliance",
+      "severity": "medium",
+      "status": "new",
+      "severity_score": 0.5,
+      "relevance_score": 0.2,
+      "prioritization_score": 0.38,
+      "prioritization_band": "low",
+      "primary_surface": "Emerging / Unknown",
+      "theta_deg": 325.0,
+      "radius_norm": 0.62,
+      "assets_impacted": [],
+      "cve_ids": [],
+      "mitre_tactics": [],
+      "mitre_techniques": [],
+      "source": "Trustwave",
+      "source_link": "https://www.scmagazine.com",
+      "first_seen": "2025-11-06",
+      "last_updated": "2025-11-06",
+      "summary": "Extortion alliance among Scattered Spider, LAPSUS$, and ShinyHunters detected.",
+      "relevance_reasons": [],
+      "industries_affected": [],
+      "regions_or_countries_targeted": []
+    },
+    {
+      "id": "5a5748f0fd816295293640d585f4c4e0",
+      "threat_name": "Critical Vulnerabilities in Cisco Contact Center Appliance",
+      "title": "Cisco Patches Critical Vulnerabilities in Contact Center Appliance",
+      "severity": "critical",
+      "status": "new",
+      "severity_score": 1.0,
+      "relevance_score": 0.5,
+      "prioritization_score": 0.8,
+      "prioritization_band": "critical",
+      "primary_surface": "Third-Party / Vendor Risk",
+      "theta_deg": 237.0,
+      "radius_norm": 0.2,
+      "assets_impacted": [
+        {
+          "product_id": "prod-crm-care",
+          "product_name": "Customer Care CRM Platform",
+          "owning_team": "Third-Party / Vendor Risk",
+          "is_crown_jewel": false,
+          "internet_facing": true,
+          "data_sensitivity": "high"
+        }
+      ],
+      "cve_ids": [
+        "NA"
+      ],
+      "mitre_tactics": [
+        "Tactic for Initial Access",
+        "Tactic for Execution",
+        "Tactic for Privilege Escalation"
+      ],
+      "mitre_techniques": [
+        "NA"
+      ],
+      "source": "SecurityWeek",
+      "source_link": "https://www.securityweek.com",
+      "first_seen": "2025-11-06",
+      "last_updated": "2025-11-06",
+      "summary": "Cisco has patched critical vulnerabilities in its Contact Center Appliance that allow attackers to execute arbitrary code remotely and escalate privileges to root on affected systems. These flaws pose a severe risk as they enable full system compromise if exploited. The vulnerabilities were disclosed on November 6, 2025, highlighting the urgent need for affected organizations to apply patches promptly to mitigate potential attacks.",
+      "relevance_reasons": [
+        "Impacts Customer Care CRM Platform",
+        "CRM platform is internet facing",
+        "CRM platform has high data sensitivity",
+        "Risk appetite is low"
+      ],
+      "industries_affected": [
+        "Telecommunications"
+      ],
+      "regions_or_countries_targeted": [
+        "NA"
+      ]
+    },
+    {
+      "id": "5887b5491c7c97421990a892ef51e02a",
+      "threat_name": "Agenda Ransomware Linux Variant",
+      "title": "Agenda Ransomware Deploys Linux Variant on Windows Systems Through Remote Management Tools and BYOVD Techniques",
+      "severity": "high",
+      "status": "new",
+      "severity_score": 0.75,
+      "relevance_score": 0.35,
+      "prioritization_score": 0.59,
+      "prioritization_band": "medium",
+      "primary_surface": "Endpoint / Email",
+      "theta_deg": 31.423397803231584,
+      "radius_norm": 0.41,
+      "assets_impacted": [
+        {
+          "product_id": "prod-m365",
+          "product_name": "Corporate Email & Collaboration (M365)",
+          "owning_team": "Endpoint / Email",
+          "is_crown_jewel": false,
+          "internet_facing": true,
+          "data_sensitivity": "high"
+        }
+      ],
+      "cve_ids": [
+        "NA"
+      ],
+      "mitre_tactics": [
+        "Tactic for Initial Access",
+        "Tactic for Execution",
+        "Tactic for Persistence"
+      ],
+      "mitre_techniques": [
+        "NA"
+      ],
+      "source": "Agenda Ransomware",
+      "source_link": "https://www.trendmicro.com/en_us/research.html",
+      "first_seen": "2025-10-31",
+      "last_updated": "2025-10-31",
+      "summary": "Agenda ransomware has deployed a Linux variant on Windows systems using remote management tools and BYOVD techniques, impacting systems like corporate email and collaboration platforms.",
+      "relevance_reasons": [
+        "Impacts corporate email system (M365)",
+        "M365 has high data sensitivity"
+      ],
+      "industries_affected": [],
+      "regions_or_countries_targeted": []
+    },
+    {
+      "id": "5a9b8dd7c61fd0a96a50e8c3871688005b198c65",
+      "threat_name": "Silent Insider Threat",
+      "title": "The Silent Insider Threat: When Employees Undermine Cybersecurity Messaging",
+      "severity": "medium",
+      "status": "active",
+      "severity_score": 0.5,
+      "relevance_score": 0.3,
+      "prioritization_score": 0.42,
+      "prioritization_band": "medium",
+      "primary_surface": "Data / Exfiltration / Insider",
+      "theta_deg": 154.55884605830937,
+      "radius_norm": 0.58,
+      "assets_impacted": [
+        {
+          "product_id": "prod-datalake-analytics",
+          "product_name": "Enterprise Data Lake & Analytics Platform",
+          "owning_team": "Data / Exfiltration / Insider",
+          "is_crown_jewel": false,
+          "internet_facing": false,
+          "data_sensitivity": "high"
+        },
+        {
+          "product_id": "prod-billing-bss",
+          "product_name": "Core Billing & Charging (BSS)",
+          "owning_team": "Data / Exfiltration / Insider",
+          "is_crown_jewel": true,
+          "internet_facing": false,
+          "data_sensitivity": "high"
+        }
+      ],
+      "cve_ids": [],
+      "mitre_tactics": [
+        "Tactic for Initial Access",
+        "Tactic for Defense Evasion"
+      ],
+      "mitre_techniques": [],
+      "source": "Security Magazine",
+      "source_link": "https://www.securitymagazine.com",
+      "first_seen": "2025-11-19",
+      "last_updated": "2025-11-19",
+      "summary": "The article discusses the risk of employees undermining cybersecurity messaging, highlighting insider threats and the importance of addressing internal communication. Focus on improving internal comms.",
+      "relevance_reasons": [
+        "Data Lake & Analytics Platform has high data sensitivity",
+        "Core Billing & Charging (BSS) is a crown jewel and has high data sensitivity"
+      ],
+      "industries_affected": [],
+      "regions_or_countries_targeted": []
+    },
+    {
+      "id": "65842864f949740357c2108a",
+      "threat_name": "Credit Card Fraud Ring",
+      "title": "Europol arrests payment service executives for role in credit card fraud ring",
+      "severity": "high",
+      "status": "new",
+      "severity_score": 0.75,
+      "relevance_score": 0.75,
+      "prioritization_score": 0.75,
+      "prioritization_band": "high",
+      "primary_surface": "Fraud / Payments / Abuse",
+      "theta_deg": 301.0,
+      "radius_norm": 0.25,
+      "assets_impacted": [
+        {
+          "product_id": "prod-recharge-portal",
+          "product_name": "Online Recharge & Payments Portal",
+          "owning_team": "Web Apps / API",
+          "is_crown_jewel": false,
+          "internet_facing": true,
+          "data_sensitivity": "high"
+        },
+        {
+          "product_id": "prod-payments-bank-core",
+          "product_name": "Airtel Payments Bank Core Banking Platform",
+          "owning_team": "Fraud / Payments / Abuse",
+          "is_crown_jewel": true,
+          "internet_facing": false,
+          "data_sensitivity": "high"
+        }
+      ],
+      "cve_ids": [],
+      "mitre_tactics": [
+        "Tactic for Initial Access",
+        "Tactic for Execution",
+        "Tactic for Persistence",
+        "Tactic for Defense Evasion"
+      ],
+      "mitre_techniques": [
+        "T1078",
+        "T1566"
+      ],
+      "source": "Risky Business",
+      "source_link": "https://news.risky.biz/",
+      "first_seen": "2025-11-07",
+      "last_updated": "2025-11-07",
+      "summary": "Europol arrests payment service executives involved in a credit card fraud ring. Affects financial services through fraudulent transactions and potential insider involvement, especially concerning recharge portals and payments bank platforms.",
+      "relevance_reasons": [
+        "Impacts internet-facing recharge portal.",
+        "Involves payments bank core platform.",
+        "Threat actor TTPs include fraudulent transactions."
+      ],
+      "industries_affected": [
+        "Financial Services"
+      ],
+      "regions_or_countries_targeted": [
+        "Europe"
+      ]
+    },
+    {
+      "id": "99b7879a06c3d5d2b783912d9d11348636d77730",
+      "threat_name": "eSIM eUICC Java Card Vulnerabilities",
+      "title": "Critical vulnerabilities in eUICC chips used in eSIMs",
+      "severity": "medium",
+      "status": "new",
+      "severity_score": 0.5,
+      "relevance_score": 0.65,
+      "prioritization_score": 0.56,
+      "prioritization_band": "medium",
+      "primary_surface": "Network / Edge / OT",
+      "theta_deg": 177.0,
+      "radius_norm": 0.44,
+      "assets_impacted": [
+        {
+          "product_id": "prod-core-network-5g",
+          "product_name": "4G/5G Core Network Platform",
+          "owning_team": "Network / Edge / OT",
+          "is_crown_jewel": true,
+          "internet_facing": false,
+          "data_sensitivity": "high"
+        },
+        {
+          "product_id": "prod-enterprise-sdwan",
+          "product_name": "Enterprise SD-WAN & MPLS Orchestrator",
+          "owning_team": "Network / Edge / OT",
+          "is_crown_jewel": false,
+          "internet_facing": false,
+          "data_sensitivity": "medium"
+        }
+      ],
+      "cve_ids": [
+        "NA"
+      ],
+      "mitre_tactics": [
+        "Tactic for Initial Access",
+        "Tactic for Execution",
+        "Tactic for Persistence",
+        "Tactic for Defense Evasion",
+        "Tactic for Credential Access"
+      ],
+      "mitre_techniques": [
+        "T1204",
+        "T1059"
+      ],
+      "source": "IBM Security Research",
+      "source_link": "https://www.ibm.com/think/insights/critical-wake-up-call-e-sim-vulnerability",
+      "first_seen": "2025-11-06",
+      "last_updated": "2025-11-06",
+      "summary": "Vulnerabilities in eUICC chips used in eSIMs could allow attackers to clone eSIM profiles, intercept communications, install backdoors, and brick devices. Exploitation of Java Card flaws enables bypassing isolation and accessing secure memory. Mitigation includes bytecode verification, security audits, and stricter GSMA compliance.",
+      "relevance_reasons": [
+        "Impacts 4G/5G Core Network Platform which is a crown jewel and has high data sensitivity.",
+        "Impacts Enterprise SD-WAN & MPLS Orchestrator."
+      ],
+      "industries_affected": [
+        "Telecommunications",
+        "Mobile Operators",
+        "IoT"
+      ],
+      "regions_or_countries_targeted": [
+        "Global"
+      ]
+    },
+    {
+      "id": "546249e0f7f8497b41939135cb384407",
+      "threat_name": "Kalambur Backdoor Phishing Campaign",
+      "title": "Trojanized ESET Installers Drop Kalambur Backdoor in Phishing Attacks on Ukraine",
+      "severity": "high",
+      "status": "active",
+      "severity_score": 0.75,
+      "relevance_score": 0.1,
+      "prioritization_score": 0.51,
+      "prioritization_band": "medium",
+      "primary_surface": "Endpoint / Email",
+      "theta_deg": 33.0,
+      "radius_norm": 0.49,
+      "assets_impacted": [
+        {
+          "product_id": "prod-m365",
+          "product_name": "Corporate Email & Collaboration (M365)",
+          "owning_team": "Endpoint / Email",
+          "is_crown_jewel": false,
+          "internet_facing": true,
+          "data_sensitivity": "high"
+        }
+      ],
+      "cve_ids": [
+        "NA"
+      ],
+      "mitre_tactics": [
+        "Tactic for Initial Access",
+        "Tactic for Execution",
+        "Tactic for Persistence",
+        "Tactic for Command and Control"
+      ],
+      "mitre_techniques": [
+        "T1566",
+        "T1204",
+        "T1059",
+        "T1071"
+      ],
+      "source": "The Hacker News",
+      "source_link": "https://thehackernews.com",
+      "first_seen": "2025-11-03",
+      "last_updated": "2025-11-03",
+      "summary": "A phishing campaign uses trojanized ESET installers to deploy the Kalambur backdoor, targeting Ukrainian entities. The campaign highlights sophisticated malware delivery via trusted software impersonation.",
+      "relevance_reasons": [
+        "Impacts Corporate Email & Collaboration (M365)",
+        "M365 is internet_facing",
+        "risk_appetite is low"
+      ],
+      "industries_affected": [
+        "Cybersecurity"
+      ],
+      "regions_or_countries_targeted": [
+        "Ukraine"
+      ]
+    },
+    {
+      "id": "38378b6742f1b327a3286768b5338461e06684c1",
+      "threat_name": "Microsoft WSUS Remote Code Execution",
+      "title": "Microsoft WSUS Remote Code Execution CVE-2025-59287 Actively Exploited in the Wild (Updated November 3)",
+      "severity": "critical",
+      "status": "active",
+      "severity_score": 1.0,
+      "relevance_score": 0.9,
+      "prioritization_score": 0.94,
+      "prioritization_band": "critical",
+      "primary_surface": "Endpoint / Email",
+      "theta_deg": 30.49015896086061,
+      "radius_norm": 0.06000000000000005,
+      "assets_impacted": [
+        {
+          "product_id": "prod-m365",
+          "product_name": "Corporate Email & Collaboration (M365)",
+          "owning_team": "Endpoint / Email",
+          "is_crown_jewel": false,
+          "internet_facing": true,
+          "data_sensitivity": "high"
+        }
+      ],
+      "cve_ids": [
+        "CVE-2025-59287"
+      ],
+      "mitre_tactics": [
+        "Tactic for Initial Access",
+        "Tactic for Execution",
+        "Tactic for Discovery",
+        "Tactic for Exfiltration"
+      ],
+      "mitre_techniques": [
+        "T1190",
+        "T1059.001",
+        "T1083",
+        "T1041"
+      ],
+      "source": "Palo Alto Networks Unit 42",
+      "source_link": "https://unit42.paloaltonetworks.com/microsoft-cve-2025-59287/",
+      "first_seen": "2025-11-03",
+      "last_updated": "2025-11-03",
+      "summary": "Critical remote code execution vulnerability (CVE-2025-59287) in Microsoft WSUS is being actively exploited. Apply emergency patch immediately.",
+      "relevance_reasons": [
+        "Impacts internet-facing Corporate Email & Collaboration (M365).",
+        "M365 is business-critical.",
+        "M365 has high data sensitivity.",
+        "Risk appetite is low.",
+        "Detection coverage for web apps is enabled."
+      ],
+      "industries_affected": [
+        "Information Technology"
+      ],
+      "regions_or_countries_targeted": [
+        "Global"
+      ]
+    },
+    {
+      "id": "591691a21f400063781211a053481d40",
+      "threat_name": "Cisco Firewall Attack Variant",
+      "title": "Cisco warns of ‘new attack variant’ battering firewalls under exploit for 6 months",
+      "severity": "critical",
+      "status": "active",
+      "severity_score": 1.0,
+      "relevance_score": 0.95,
+      "prioritization_score": 0.97,
+      "prioritization_band": "critical",
+      "primary_surface": "Network / Edge / OT",
+      "theta_deg": 175.0,
+      "radius_norm": 0.03,
+      "assets_impacted": [
+        {
+          "product_id": "prod-enterprise-sdwan",
+          "product_name": "Enterprise SD-WAN & MPLS Orchestrator",
+          "owning_team": "Network / Edge / OT",
+          "is_crown_jewel": false,
+          "internet_facing": false,
+          "data_sensitivity": "medium"
+        },
+        {
+          "product_id": "prod-core-network-5g",
+          "product_name": "4G/5G Core Network Platform",
+          "owning_team": "Network / Edge / OT",
+          "is_crown_jewel": true,
+          "internet_facing": false,
+          "data_sensitivity": "high"
+        }
+      ],
+      "cve_ids": [
+        "CVE-2025-20333",
+        "CVE-2025-20362"
+      ],
+      "mitre_tactics": [
+        "Tactic for Initial Access",
+        "Tactic for Execution",
+        "Tactic for Persistence",
+        "Tactic for Defense Evasion"
+      ],
+      "mitre_techniques": [
+        "T1078",
+        "T1499",
+        "T1543",
+        "T1562"
+      ],
+      "source": "Cisco Security Advisory",
+      "source_link": "https://www.theregister.com/2025/11/06/cisco_firewall_ongoing_attacks/",
+      "first_seen": "2025-11-06",
+      "last_updated": "2025-11-06",
+      "summary": "Cisco warns of a new attack variant targeting Cisco Secure ASA and FTD Software, exploiting CVE-2025-20333 and CVE-2025-20362 leading to denial-of-service conditions and persistence mechanisms. The attacks, ongoing since May 2025, target government and telecom networks.",
+      "relevance_reasons": [
+        "Impacts Enterprise SD-WAN & MPLS Orchestrator, which is business critical.",
+        "Impacts 4G/5G Core Network Platform, which is business and mission critical and a crown jewel.",
+        "The Cisco Firewall Attack is a critical threat.",
+        "Bharti Airtel has a low risk appetite."
+      ],
+      "industries_affected": [
+        "Government",
+        "Telecom"
+      ],
+      "regions_or_countries_targeted": [
+        "United States",
+        "United Kingdom"
+      ]
+    },
+    {
+      "id": "91c7e28b17501491ff3f4593509b5d65",
+      "threat_name": "Cisco security advisory AV25-726",
+      "title": "Cisco security advisory (AV25-726)",
+      "severity": "high",
+      "status": "active",
+      "severity_score": 0.75,
+      "relevance_score": 0.65,
+      "prioritization_score": 0.69,
+      "prioritization_band": "high",
+      "primary_surface": "Network / Edge / OT",
+      "theta_deg": 178.26855263099748,
+      "radius_norm": 0.31,
+      "assets_impacted": [
+        {
+          "product_id": "prod-enterprise-sdwan",
+          "product_name": "Enterprise SD-WAN & MPLS Orchestrator",
+          "owning_team": "Network / Edge / OT",
+          "is_crown_jewel": false,
+          "internet_facing": false,
+          "data_sensitivity": "medium"
+        },
+        {
+          "product_id": "prod-tower-monitoring-scada",
+          "product_name": "Tower & Power Monitoring SCADA",
+          "owning_team": "Network / Edge / OT",
+          "is_crown_jewel": false,
+          "internet_facing": false,
+          "data_sensitivity": "medium"
+        }
+      ],
+      "cve_ids": [],
+      "mitre_tactics": [
+        "Tactic for Initial Access",
+        "Tactic for Execution",
+        "Tactic for Defense Evasion",
+        "Tactic for Credential Access",
+        "Tactic for Discovery",
+        "Tactic for Lateral Movement",
+        "Tactic for Collection",
+        "Tactic for Exfiltration",
+        "Tactic for Command and Control"
+      ],
+      "mitre_techniques": [],
+      "source": "Canadian Centre for Cyber Security",
+      "source_link": "https://www.cyber.gc.ca/en/alerts-advisories/cisco-security-advisory-av25-726",
+      "first_seen": "2025-11-05",
+      "last_updated": "2025-11-05",
+      "summary": "Cisco published a security advisory addressing vulnerabilities in Cisco Identity Services Engine, Cisco Unified Contact Center Express, and Cisco Unified Intelligence Center. The advisory recommends applying mitigations and updating affected products.",
+      "relevance_reasons": [
+        "Impacts Enterprise SD-WAN & MPLS Orchestrator which is business critical",
+        "Impacts Tower & Power Monitoring SCADA."
+      ],
+      "industries_affected": [
+        "Information Technology"
+      ],
+      "regions_or_countries_targeted": [
+        "Canada"
+      ]
+    },
+    {
+      "id": "a21a5d608f848830280e8f41e6d7955c",
+      "threat_name": "Cisco Secure Firewall Exploits Campaign",
+      "title": "Cisco Firewalls Under Siege: New Exploits Spark Urgent Patch Warnings",
+      "severity": "critical",
+      "status": "active",
+      "severity_score": 1.0,
+      "relevance_score": 0.85,
+      "prioritization_score": 0.86,
+      "prioritization_band": "critical",
+      "primary_surface": "Network / Edge / OT",
+      "theta_deg": 182.0,
+      "radius_norm": 0.14,
+      "assets_impacted": [
+        {
+          "product_id": "prod-enterprise-sdwan",
+          "product_name": "Enterprise SD-WAN & MPLS Orchestrator",
+          "owning_team": "Network / Edge / OT",
+          "is_crown_jewel": false,
+          "internet_facing": false,
+          "data_sensitivity": "medium"
+        },
+        {
+          "product_id": "prod-core-network-5g",
+          "product_name": "4G/5G Core Network Platform",
+          "owning_team": "Network / Edge / OT",
+          "is_crown_jewel": true,
+          "internet_facing": false,
+          "data_sensitivity": "high"
+        },
+        {
+          "product_id": "prod-airtel-secure-soc",
+          "product_name": "Airtel Secure SOC & Security Portal",
+          "owning_team": "Cloud / Infra / K8s",
+          "is_crown_jewel": false,
+          "internet_facing": true,
+          "data_sensitivity": "medium"
+        }
+      ],
+      "cve_ids": [
+        "CVE-2025-20333",
+        "CVE-2025-20362"
+      ],
+      "mitre_tactics": [
+        "Tactic for Initial Access",
+        "Tactic for Execution",
+        "Tactic for Persistence",
+        "Tactic for Defense Evasion",
+        "Tactic for Credential Access",
+        "Tactic for Discovery",
+        "Tactic for Lateral Movement",
+        "Tactic for Collection",
+        "Tactic for Exfiltration",
+        "Tactic for Command and Control"
+      ],
+      "mitre_techniques": [
+        "T1203",
+        "T1059",
+        "T1543",
+        "T1078",
+        "T1087",
+        "T1021",
+        "T1119",
+        "T1041",
+        "T1071"
+      ],
+      "source": "WebProNews",
+      "source_link": "https://www.webpronews.com/cisco-firewalls-under-siege-new-exploits-spark-urgent-patch-warnings/",
+      "first_seen": "2025-11-06",
+      "last_updated": "2025-11-06",
+      "summary": "Critical vulnerabilities in Cisco Secure Firewall ASA and Firepower Threat Defense (FTD) are being actively exploited by threat actors. Immediate patching is recommended.",
+      "relevance_reasons": [
+        "Impacts Enterprise SD-WAN & MPLS Orchestrator",
+        "Impacts 4G/5G Core Network Platform (crown jewel, high data sensitivity)",
+        "Impacts Airtel Secure SOC & Security Portal (internet facing)"
+      ],
+      "industries_affected": [
+        "Government",
+        "Manufacturing",
+        "Critical Infrastructure"
+      ],
+      "regions_or_countries_targeted": [
+        "United States",
+        "United Kingdom",
+        "Global"
+      ]
+    },
+    {
+      "id": "5e6188805d3b3312427032f59c688501",
+      "threat_name": "CVE-2025-20354",
+      "title": "Vulnerability in Cisco Unified CCX Java RMI Process Allows Remote Code Execution",
+      "severity": "critical",
+      "status": "new",
+      "severity_score": 1.0,
+      "relevance_score": 0.45,
+      "prioritization_score": 0.73,
+      "prioritization_band": "high",
+      "primary_surface": "Third-Party / Vendor Risk",
+      "theta_deg": 244.27454664837404,
+      "radius_norm": 0.27,
+      "assets_impacted": [
+        {
+          "product_id": "prod-crm-care",
+          "product_name": "Customer Care CRM Platform",
+          "owning_team": "Third-Party / Vendor Risk",
+          "is_crown_jewel": false,
+          "internet_facing": true,
+          "data_sensitivity": "high"
+        }
+      ],
+      "cve_ids": [
+        "CVE-2025-20354"
+      ],
+      "mitre_tactics": [
+        "Tactic for Initial Access",
+        "Tactic for Execution",
+        "Tactic for Privilege Escalation"
+      ],
+      "mitre_techniques": [
+        "T1190",
+        "T1059",
+        "T1068"
+      ],
+      "source": "NIST National Vulnerability Database",
+      "source_link": "https://nvd.nist.gov/vuln/detail/CVE-2025-20354",
+      "first_seen": "2025-11-05",
+      "last_updated": "2025-11-05",
+      "summary": "Critical vulnerability in Cisco Unified CCX Java RMI process allowing unauthenticated remote attackers to upload arbitrary files and execute commands with root privileges.",
+      "relevance_reasons": [
+        "Cisco Unified CCX vulnerability may impact the Salesforce Customer Care CRM Platform.",
+        "Internet facing asset increases relevance.",
+        "High data sensitivity increases relevance."
+      ],
+      "industries_affected": [
+        "Information Technology"
+      ],
+      "regions_or_countries_targeted": []
+    },
+    {
+      "id": "573c7f094d567280e7e063847453d5788a407f7c",
+      "threat_name": "CVE-2025-20333",
+      "title": "Cisco Confirms Active Exploitation of Secure ASA and FTD RCE Vulnerability",
+      "severity": "critical",
+      "status": "new",
+      "severity_score": 1.0,
+      "relevance_score": 0.75,
+      "prioritization_score": 0.85,
+      "prioritization_band": "critical",
+      "primary_surface": "Network / Edge / OT",
+      "theta_deg": 181.25510437170976,
+      "radius_norm": 0.15,
+      "assets_impacted": [
+        {
+          "product_id": "prod-enterprise-sdwan",
+          "product_name": "Enterprise SD-WAN & MPLS Orchestrator",
+          "owning_team": "Network / Edge / OT",
+          "is_crown_jewel": false,
+          "internet_facing": false,
+          "data_sensitivity": "medium"
+        },
+        {
+          "product_id": "prod-core-network-5g",
+          "product_name": "4G/5G Core Network Platform",
+          "owning_team": "Network / Edge / OT",
+          "is_crown_jewel": true,
+          "internet_facing": false,
+          "data_sensitivity": "high"
+        }
+      ],
+      "cve_ids": [
+        "CVE-2025-20333"
+      ],
+      "mitre_tactics": [
+        "Tactic for Initial Access",
+        "Tactic for Execution",
+        "Tactic for Persistence",
+        "Tactic for Defense Evasion"
+      ],
+      "mitre_techniques": [
+        "T1190",
+        "T1078",
+        "T1543",
+        "T1562"
+      ],
+      "source": "gbhackers",
+      "source_link": "https://gbhackers.com/cisco-secure-asa-and-ftd-rce-vulnerability/",
+      "first_seen": "2025-11-06",
+      "last_updated": "2025-11-06",
+      "summary": "Critical RCE vulnerability (CVE-2025-20333) in Cisco Secure ASA and FTD software under active exploitation. Requires immediate patching.",
+      "relevance_reasons": [
+        "Impacts Enterprise SD-WAN & MPLS Orchestrator",
+        "Impacts 4G/5G Core Network Platform",
+        "4G/5G Core Network Platform is a crown jewel",
+        "4G/5G Core Network Platform has high data sensitivity",
+        "Risk appetite is low"
+      ],
+      "industries_affected": [
+        "Network Security"
+      ],
+      "regions_or_countries_targeted": [
+        "NA"
+      ]
+    },
+    {
+      "id": "9b67f74c60506157691efb7f38b3453e",
+      "threat_name": "Multiple Cisco Contact Center Products Vulnerabilities",
+      "title": "Multiple Cisco Contact Center Products Vulnerabilities",
+      "severity": "medium",
+      "status": "new",
+      "severity_score": 0.5,
+      "relevance_score": 0.65,
+      "prioritization_score": 0.56,
+      "prioritization_band": "medium",
+      "primary_surface": "Third-Party / Vendor Risk",
+      "theta_deg": 238.3248851121932,
+      "radius_norm": 0.44,
+      "assets_impacted": [
+        {
+          "product_id": "prod-crm-care",
+          "product_name": "Customer Care CRM Platform",
+          "owning_team": "Third-Party / Vendor Risk",
+          "is_crown_jewel": false,
+          "internet_facing": true,
+          "data_sensitivity": "high"
+        }
+      ],
+      "cve_ids": [
+        "CVE-2025-20374",
+        "CVE-2025-20375",
+        "CVE-2025-20376",
+        "CVE-2025-20377"
+      ],
+      "mitre_tactics": [
+        "Tactic for Initial Access",
+        "Tactic for Execution",
+        "Tactic for Privilege Escalation",
+        "Tactic for Defense Evasion",
+        "Tactic for Credential Access"
+      ],
+      "mitre_techniques": [
+        "T1190",
+        "T1204",
+        "T1068",
+        "T1078"
+      ],
+      "source": "Cisco",
+      "source_link": "https://sec.cloudapps.cisco.com/security/center/content/CiscoSecurityAdvisory/cisco-sa-cc-mult-vuln-gK4TFXSn?vs_f=Cisco+Security+Advisory%26vs_cat%3DSecurity+Intelligence%26vs_type%3DRSS%26vs_p%3DMultiple+Cisco+Contact+Center+Products+Vulnerabilities%26vs_k%3D1",
+      "first_seen": "2025-11-05",
+      "last_updated": "2025-11-05",
+      "summary": "Multiple Cisco Contact Center Products Vulnerabilities affect Cisco Unified Contact Center Express, allowing sensitive information disclosure, arbitrary file download/upload, remote code execution, and privilege escalation. Upgrade to fixed software releases is recommended.",
+      "relevance_reasons": [
+        "Impacts Customer Care CRM Platform",
+        "CRM is internet_facing",
+        "CRM business_criticality is high",
+        "CRM data_sensitivity is high",
+        "risk_appetite is low"
+      ],
+      "industries_affected": [
+        "Telecommunications"
+      ],
+      "regions_or_countries_targeted": []
+    },
+    {
+      "id": "889c087b919853e5c4a1a72837968226",
+      "threat_name": "Microsoft October 2025 Patch Tuesday Vulnerabilities",
+      "title": "Microsoft Patch Tuesday, October 2025 Security Update Review",
+      "severity": "critical",
+      "status": "active",
+      "severity_score": 1.0,
+      "relevance_score": 0.85,
+      "prioritization_score": 0.86,
+      "prioritization_band": "critical",
+      "primary_surface": "Endpoint / Email",
+      "theta_deg": 29.58335288445354,
+      "radius_norm": 0.14,
+      "assets_impacted": [
+        {
+          "product_id": "prod-m365",
+          "product_name": "Corporate Email & Collaboration (M365)",
+          "owning_team": "Endpoint / Email",
+          "is_crown_jewel": false,
+          "internet_facing": true,
+          "data_sensitivity": "high"
+        },
+        {
+          "product_id": "prod-identity-platform",
+          "product_name": "Customer Identity & Access Platform",
+          "owning_team": "Identity / Access",
+          "is_crown_jewel": true,
+          "internet_facing": true,
+          "data_sensitivity": "high"
+        },
+        {
+          "product_id": "prod-airtel-secure-soc",
+          "product_name": "Airtel Secure SOC & Security Portal",
+          "owning_team": "Cloud / Infra / K8s",
+          "is_crown_jewel": false,
+          "internet_facing": true,
+          "data_sensitivity": "medium"
+        }
+      ],
+      "cve_ids": [
+        "CVE-2025-24990",
+        "CVE-2025-59230",
+        "CVE-2025-24052",
+        "CVE-2025-2884",
+        "CVE-2025-47827",
+        "CVE-2025-0033",
+        "CVE-2025-59234",
+        "CVE-2025-49708",
+        "CVE-2025-59291",
+        "CVE-2025-59292",
+        "CVE-2025-59227",
+        "CVE-2025-59287",
+        "CVE-2016-9535",
+        "CVE-2025-59236",
+        "CVE-2025-59246"
+      ],
+      "mitre_tactics": [
+        "Tactic for Privilege Escalation",
+        "Tactic for Execution"
+      ],
+      "mitre_techniques": [
+        "T1068",
+        "T1203"
+      ],
+      "source": "Qualys Threat Protection",
+      "source_link": "https://threatprotect.qualys.com/2025/10/15/microsoft-patch-tuesday-october-2025-security-update-review/",
+      "first_seen": "2025-10-15",
+      "last_updated": "2025-10-15",
+      "summary": "Microsoft October 2025 Patch Tuesday addresses multiple vulnerabilities including RCE and privilege escalation in various products like Windows, Office, Azure, and more. Apply patches promptly and use Qualys VMDR for remediation.",
+      "relevance_reasons": [
+        "Impacts Corporate Email & Collaboration (M365) which is internet_facing, business_critical and has high data_sensitivity.",
+        "Impacts Customer Identity & Access Platform which is internet_facing, business_critical and has high data_sensitivity and is a crown jewel.",
+        "Impacts Airtel Secure SOC & Security Portal which is internet_facing and business_critical."
+      ],
+      "industries_affected": [
+        "Information Technology"
+      ],
+      "regions_or_countries_targeted": [
+        "Global"
+      ]
+    },
+    {
+      "id": "913a1e04c8981f93d3c85b8837c65efb",
+      "threat_name": "Microsoft and Adobe October 2025 Patch Tuesday Vulnerabilities",
+      "title": "Microsoft and Adobe October 2025 Patch Tuesday Vulnerabilities",
+      "severity": "critical",
+      "status": "active",
+      "severity_score": 1.0,
+      "relevance_score": 0.7,
+      "prioritization_score": 0.82,
+      "prioritization_band": "critical",
+      "primary_surface": "Endpoint / Email",
+      "theta_deg": 28.868082506480416,
+      "radius_norm": 0.17999999999999994,
+      "assets_impacted": [
+        {
+          "product_id": "prod-m365",
+          "product_name": "Corporate Email & Collaboration (M365)",
+          "owning_team": "Endpoint / Email",
+          "is_crown_jewel": false,
+          "internet_facing": true,
+          "data_sensitivity": "high"
+        },
+        {
+          "product_id": "prod-crm-care",
+          "product_name": "Customer Care CRM Platform",
+          "owning_team": "Third-Party / Vendor Risk",
+          "is_crown_jewel": false,
+          "internet_facing": true,
+          "data_sensitivity": "high"
+        },
+        {
+          "product_id": "prod-identity-platform",
+          "product_name": "Customer Identity & Access Platform",
+          "owning_team": "Identity / Access",
+          "is_crown_jewel": false,
+          "internet_facing": true,
+          "data_sensitivity": "high"
+        }
+      ],
+      "cve_ids": [
+        "CVE-2025-24990",
+        "CVE-2025-59230",
+        "CVE-2025-24052",
+        "CVE-2025-2884",
+        "CVE-2025-47827",
+        "CVE-2025-0033",
+        "CVE-2025-59234",
+        "CVE-2025-49708",
+        "CVE-2025-59291",
+        "CVE-2025-59292",
+        "CVE-2025-59227",
+        "CVE-2025-59287",
+        "CVE-2016-9535",
+        "CVE-2025-59236",
+        "CVE-2025-59246"
+      ],
+      "mitre_tactics": [
+        "Tactic for Initial Access",
+        "Tactic for Execution",
+        "Tactic for Privilege Escalation",
+        "Tactic for Defense Evasion"
+      ],
+      "mitre_techniques": [
+        "T1204",
+        "T1068",
+        "T1210",
+        "T1055"
+      ],
+      "source": "Microsoft Patch Tuesday October 2025 Security Update Review",
+      "source_link": "https://blog.qualys.com/vulnerabilities-threat-research/2025/10/14/microsoft-patch-tuesday-october-2025-security-update-review",
+      "first_seen": "2025-10-23",
+      "last_updated": "2025-10-23",
+      "summary": "Microsoft and Adobe Patch Tuesday, October 2025 Security Update Review. Addresses 193 vulnerabilities including 9 critical and 6 zero-day. Includes patches for Windows, Microsoft Edge, Adobe products, AMD EPYC processors, IGEL OS. Key vulnerabilities include CVE-2025-24990 and CVE-2025-24052 (Windows Agere Modem Driver elevation of privilege), CVE-2025-59230 (Windows Remote Access Connection Manager elevation of privilege), CVE-2025-2884 (TCG TPM2.0 out-of-bounds read), CVE-2025-47827 (Secure Boot bypass in IGEL OS), and CVE-2025-0033 (AMD EPYC RMP corruption). Qualys VMDR supports detection and remediation.",
+      "relevance_reasons": [
+        "Impacts Corporate Email & Collaboration (M365)",
+        "Impacts Customer Care CRM Platform",
+        "Impacts Customer Identity & Access Platform",
+        "Microsoft and Adobe products are used"
+      ],
+      "industries_affected": [
+        "Information Technology"
+      ],
+      "regions_or_countries_targeted": []
+    },
+    {
+      "id": "c97687f22118549a6e1b5001a804a631",
+      "threat_name": "Apple Security Flaws November 2025",
+      "title": "Apple patches 50 security flaws—update now",
+      "severity": "high",
+      "status": "active",
+      "severity_score": 0.75,
+      "relevance_score": 0.3,
+      "prioritization_score": 0.57,
+      "prioritization_band": "medium",
+      "primary_surface": "Endpoint / Email",
+      "theta_deg": 32.49450561682009,
+      "radius_norm": 0.43,
+      "assets_impacted": [
+        {
+          "product_id": "prod-m365",
+          "product_name": "Corporate Email & Collaboration (M365)",
+          "owning_team": "Endpoint / Email",
+          "is_crown_jewel": false,
+          "internet_facing": true,
+          "data_sensitivity": "high"
+        }
+      ],
+      "cve_ids": [
+        "CVE-2025-4244"
+      ],
+      "mitre_tactics": [
+        "Tactic for Initial Access",
+        "Tactic for Execution",
+        "Tactic for Defense Evasion"
+      ],
+      "mitre_techniques": [
+        "T1204"
+      ],
+      "source": "Malwarebytes",
+      "source_link": "https://www.malwarebytes.com/blog/news/2025/11/apple-patches-50-security-flaws-update-now",
+      "first_seen": "2025-11-05",
+      "last_updated": "2025-11-05",
+      "summary": "Apple has released security updates addressing security vulnerabilities across multiple products. The vulnerabilities could allow attackers to access private data, take control of device components, or bypass security protections. Users are urged to update their devices promptly.",
+      "relevance_reasons": [
+        "Impacts Corporate Email & Collaboration (M365)",
+        "M365 is internet facing",
+        "M365 contains high data sensitivity"
+      ],
+      "industries_affected": [
+        "Consumer Electronics"
+      ],
+      "regions_or_countries_targeted": [
+        "Global"
+      ]
+    },
+    {
+      "id": "hash(CVE-2025-5928710-23-2025)",
+      "threat_name": "CVE-2025-59287",
+      "title": "Microsoft Releases Emergency Security Patch for Exploited Critical Remote Code Execution Vulnerability (CVE-2025-59287)",
+      "severity": "critical",
+      "status": "active",
+      "severity_score": 1.0,
+      "relevance_score": 0.75,
+      "prioritization_score": 0.7,
+      "prioritization_band": "high",
+      "primary_surface": "Cloud / Infra / K8s",
+      "theta_deg": 123.0,
+      "radius_norm": 0.3,
+      "assets_impacted": [
+        {
+          "product_id": "prod-tower-monitoring-scada",
+          "product_name": "Tower & Power Monitoring SCADA",
+          "owning_team": "Network / Edge / OT",
+          "is_crown_jewel": false,
+          "internet_facing": false,
+          "data_sensitivity": "medium"
+        },
+        {
+          "product_id": "prod-nxtra-dc-platform",
+          "product_name": "Nxtra Data Center & Colocation Platform",
+          "owning_team": "Cloud / Infra / K8s",
+          "is_crown_jewel": true,
+          "internet_facing": false,
+          "data_sensitivity": "medium"
+        }
+      ],
+      "cve_ids": [
+        "CVE-2025-59287"
+      ],
+      "mitre_tactics": [
+        "Tactic for Initial Access",
+        "Tactic for Execution"
+      ],
+      "mitre_techniques": [
+        "T1203",
+        "T1059"
+      ],
+      "source": "Microsoft",
+      "source_link": "https://arcticwolf.com/resources/blog/microsoft-releases-emergency-patch-for-exploited-critical-remote-code-execution-vulnerability-cve-2025-59287/",
+      "first_seen": "2025-10-23",
+      "last_updated": "2025-10-23",
+      "summary": "Critical RCE vulnerability (CVE-2025-59287) in Windows Server Update Services (WSUS) allows remote, unauthenticated attackers to execute arbitrary code. Exploit observed in the wild. Apply patch or disable WSUS and block ports 8530/8531.",
+      "relevance_reasons": [
+        "Impacts Nxtra Data Center & Colocation Platform (crown jewel)",
+        "Impacts Tower & Power Monitoring SCADA"
+      ],
+      "industries_affected": [
+        "Information Technology"
+      ],
+      "regions_or_countries_targeted": []
+    },
+    {
+      "id": "9b09157f08c346c0a4d8149a24ef4e1d8a554511",
+      "threat_name": "Cisco Firewall and Unified CCX Vulnerabilities",
+      "title": "Cisco Warns of New Firewall Attack Exploiting CVE-2025-20333 and CVE-2025-20362",
+      "severity": "critical",
+      "status": "new",
+      "severity_score": 1.0,
+      "relevance_score": 0.7,
+      "prioritization_score": 0.88,
+      "prioritization_band": "critical",
+      "primary_surface": "Network / Edge / OT",
+      "theta_deg": 182.26264888777402,
+      "radius_norm": 0.12,
+      "assets_impacted": [
+        {
+          "product_id": "prod-enterprise-sdwan",
+          "product_name": "Enterprise SD-WAN & MPLS Orchestrator",
+          "owning_team": "Network / Edge / OT",
+          "is_crown_jewel": false,
+          "internet_facing": false,
+          "data_sensitivity": "medium"
+        },
+        {
+          "product_id": "prod-core-network-5g",
+          "product_name": "4G/5G Core Network Platform",
+          "owning_team": "Network / Edge / OT",
+          "is_crown_jewel": true,
+          "internet_facing": false,
+          "data_sensitivity": "high"
+        },
+        {
+          "product_id": "prod-tower-monitoring-scada",
+          "product_name": "Tower & Power Monitoring SCADA",
+          "owning_team": "Network / Edge / OT",
+          "is_crown_jewel": false,
+          "internet_facing": false,
+          "data_sensitivity": "medium"
+        }
+      ],
+      "cve_ids": [
+        "CVE-2025-20333",
+        "CVE-2025-20362",
+        "CVE-2025-20354",
+        "CVE-2025-20358",
+        "CVE-2025-20343"
+      ],
+      "mitre_tactics": [
+        "Tactic for Initial Access",
+        "Tactic for Execution",
+        "Tactic for Persistence",
+        "Tactic for Privilege Escalation",
+        "Tactic for Defense Evasion"
+      ],
+      "mitre_techniques": [
+        "T1190",
+        "T1203",
+        "T1068",
+        "T1078",
+        "T1499"
+      ],
+      "source": "The Hacker News",
+      "source_link": "https://thehackernews.com/2025/11/cisco-warns-of-new-firewall-attack.html",
+      "first_seen": "2025-11-06",
+      "last_updated": "2025-11-06",
+      "summary": "Cisco disclosed vulnerabilities in Secure Firewall ASA/FTD (CVE-2025-20333, CVE-2025-20362), Unified CCX (CVE-2025-20354, CVE-2025-20358), and Identity Services Engine (CVE-2025-20343). Exploits include arbitrary code execution, authentication bypass, and denial of service. Immediate patching is urged.",
+      "relevance_reasons": [
+        "Impacts Enterprise SD-WAN & MPLS Orchestrator",
+        "Impacts 4G/5G Core Network Platform which is business critical and has high data sensitivity and is a crown jewel",
+        "Impacts Tower & Power Monitoring SCADA",
+        "Low risk appetite increases relevance"
+      ],
+      "industries_affected": [
+        "Networking and Telecommunications"
+      ],
+      "regions_or_countries_targeted": [
+        "NA"
+      ]
+    },
+    {
+      "id": "c95160f216431a329bb0c2267b4633d0286770c881e157564f187040ca67f78d",
+      "threat_name": "CVE-2025-9491 Exploitation by UNC6384",
+      "title": "Unpatched Windows vulnerability (CVE-2025-9491) continues to be exploited by APTs",
+      "severity": "high",
+      "status": "active",
+      "severity_score": 0.75,
+      "relevance_score": 0.5,
+      "prioritization_score": 0.65,
+      "prioritization_band": "high",
+      "primary_surface": "Endpoint / Email",
+      "theta_deg": 31.176106586193054,
+      "radius_norm": 0.35,
+      "assets_impacted": [
+        {
+          "product_id": "prod-m365",
+          "product_name": "Corporate Email & Collaboration (M365)",
+          "owning_team": "Endpoint / Email",
+          "is_crown_jewel": false,
+          "internet_facing": true,
+          "data_sensitivity": "high"
+        }
+      ],
+      "cve_ids": [
+        "CVE-2025-9491"
+      ],
+      "mitre_tactics": [
+        "Tactic for Initial Access",
+        "Tactic for Execution",
+        "Tactic for Persistence",
+        "Tactic for Defense Evasion"
+      ],
+      "mitre_techniques": [
+        "T1566",
+        "T1204",
+        "T1055",
+        "T1218"
+      ],
+      "source": "Help Net Security",
+      "source_link": "https://www.helpnetsecurity.com/2025/10/31/zdi-can-25373-cve-2025-9491-exploited-again/",
+      "first_seen": "2025-11-02",
+      "last_updated": "2025-11-02",
+      "summary": "APT group UNC6384 is actively exploiting CVE-2025-9491, a Windows vulnerability, via spearphishing campaigns delivering malicious LNK files. Successful exploitation leads to remote code execution and deployment of the PlugX RAT, primarily targeting government and diplomatic entities.",
+      "relevance_reasons": [
+        "The threat exploits Microsoft Windows, impacting Corporate Email & Collaboration (M365).",
+        "The impacted asset is internet_facing.",
+        "The impacted asset has high data_sensitivity."
+      ],
+      "industries_affected": [
+        "Government",
+        "Diplomatic"
+      ],
+      "regions_or_countries_targeted": [
+        "Hungary",
+        "Belgium",
+        "Italy",
+        "Netherlands",
+        "Serbia"
+      ]
+    },
+    {
+      "id": "a9557f7d5951e2d37055368f976c5436",
+      "threat_name": "University of Pennsylvania Data Breach",
+      "title": "University of Pennsylvania Cybersecurity Incident",
+      "severity": "high",
+      "status": "active",
+      "severity_score": 0.75,
+      "relevance_score": 0.0,
+      "prioritization_score": 0.45,
+      "prioritization_band": "medium",
+      "primary_surface": "Emerging / Unknown",
+      "theta_deg": 333.964238945892,
+      "radius_norm": 0.55,
+      "assets_impacted": [],
+      "cve_ids": [],
+      "mitre_tactics": [
+        "Tactic for Initial Access",
+        "Tactic for Exfiltration"
+      ],
+      "mitre_techniques": [
+        "T1078",
+        "T1041"
+      ],
+      "source": "University of Pennsylvania",
+      "source_link": "https://www.forthepeople.com/blog/data-breach-brief-week-november-3-2025/",
+      "first_seen": "2025-11-05",
+      "last_updated": "2025-11-05",
+      "summary": "The University of Pennsylvania confirmed a cybersecurity incident involving unauthorized access to internal systems. The threat actor stole data on approximately 4.2 million donors, students, and alumni. The attack occurred between October 30 and October 31, 2025, through a compromised PennKey SSO account.",
+      "relevance_reasons": [
+        "No assets in the customer profile matched the affected products or vendors mentioned in the threat."
+      ],
+      "industries_affected": [
+        "Education"
+      ],
+      "regions_or_countries_targeted": []
+    },
+    {
+      "id": "112c52057d08c993b6d1c93359053613",
+      "threat_name": "Cloud Misconfiguration Data Exposure",
+      "title": "Ernst & Young (EY) Data Breach Due to Cloud Misconfiguration",
+      "severity": "high",
+      "status": "active",
+      "severity_score": 0.75,
+      "relevance_score": 0.5,
+      "prioritization_score": 0.65,
+      "prioritization_band": "high",
+      "primary_surface": "Cloud / Infra / K8s",
+      "theta_deg": 123.0,
+      "radius_norm": 0.35,
+      "assets_impacted": [
+        {
+          "product_id": "prod-nxtra-dc-platform",
+          "product_name": "Nxtra Data Center & Colocation Platform",
+          "owning_team": "Cloud / Infra / K8s",
+          "is_crown_jewel": true,
+          "internet_facing": false,
+          "data_sensitivity": "medium"
+        },
+        {
+          "product_id": "prod-airtel-secure-soc",
+          "product_name": "Airtel Secure SOC & Security Portal",
+          "owning_team": "Cloud / Infra / K8s",
+          "is_crown_jewel": false,
+          "internet_facing": true,
+          "data_sensitivity": "medium"
+        },
+        {
+          "product_id": "prod-datalake-analytics",
+          "product_name": "Enterprise Data Lake & Analytics Platform",
+          "owning_team": "Data / Exfiltration / Insider",
+          "is_crown_jewel": true,
+          "internet_facing": false,
+          "data_sensitivity": "high"
+        }
+      ],
+      "cve_ids": [],
+      "mitre_tactics": [
+        "Tactic for Initial Access"
+      ],
+      "mitre_techniques": [],
+      "source": "Cybersecurity researchers",
+      "source_link": "https://www.kaseya.com/blog/the-week-in-breach-news-11-05-25/",
+      "first_seen": "2025-11-05",
+      "last_updated": "2025-11-05",
+      "summary": "Ernst & Young (EY) experienced a data breach due to cloud misconfiguration on Microsoft Azure, exposing 478 GB of data. Impacted data included user data, API keys, credentials, authentication tokens, and database schemas. Mitigation involves implementing proper access controls and monitoring.",
+      "relevance_reasons": [
+        "Cloud misconfiguration can lead to data exposure in Airtel's cloud environments.",
+        "Impacts Nxtra Data Center Platform which is business critical.",
+        "Impacts Enterprise Data Lake which contains sensitive data.",
+        "Impacts Airtel Secure SOC Platform.",
+        "Low risk appetite increases relevance."
+      ],
+      "industries_affected": [
+        "Finance"
+      ],
+      "regions_or_countries_targeted": [
+        "United Kingdom"
+      ]
+    },
+    {
+      "id": "4a0e146ff29a74ca9140c1929705809c97c91960",
+      "threat_name": "Qilin ransomware",
+      "title": "Qilin ransomware escalates rapidly in 2025, targeting critical sectors with 700 attacks amid RansomHub shutdown",
+      "severity": "high",
+      "status": "active",
+      "severity_score": 0.75,
+      "relevance_score": 0.65,
+      "prioritization_score": 0.69,
+      "prioritization_band": "high",
+      "primary_surface": "Network / Edge / OT",
+      "theta_deg": 178.9491385774383,
+      "radius_norm": 0.31,
+      "assets_impacted": [
+        {
+          "product_id": "prod-core-network-5g",
+          "product_name": "4G/5G Core Network Platform",
+          "owning_team": "Network / Edge / OT",
+          "is_crown_jewel": true,
+          "internet_facing": false,
+          "data_sensitivity": "high"
+        },
+        {
+          "product_id": "prod-tower-monitoring-scada",
+          "product_name": "Tower & Power Monitoring SCADA",
+          "owning_team": "Network / Edge / OT",
+          "is_crown_jewel": false,
+          "internet_facing": false,
+          "data_sensitivity": "medium"
+        }
+      ],
+      "cve_ids": [
+        "NA"
+      ],
+      "mitre_tactics": [
+        "Tactic for Initial Access",
+        "Tactic for Execution",
+        "Tactic for Persistence",
+        "Tactic for Privilege Escalation",
+        "Tactic for Defense Evasion",
+        "Tactic for Credential Access",
+        "Tactic for Discovery",
+        "Tactic for Lateral Movement",
+        "Tactic for Collection",
+        "Tactic for Exfiltration",
+        "Tactic for Command and Control"
+      ],
+      "mitre_techniques": [
+        "NA"
+      ],
+      "source": "Comparitech",
+      "source_link": "https://industrialcyber.co/ransomware/qilin-ransomware-escalates-rapidly-in-2025-targeting-critical-sectors-with-700-attacks-amid-ransomhub-shutdown/",
+      "first_seen": "2025-10-27",
+      "last_updated": "2025-10-27",
+      "summary": "Qilin ransomware has rapidly escalated attacks in 2025, targeting critical sectors including manufacturing, healthcare, and government. The group uses a ransomware-as-a-service model and has been linked to breaches of over 2.3 million records and the theft of 116 terabytes of data. Notable attacks include those on Asahi Group Holdings, Shamir Medical Center, and various government agencies.",
+      "relevance_reasons": [
+        "Impacts critical infrastructure (4G/5G Core Network Platform)",
+        "Impacts OT/SCADA infrastructure (Tower Monitoring)",
+        "High data sensitivity on impacted assets",
+        "Business criticality of impacted assets is high or mission critical"
+      ],
+      "industries_affected": [
+        "Manufacturing",
+        "Financial firms",
+        "Retailers",
+        "Healthcare providers",
+        "Government agencies",
+        "Education sector",
+        "Construction companies",
+        "Service-based companies"
+      ],
+      "regions_or_countries_targeted": [
+        "U.S.",
+        "France",
+        "Canada",
+        "South Korea",
+        "Spain",
+        "Japan",
+        "Israel",
+        "Aruba"
+      ]
+    },
+    {
+      "id": "c1125535b12f4ef4a0fd4f51e9444455",
+      "threat_name": "Cyber Threat Snapshot",
+      "title": "Cyber Threat Snapshot",
+      "severity": "medium",
+      "status": "active",
+      "severity_score": 0.5,
+      "relevance_score": 0.0,
+      "prioritization_score": 0.3,
+      "prioritization_band": "low",
+      "primary_surface": "Emerging / Unknown",
+      "theta_deg": 326.0,
+      "radius_norm": 0.7,
+      "assets_impacted": [],
+      "cve_ids": [],
+      "mitre_tactics": [],
+      "mitre_techniques": [],
+      "source": "homeland.house.gov",
+      "source_link": "https://homeland.house.gov/wp-content/uploads/2025/10/Cyber-Threat-Snapshot.pdf",
+      "first_seen": "2025-10-25",
+      "last_updated": "2025-10-25",
+      "summary": "General cyber threat overview with no specific assets targeted in the provided customer profile.",
+      "relevance_reasons": [
+        "No specific assets within the customer profile are directly impacted by this threat feed item."
+      ],
+      "industries_affected": [],
+      "regions_or_countries_targeted": []
+    },
+    {
+      "id": "557c49ba2819b3222b36d1e33a54e746",
+      "threat_name": "F5 Networks BIG-IP Source Code Breach",
+      "title": "F5 Networks Breach — Attackers stole portions of BIG-IP source code and internal vulnerability data",
+      "severity": "high",
+      "status": "active",
+      "severity_score": 0.75,
+      "relevance_score": 0.55,
+      "prioritization_score": 0.67,
+      "prioritization_band": "high",
+      "primary_surface": "Network / Edge / OT",
+      "theta_deg": 182.0,
+      "radius_norm": 0.33,
+      "assets_impacted": [
+        {
+          "product_id": "prod-enterprise-sdwan",
+          "product_name": "Enterprise SD-WAN & MPLS Orchestrator",
+          "owning_team": "Network / Edge / OT",
+          "is_crown_jewel": false,
+          "internet_facing": false,
+          "data_sensitivity": "medium"
+        },
+        {
+          "product_id": "prod-airtel-secure-soc",
+          "product_name": "Airtel Secure SOC & Security Portal",
+          "owning_team": "Cloud / Infra / K8s",
+          "is_crown_jewel": false,
+          "internet_facing": true,
+          "data_sensitivity": "medium"
+        }
+      ],
+      "cve_ids": [
+        "NA"
+      ],
+      "mitre_tactics": [
+        "Tactic for Initial Access",
+        "Tactic for Defense Evasion",
+        "Tactic for Discovery"
+      ],
+      "mitre_techniques": [
+        "T1078",
+        "T1210"
+      ],
+      "source": "Security Lab",
+      "source_link": "https://www.hornetsecurity.com/en/blog/monthly-threat-report/",
+      "first_seen": "2025-11-01",
+      "last_updated": "2025-11-01",
+      "summary": "F5 Networks experienced a breach where attackers stole portions of BIG-IP source code and vulnerability data via a compromised developer account. This may impact systems using F5 products, like Airtel's SD-WAN and SOC platforms.",
+      "relevance_reasons": [
+        "SD-WAN platform uses Cisco, similar to F5 products",
+        "Airtel Secure SOC platform's managed security services might be affected by vulnerabilities in F5 products."
+      ],
+      "industries_affected": [
+        "Technology"
+      ],
+      "regions_or_countries_targeted": [
+        "NA"
+      ]
+    },
+    {
+      "id": "8f1892151108c38684458b679a6d6193",
+      "threat_name": "Yemen Conflict and Houthi Attacks",
+      "title": "November 2025 Monthly Forecast - Yemen Security Situation and Regional Tensions",
+      "severity": "high",
+      "status": "active",
+      "severity_score": 0.75,
+      "relevance_score": 0.25,
+      "prioritization_score": 0.55,
+      "prioritization_band": "medium",
+      "primary_surface": "Third-Party / Vendor Risk",
+      "theta_deg": 243.510925,
+      "radius_norm": 0.45,
+      "assets_impacted": [
+        {
+          "product_id": "prod-crm-care",
+          "product_name": "Customer Care CRM Platform",
+          "owning_team": "Third-Party / Vendor Risk",
+          "is_crown_jewel": false,
+          "internet_facing": true,
+          "data_sensitivity": "high"
+        }
+      ],
+      "cve_ids": [],
+      "mitre_tactics": [
+        "Tactic for Initial Access",
+        "Tactic for Execution",
+        "Tactic for Persistence",
+        "Tactic for Defense Evasion",
+        "Tactic for Credential Access",
+        "Tactic for Discovery",
+        "Tactic for Lateral Movement",
+        "Tactic for Collection",
+        "Tactic for Exfiltration",
+        "Tactic for Command and Control"
+      ],
+      "mitre_techniques": [],
+      "source": "Security Council Report",
+      "source_link": "https://www.securitycouncilreport.org/monthly-forecast/2025-11/yemen-84.php",
+      "first_seen": "2025-11-01",
+      "last_updated": "2025-11-01",
+      "summary": "Ongoing conflict in Yemen and Houthi attacks pose risks to maritime shipping, humanitarian operations, and international diplomacy. Houthi attacks and detentions of UN personnel continue. Salesforce CRM is potentially impacted due to regional instability affecting customer care operations.",
+      "relevance_reasons": [
+        "Potential impact on Salesforce CRM due to regional instability.",
+        "Customer Care CRM Platform is internet_facing.",
+        "Customer Care CRM Platform has high data sensitivity."
+      ],
+      "industries_affected": [
+        "Maritime Shipping",
+        "Humanitarian Operations",
+        "International Diplomacy"
+      ],
+      "regions_or_countries_targeted": [
+        "Yemen",
+        "Red Sea",
+        "Gulf of Aden",
+        "Israel"
+      ]
+    },
+    {
+      "id": "2b53d35f242377a9515dd05ca46059f6a47266d5348441bb75719d390b121b02",
+      "threat_name": "Drone smuggling and attacks on Israel via Egypt-Israel border",
+      "title": "Israel Katz, IDF chief launch hard-hitting campaign to block drones smuggling weapons from Egypt",
+      "severity": "high",
+      "status": "active",
+      "severity_score": 0.75,
+      "relevance_score": 0.0,
+      "prioritization_score": 0.45,
+      "prioritization_band": "medium",
+      "primary_surface": "Emerging / Unknown",
+      "theta_deg": 335.08535590629486,
+      "radius_norm": 0.55,
+      "assets_impacted": [],
+      "cve_ids": [
+        "NA"
+      ],
+      "mitre_tactics": [
+        "Tactic for Initial Access",
+        "Tactic for Execution",
+        "Tactic for Defense Evasion",
+        "Tactic for Command and Control"
+      ],
+      "mitre_techniques": [
+        "T1071",
+        "T1584"
+      ],
+      "source": "Jerusalem Post",
+      "source_link": "https://www.jpost.com/israel-news/defense-news/article-873032",
+      "first_seen": "2025-11-06",
+      "last_updated": "2025-11-06",
+      "summary": "Drones used for smuggling weapons and drugs across Egypt-Israel border are a security threat. The IDF and Defense Minister launched a campaign to combat this threat, enhancing intelligence, operational capabilities, and defense technologies. A special joint unit has been established to handle the issue.",
+      "relevance_reasons": [],
+      "industries_affected": [
+        "National Security",
+        "Defense"
+      ],
+      "regions_or_countries_targeted": [
+        "Israel",
+        "Egypt"
+      ]
+    },
+    {
+      "id": "792757810d4b019d6f8b60859f4c5e01",
+      "threat_name": "Ransomware Surge October 2025",
+      "title": "Comparitech reports ransomware surges 25% in October, hitting manufacturers, healthcare, transportation",
+      "severity": "high",
+      "status": "new",
+      "severity_score": 0.75,
+      "relevance_score": 0.75,
+      "prioritization_score": 0.63,
+      "prioritization_band": "high",
+      "primary_surface": "Third-Party / Vendor Risk",
+      "theta_deg": 242.08916460305522,
+      "radius_norm": 0.37,
+      "assets_impacted": [
+        {
+          "product_id": "prod-crm-care",
+          "product_name": "Customer Care CRM Platform",
+          "owning_team": "Third-Party / Vendor Risk",
+          "is_crown_jewel": false,
+          "internet_facing": true,
+          "data_sensitivity": "high"
+        },
+        {
+          "product_id": "prod-m365",
+          "product_name": "Corporate Email & Collaboration (M365)",
+          "owning_team": "Endpoint / Email",
+          "is_crown_jewel": false,
+          "internet_facing": true,
+          "data_sensitivity": "high"
+        }
+      ],
+      "cve_ids": [
+        "NA"
+      ],
+      "mitre_tactics": [
+        "Tactic for Initial Access",
+        "Tactic for Execution",
+        "Tactic for Persistence",
+        "Tactic for Privilege Escalation",
+        "Tactic for Defense Evasion",
+        "Tactic for Credential Access",
+        "Tactic for Discovery",
+        "Tactic for Lateral Movement",
+        "Tactic for Collection",
+        "Tactic for Exfiltration",
+        "Tactic for Command and Control"
+      ],
+      "mitre_techniques": [
+        "T1566",
+        "T1059",
+        "T1078",
+        "T1087",
+        "T1041",
+        "T1490"
+      ],
+      "source": "Comparitech",
+      "source_link": "https://industrialcyber.co/threats-attacks/comparitech-reports-ransomware-surges-25-in-october-hitting-manufacturers, healthcare, transportation/",
+      "first_seen": "2025-11-06",
+      "last_updated": "2025-11-06",
+      "summary": "Ransomware attacks surged by 25% in October 2025, targeting multiple sectors including manufacturing, healthcare, and transportation. The Qilin ransomware group was the most active. An Oracle zero-day vulnerability was exploited.",
+      "relevance_reasons": [
+        "Impacts Customer Care CRM Platform which is internet_facing",
+        "Impacts Customer Care CRM Platform which has data_sensitivity high",
+        "Impacts Corporate Email & Collaboration (M365) which is internet_facing",
+        "Impacts Corporate Email & Collaboration (M365) which has business_criticality high",
+        "Impacts Corporate Email & Collaboration (M365) which has data_sensitivity high",
+        "Organization risk appetite is low"
+      ],
+      "industries_affected": [
+        "Manufacturing",
+        "Healthcare",
+        "Transportation",
+        "Government",
+        "Education",
+        "Retail",
+        "Utilities"
+      ],
+      "regions_or_countries_targeted": [
+        "United States",
+        "Australia",
+        "France",
+        "Germany",
+        "Sweden",
+        "Mexico",
+        "Japan",
+        "Netherlands",
+        "South Korea"
+      ]
+    },
+    {
+      "id": "6665c945a33f408245b0c79a5d1706d6",
+      "threat_name": "Lazarus Group Cyberattacks 2025",
+      "title": "Lazarus Group Cyberattacks Disrupting Financial and Cryptocurrency Sectors",
+      "severity": "high",
+      "status": "active",
+      "severity_score": 0.75,
+      "relevance_score": 0.65,
+      "prioritization_score": 0.69,
+      "prioritization_band": "high",
+      "primary_surface": "Fraud / Payments / Abuse",
+      "theta_deg": 304.7405902622435,
+      "radius_norm": 0.31,
+      "assets_impacted": [
+        {
+          "product_id": "prod-payments-bank-core",
+          "product_name": "Airtel Payments Bank Core Banking Platform",
+          "owning_team": "Fraud / Payments / Abuse",
+          "is_crown_jewel": true,
+          "internet_facing": false,
+          "data_sensitivity": "high"
+        },
+        {
+          "product_id": "prod-recharge-portal",
+          "product_name": "Online Recharge & Payments Portal",
+          "owning_team": "Web Apps / API",
+          "is_crown_jewel": false,
+          "internet_facing": true,
+          "data_sensitivity": "high"
+        },
+        {
+          "product_id": "prod-consumer-app-api",
+          "product_name": "Airtel Thanks Consumer App Backend",
+          "owning_team": "Web Apps / API",
+          "is_crown_jewel": true,
+          "internet_facing": true,
+          "data_sensitivity": "high"
+        }
+      ],
+      "cve_ids": [],
+      "mitre_tactics": [
+        "Tactic for Initial Access",
+        "Tactic for Execution",
+        "Tactic for Persistence",
+        "Tactic for Privilege Escalation",
+        "Tactic for Defense Evasion",
+        "Tactic for Credential Access",
+        "Tactic for Discovery",
+        "Tactic for Lateral Movement",
+        "Tactic for Collection",
+        "Tactic for Exfiltration",
+        "Tactic for Command and Control"
+      ],
+      "mitre_techniques": [],
+      "source": "TechCrunch",
+      "source_link": "https://insights.blackhatmea.com/five-high-profile-cyberattacks-so-far-in-2025/",
+      "first_seen": "2025-11-05",
+      "last_updated": "2025-11-05",
+      "summary": "Lazarus Group cyberattacks target cryptocurrency and financial sectors, disrupting payment systems and exposing sensitive data. Focus on Airtel Payments Bank and consumer payment portals due to financial impact.",
+      "relevance_reasons": [
+        "Impacts Airtel Payments Bank Core Banking Platform (critical, high data sensitivity, crown jewel)",
+        "Impacts Online Recharge & Payments Portal (internet-facing, high business criticality, high data sensitivity)",
+        "Impacts Airtel Thanks Consumer App Backend (internet-facing, high business criticality, high data sensitivity, crown jewel)",
+        "Low risk appetite increases relevance",
+        "Threat involves disruption of payment systems"
+      ],
+      "industries_affected": [
+        "Cryptocurrency",
+        "Financial Services",
+        "Media",
+        "Publishing"
+      ],
+      "regions_or_countries_targeted": []
+    },
+    {
+      "id": "a3533144098726d4615868d4777dfb2e46d2955a",
+      "threat_name": "ToolShell Exploitation Campaign",
+      "title": "China-linked hackers exploit ToolShell to hit telecom, government networks globally",
+      "severity": "critical",
+      "status": "active",
+      "severity_score": 1.0,
+      "relevance_score": 0.75,
+      "prioritization_score": 0.85,
+      "prioritization_band": "high",
+      "primary_surface": "Third-Party / Vendor Risk",
+      "theta_deg": 237.0,
+      "radius_norm": 0.15,
+      "assets_impacted": [
+        {
+          "product_id": "prod-crm-care",
+          "product_name": "Customer Care CRM Platform",
+          "owning_team": "Third-Party / Vendor Risk",
+          "is_crown_jewel": false,
+          "internet_facing": true,
+          "data_sensitivity": "high"
+        },
+        {
+          "product_id": "prod-m365",
+          "product_name": "Corporate Email & Collaboration (M365)",
+          "owning_team": "Endpoint / Email",
+          "is_crown_jewel": false,
+          "internet_facing": true,
+          "data_sensitivity": "high"
+        }
+      ],
+      "cve_ids": [
+        "CVE-2025-53770",
+        "CVE-2025-53771",
+        "CVE-2021-36942"
+      ],
+      "mitre_tactics": [
+        "Tactic for Initial Access",
+        "Tactic for Execution",
+        "Tactic for Persistence",
+        "Tactic for Privilege Escalation",
+        "Tactic for Defense Evasion",
+        "Tactic for Credential Access",
+        "Tactic for Discovery",
+        "Tactic for Lateral Movement",
+        "Tactic for Collection",
+        "Tactic for Exfiltration",
+        "Tactic for Command and Control"
+      ],
+      "mitre_techniques": [
+        "T1190",
+        "T1059",
+        "T1078",
+        "T1086",
+        "T1543",
+        "T1055",
+        "T1110",
+        "T1021",
+        "T1005",
+        "T1041",
+        "T1071"
+      ],
+      "source": "Symantec",
+      "source_link": "https://industrialcyber.co/ransomware/china-linked-hackers-exploit-toolshell-to-hit-telecom-government-networks-globally/",
+      "first_seen": "2025-10-23",
+      "last_updated": "2025-10-23",
+      "summary": "China-linked threat actors are exploiting the ToolShell vulnerability to target telecom, government, and finance networks globally, using malware like Zingdoor and KrustyLoader for credential theft and persistent access.",
+      "relevance_reasons": [
+        "Customer Care CRM Platform is internet_facing",
+        "Customer Care CRM Platform has business_criticality in ['high', 'mission_critical']",
+        "Customer Care CRM Platform has high data_sensitivity",
+        "Corporate Email & Collaboration (M365) is internet_facing",
+        "Corporate Email & Collaboration (M365) has business_criticality in ['high', 'mission_critical']",
+        "Corporate Email & Collaboration (M365) has high data_sensitivity",
+        "risk_appetite == 'low'"
+      ],
+      "industries_affected": [
+        "Telecommunications",
+        "Government",
+        "Finance"
+      ],
+      "regions_or_countries_targeted": [
+        "Middle East",
+        "Africa",
+        "South America",
+        "Europe"
+      ]
+    },
+    {
+      "id": "722b5e19f427ca68a400363e8583f437",
+      "threat_name": "Coordinated ransomware and state-backed cyberattacks in Europe",
+      "title": "CrowdStrike 2025 European Threat Landscape warns of more coordinated ransomware, state-backed cyberattacks",
+      "severity": "high",
+      "status": "active",
+      "severity_score": 0.75,
+      "relevance_score": 0.75,
+      "prioritization_score": 0.75,
+      "prioritization_band": "high",
+      "primary_surface": "Endpoint / Email",
+      "theta_deg": 34.38629211531963,
+      "radius_norm": 0.25,
+      "assets_impacted": [
+        {
+          "product_id": "prod-m365",
+          "product_name": "Corporate Email & Collaboration (M365)",
+          "owning_team": "Endpoint / Email",
+          "is_crown_jewel": false,
+          "internet_facing": true,
+          "data_sensitivity": "high"
+        }
+      ],
+      "cve_ids": [],
+      "mitre_tactics": [
+        "Tactic for Initial Access",
+        "Tactic for Execution",
+        "Tactic for Persistence",
+        "Tactic for Defense Evasion",
+        "Tactic for Credential Access",
+        "Tactic for Discovery",
+        "Tactic for Lateral Movement",
+        "Tactic for Collection",
+        "Tactic for Exfiltration",
+        "Tactic for Command and Control"
+      ],
+      "mitre_techniques": [
+        "T1078",
+        "T1566",
+        "T1486",
+        "T1059",
+        "T1071"
+      ],
+      "source": "CrowdStrike 2025 European Threat Landscape Report",
+      "source_link": "https://industrialcyber.co/reports/crowdstrike-2025-european-threat-landscape-warns-of-more-coordinated-ransomware-state-backed-cyberattacks/",
+      "first_seen": "2025-11-05",
+      "last_updated": "2025-11-05",
+      "summary": "CrowdStrike reports increased coordinated ransomware and state-backed cyberattacks targeting European companies, with a rise in ransomware deployments, fake CAPTCHA incidents, and initial access brokerage. State-sponsored groups from Russia, China, North Korea, and Iran are actively involved, focusing on espionage, disruption, and intelligence collection. The report emphasizes the need for intelligence-led defense powered by AI and human expertise.",
+      "relevance_reasons": [
+        "internet_facing",
+        "business_criticality in ['high','mission_critical']",
+        "data_sensitivity == 'high'",
+        "risk_appetite == 'low'"
+      ],
+      "industries_affected": [
+        "Government",
+        "Defense",
+        "Energy",
+        "Finance",
+        "Academia",
+        "Technology",
+        "Manufacturing",
+        "Professional Services",
+        "Retail",
+        "Industrials",
+        "Engineering",
+        "Hospitality",
+        "Renewable Energy"
+      ],
+      "regions_or_countries_targeted": [
+        "United Kingdom",
+        "Germany",
+        "Italy",
+        "France",
+        "Spain",
+        "Western Europe",
+        "Central Asia",
+        "Eastern Europe"
+      ]
+    },
+    {
+      "id": "5f6f85816f051594bca5a307a7a00e84",
+      "threat_name": "European Ransomware and State-Sponsored Cyber Threats 2024-2025",
+      "title": "CrowdStrike 2025 European Threat Landscape Report: Ransomware Hits Region at Record Pace",
+      "severity": "high",
+      "status": "active",
+      "severity_score": 0.75,
+      "relevance_score": 0.7,
+      "prioritization_score": 0.63,
+      "prioritization_band": "high",
+      "primary_surface": "Endpoint / Email",
+      "theta_deg": 27.0,
+      "radius_norm": 0.37,
+      "assets_impacted": [
+        {
+          "product_id": "prod-m365",
+          "product_name": "Corporate Email & Collaboration (M365)",
+          "owning_team": "Endpoint / Email",
+          "is_crown_jewel": false,
+          "internet_facing": true,
+          "data_sensitivity": "high"
+        },
+        {
+          "product_id": "prod-identity-platform",
+          "product_name": "Customer Identity & Access Platform",
+          "owning_team": "Identity / Access",
+          "is_crown_jewel": true,
+          "internet_facing": true,
+          "data_sensitivity": "high"
+        }
+      ],
+      "cve_ids": [
+        "NA"
+      ],
+      "mitre_tactics": [
+        "Tactic for Initial Access",
+        "Tactic for Execution",
+        "Tactic for Persistence",
+        "Tactic for Privilege Escalation",
+        "Tactic for Defense Evasion",
+        "Tactic for Credential Access",
+        "Tactic for Discovery",
+        "Tactic for Lateral Movement",
+        "Tactic for Collection",
+        "Tactic for Exfiltration",
+        "Tactic for Command and Control"
+      ],
+      "mitre_techniques": [
+        "NA"
+      ],
+      "source": "CrowdStrike",
+      "source_link": "https://www.crowdstrike.com/en-us/press-releases/crowdstrike-2025-european-threat-landscape-report-ransomware-hits-region-at-record-pace/",
+      "first_seen": "2025-11-03",
+      "last_updated": "2025-11-03",
+      "summary": "CrowdStrike report highlights increased ransomware attacks and state-sponsored cyber threats targeting European organizations. Key actors include SCATTERED SPIDER and Russia-nexus groups, exploiting phishing and various cybercrime services.",
+      "relevance_reasons": [
+        "M365 is internet_facing",
+        "M365 has high business_criticality",
+        "M365 has high data_sensitivity",
+        "Customer Identity & Access Platform is internet_facing",
+        "Customer Identity & Access Platform has high business_criticality",
+        "Customer Identity & Access Platform has high data_sensitivity",
+        "Customer Identity & Access Platform is a crown jewel",
+        "risk_appetite is low"
+      ],
+      "industries_affected": [
+        "Government",
+        "Military",
+        "Energy",
+        "Telecom",
+        "Utilities",
+        "Healthcare",
+        "Biotechnology",
+        "Defense",
+        "Diplomatic",
+        "Financial",
+        "Media"
+      ],
+      "regions_or_countries_targeted": [
+        "Europe",
+        "United Kingdom",
+        "Germany",
+        "France",
+        "Italy",
+        "Spain",
+        "Netherlands",
+        "Ukraine"
+      ]
+    },
+    {
+      "id": "46ebff82a0242d60f4e7102591979883",
+      "threat_name": "European Cyber Threat Landscape 2025",
+      "title": "2025 European Threat Landscape Report",
+      "severity": "high",
+      "status": "new",
+      "severity_score": 0.75,
+      "relevance_score": 0.75,
+      "prioritization_score": 0.69,
+      "prioritization_band": "high",
+      "primary_surface": "Endpoint / Email",
+      "theta_deg": 30.56790829729596,
+      "radius_norm": 0.31,
+      "assets_impacted": [
+        {
+          "product_id": "prod-m365",
+          "product_name": "Corporate Email & Collaboration (M365)",
+          "owning_team": "Endpoint / Email",
+          "is_crown_jewel": false,
+          "internet_facing": true,
+          "data_sensitivity": "high"
+        }
+      ],
+      "cve_ids": [
+        "NA"
+      ],
+      "mitre_tactics": [
+        "Tactic for Initial Access",
+        "Tactic for Execution",
+        "Tactic for Persistence",
+        "Tactic for Credential Access",
+        "Tactic for Discovery",
+        "Tactic for Lateral Movement",
+        "Tactic for Collection",
+        "Tactic for Exfiltration",
+        "Tactic for Command and Control"
+      ],
+      "mitre_techniques": [
+        "T1078",
+        "T1566",
+        "T1486",
+        "T1071",
+        "T1059"
+      ],
+      "source": "CrowdStrike",
+      "source_link": "https://www.computerweekly.com/news/366634112/CrowdStrike-Europe-second-only-to-North-America-for-cyber-attacks",
+      "first_seen": "2025-11-03",
+      "last_updated": "2025-11-03",
+      "summary": "The 2025 European Threat Landscape Report highlights increased cyber threats targeting European organizations, including ransomware and cyber-physical attacks. Key actors include cyber criminals, nation-states, and hacktivists using tactics like credential phishing and exploiting cloud infrastructure. The report recommends enhanced detection and response capabilities.",
+      "relevance_reasons": [
+        "M365 is internet facing",
+        "M365 has high business criticality",
+        "M365 has high data sensitivity"
+      ],
+      "industries_affected": [
+        "Government",
+        "Defense",
+        "Energy",
+        "Telecom",
+        "Utilities",
+        "Financial",
+        "Diplomatic"
+      ],
+      "regions_or_countries_targeted": [
+        "Europe",
+        "Ukraine",
+        "Netherlands"
+      ]
+    },
+    {
+      "id": "5c7552448a246262847679a54d0e7438",
+      "threat_name": "Hybrid Cyber Threats and AI-Enhanced Attacks in Europe 2025",
+      "title": "ENISA Threat Landscape 2025 Report",
+      "severity": "high",
+      "status": "active",
+      "severity_score": 0.75,
+      "relevance_score": 0.85,
+      "prioritization_score": 0.69,
+      "prioritization_band": "high",
+      "primary_surface": "Endpoint / Email",
+      "theta_deg": 31.324429240303516,
+      "radius_norm": 0.31,
+      "assets_impacted": [
+        {
+          "product_id": "prod-m365",
+          "product_name": "Corporate Email & Collaboration (M365)",
+          "owning_team": "Endpoint / Email",
+          "is_crown_jewel": false,
+          "internet_facing": true,
+          "data_sensitivity": "high"
+        },
+        {
+          "product_id": "prod-identity-platform",
+          "product_name": "Customer Identity & Access Platform",
+          "owning_team": "Identity / Access",
+          "is_crown_jewel": true,
+          "internet_facing": true,
+          "data_sensitivity": "high"
+        }
+      ],
+      "cve_ids": [
+        "NA"
+      ],
+      "mitre_tactics": [
+        "Tactic for Initial Access",
+        "Tactic for Execution",
+        "Tactic for Persistence",
+        "Tactic for Defense Evasion",
+        "Tactic for Credential Access",
+        "Tactic for Discovery",
+        "Tactic for Lateral Movement",
+        "Tactic for Collection",
+        "Tactic for Exfiltration",
+        "Tactic for Command and Control"
+      ],
+      "mitre_techniques": [
+        "T1566",
+        "T1486",
+        "T1071"
+      ],
+      "source": "ENISA",
+      "source_link": "https://www.jdsupra.com/legalnews/europe-under-siege-how-cybercriminals-7772340/",
+      "first_seen": "2025-10-20",
+      "last_updated": "2025-10-20",
+      "summary": "The ENISA Threat Landscape 2025 report highlights hybrid cyber threats and AI-enhanced attacks targeting European organizations, with significant impacts on critical infrastructure and a rise in sophisticated phishing and ransomware campaigns.",
+      "relevance_reasons": [
+        "Impacts internet-facing assets.",
+        "Impacts business-critical assets.",
+        "Impacts assets with high data sensitivity.",
+        "risk_appetite is low"
+      ],
+      "industries_affected": [
+        "Public Administration",
+        "Transport",
+        "Digital Infrastructure",
+        "Energy",
+        "Water Management"
+      ],
+      "regions_or_countries_targeted": [
+        "European Union",
+        "Italy",
+        "Multiple EU member states"
+      ]
+    },
+    {
+      "id": "58a6060407c050188568717b0c6e340f1f945059",
+      "threat_name": "Operational Technology Cyber Attacks and Industrial Cyber Risks 2025",
+      "title": "ENISA Threat Landscape 2025 Report",
+      "severity": "critical",
+      "status": "active",
+      "severity_score": 1.0,
+      "relevance_score": 0.75,
+      "prioritization_score": 0.85,
+      "prioritization_band": "critical",
+      "primary_surface": "Network / Edge / OT",
+      "theta_deg": 180.4509935912108,
+      "radius_norm": 0.15,
+      "assets_impacted": [
+        {
+          "product_id": "prod-tower-monitoring-scada",
+          "product_name": "Tower & Power Monitoring SCADA",
+          "owning_team": "Network / Edge / OT",
+          "is_crown_jewel": false,
+          "internet_facing": false,
+          "data_sensitivity": "medium"
+        },
+        {
+          "product_id": "prod-enterprise-sdwan",
+          "product_name": "Enterprise SD-WAN & MPLS Orchestrator",
+          "owning_team": "Network / Edge / OT",
+          "is_crown_jewel": false,
+          "internet_facing": false,
+          "data_sensitivity": "medium"
+        },
+        {
+          "product_id": "prod-core-network-5g",
+          "product_name": "4G/5G Core Network Platform",
+          "owning_team": "Network / Edge / OT",
+          "is_crown_jewel": true,
+          "internet_facing": false,
+          "data_sensitivity": "high"
+        }
+      ],
+      "cve_ids": [
+        "CVE-2023-3519",
+        "CVE-2024-3400",
+        "CVE-2022-3236"
+      ],
+      "mitre_tactics": [
+        "Tactic for Initial Access",
+        "Tactic for Execution",
+        "Tactic for Persistence",
+        "Tactic for Defense Evasion",
+        "Tactic for Credential Access",
+        "Tactic for Discovery",
+        "Tactic for Lateral Movement",
+        "Tactic for Collection",
+        "Tactic for Exfiltration",
+        "Tactic for Command and Control"
+      ],
+      "mitre_techniques": [
+        "T1566",
+        "T1071",
+        "T1053",
+        "T1027",
+        "T1003",
+        "T1083",
+        "T1021",
+        "T1119",
+        "T1041",
+        "T1071"
+      ],
+      "source": "ENISA",
+      "source_link": "https://blog.denexus.io/resources/enisa-threat-landscape-2025-ot-attacks-industrial-cybersecurity-crisis",
+      "first_seen": "2025-10-15",
+      "last_updated": "2025-10-15",
+      "summary": "ENISA Threat Landscape 2025 report highlights critical OT cyber attacks targeting manufacturing, energy, water, and critical infrastructure. Key threats include specialized ICS malware (VoltRuptor), hacktivist activities (Z-PENTEST-ALLIANCE), ransomware (BlackBasta, Akira), AI-powered attacks, and supply chain exploits. The report identifies impacted regions and recommends measures like OT network segmentation, rapid patching, and employee training.",
+      "relevance_reasons": [
+        "Impacts Tower & Power Monitoring SCADA (OT asset).",
+        "Impacts Enterprise SD-WAN & MPLS Orchestrator (high criticality).",
+        "Impacts 4G/5G Core Network Platform (crown jewel, high data sensitivity)."
+      ],
+      "industries_affected": [
+        "Manufacturing",
+        "Energy",
+        "Water Management",
+        "Critical Infrastructure",
+        "Transport",
+        "Digital Infrastructure"
+      ],
+      "regions_or_countries_targeted": [
+        "Germany",
+        "Italy",
+        "Czechia",
+        "France",
+        "Spain",
+        "Belgium",
+        "Poland",
+        "Romania"
+      ]
+    },
+    {
+      "id": "98b360b8449534909c43f91656b29a81",
+      "threat_name": "Highly Pathogenic Avian Influenza A(H5N1) Resurgence",
+      "title": "Resurgence of Zoonotic Highly Pathogenic Avian Influenza A(H5N1) Virus in Cambodia",
+      "severity": "high",
+      "status": "active",
+      "severity_score": 0.75,
+      "relevance_score": 0.2,
+      "prioritization_score": 0.53,
+      "prioritization_band": "medium",
+      "primary_surface": "Emerging / Unknown",
+      "theta_deg": 332.0,
+      "radius_norm": 0.47,
+      "assets_impacted": [],
+      "cve_ids": [],
+      "mitre_tactics": [],
+      "mitre_techniques": [],
+      "source": "New England Journal of Medicine (NEJM), CIORAP",
+      "source_link": "https://globalbiodefense.com/2025/11/02/biodefense-headlines-2-november-2025/",
+      "first_seen": "2025-11-02",
+      "last_updated": "2025-11-02",
+      "summary": "Resurgence of highly pathogenic avian influenza (HPAI) A(H5N1) virus infections in Cambodia, posing a threat to public health and agriculture.",
+      "relevance_reasons": [],
+      "industries_affected": [
+        "Agriculture",
+        "Public Health"
+      ],
+      "regions_or_countries_targeted": [
+        "Cambodia"
+      ]
+    },
+    {
+      "id": "87425785891723947834658762345876",
+      "threat_name": "Surge in Cyber Attacks on Energy Sector and Rising Mobile Threats",
+      "title": "Zscaler Report: Surge in Cyber Attacks on Energy Sector and Rising Mobile Threats",
+      "severity": "high",
+      "status": "active",
+      "severity_score": 0.75,
+      "relevance_score": 0.7,
+      "prioritization_score": 0.68,
+      "prioritization_band": "high",
+      "primary_surface": "Endpoint / Email",
+      "theta_deg": 33.0,
+      "radius_norm": 0.32,
+      "assets_impacted": [
+        {
+          "product_id": "prod-m365",
+          "product_name": "Corporate Email & Collaboration (M365)",
+          "owning_team": "Endpoint / Email",
+          "is_crown_jewel": false,
+          "internet_facing": true,
+          "data_sensitivity": "high"
+        },
+        {
+          "product_id": "prod-consumer-app-api",
+          "product_name": "Airtel Thanks Consumer App Backend",
+          "owning_team": "Web Apps / API",
+          "is_crown_jewel": false,
+          "internet_facing": true,
+          "data_sensitivity": "high"
+        },
+        {
+          "product_id": "prod-recharge-portal",
+          "product_name": "Online Recharge & Payments Portal",
+          "owning_team": "Web Apps / API",
+          "is_crown_jewel": false,
+          "internet_facing": true,
+          "data_sensitivity": "high"
+        }
+      ],
+      "cve_ids": [],
+      "mitre_tactics": [
+        "Tactic for Initial Access",
+        "Tactic for Execution",
+        "Tactic for Persistence",
+        "Tactic for Defense Evasion",
+        "Tactic for Credential Access",
+        "Tactic for Discovery",
+        "Tactic for Lateral Movement",
+        "Tactic for Collection",
+        "Tactic for Exfiltration",
+        "Tactic for Command and Control"
+      ],
+      "mitre_techniques": [],
+      "source": "Zscaler Report",
+      "source_link": "https://www.quiverquant.com/news/Zscaler+Report+Reveals+387%25+Surge+in+Cyber+Attacks+on+Energy+Sector+and+Rising+Mobile+Threats",
+      "first_seen": "2025-11-05",
+      "last_updated": "2025-11-05",
+      "summary": "Zscaler report highlights a significant increase in cyber attacks targeting the energy sector and a surge in Android malware. Mobile threats are rising, with India, the US, and Canada being top targets. New threats include Android Void malware infecting TVs and a RAT targeting job seekers in the oil and gas industry.",
+      "relevance_reasons": [
+        "Android malware is a threat to mobile applications like Airtel Thanks Consumer App Backend and Recharge Portal",
+        "M365 email is high risk phishing target",
+        "Report mentions India as a top target for mobile attacks."
+      ],
+      "industries_affected": [
+        "Energy",
+        "Manufacturing",
+        "Transportation",
+        "Mobile",
+        "IoT"
+      ],
+      "regions_or_countries_targeted": [
+        "India",
+        "United States",
+        "Canada",
+        "MENA"
+      ]
+    },
+    {
+      "id": "318251cf52d01b7543063c642013f348",
+      "threat_name": "Cybersecurity risks in India's electric vehicle infrastructure",
+      "title": "Cyber risks on India’s electric roads",
+      "severity": "high",
+      "status": "active",
+      "severity_score": 0.75,
+      "relevance_score": 0.55,
+      "prioritization_score": 0.59,
+      "prioritization_band": "medium",
+      "primary_surface": "Network / Edge / OT",
+      "theta_deg": 184.0516320685224,
+      "radius_norm": 0.41,
+      "assets_impacted": [
+        {
+          "product_id": "prod-tower-monitoring-scada",
+          "product_name": "Tower & Power Monitoring SCADA",
+          "owning_team": "Network / Edge / OT",
+          "is_crown_jewel": false,
+          "internet_facing": false,
+          "data_sensitivity": "medium"
+        }
+      ],
+      "cve_ids": [
+        "NA"
+      ],
+      "mitre_tactics": [
+        "Tactic for Initial Access",
+        "Tactic for Execution",
+        "Tactic for Defense Evasion",
+        "Tactic for Command and Control"
+      ],
+      "mitre_techniques": [
+        "T1195",
+        "T1071",
+        "T1547",
+        "T1059"
+      ],
+      "source": "Forbés",
+      "source_link": "https://www.forbesindia.com/article/thought-leadership/iim-calcutta/cyber-risks-on-indias-electric-roads/2988087/1",
+      "first_seen": "2025-10-17",
+      "last_updated": "2025-10-17",
+      "summary": "Cybersecurity risks in India's electric vehicle infrastructure, including vulnerabilities in charging stations and smart grid components, potentially leading to power disruptions, identity theft, and pricing fraud.",
+      "relevance_reasons": [
+        "Impacts Tower & Power Monitoring SCADA",
+        "SCADA not internet facing",
+        "SCADA business criticality is high",
+        "Org risk_appetite is low"
+      ],
+      "industries_affected": [
+        "Electric Vehicle industry",
+        "Energy sector",
+        "Logistics"
+      ],
+      "regions_or_countries_targeted": [
+        "India"
+      ]
+    },
+    {
+      "id": "4f69257d654284a64d999b412b8c731d",
+      "threat_name": "Nightspire Ransomware Attack",
+      "title": "Nightspire Ransomware Attack On Enem Nostrum Remedies Pvt. Ltd",
+      "severity": "high",
+      "status": "active",
+      "severity_score": 0.75,
+      "relevance_score": 0.0,
+      "prioritization_score": 0.45,
+      "prioritization_band": "medium",
+      "primary_surface": "Emerging / Unknown",
+      "theta_deg": 334.655051488808,
+      "radius_norm": 0.55,
+      "assets_impacted": [],
+      "cve_ids": [],
+      "mitre_tactics": [
+        "Tactic for Initial Access",
+        "Tactic for Execution",
+        "Tactic for Persistence",
+        "Tactic for Defense Evasion",
+        "Tactic for Exfiltration",
+        "Tactic for Command and Control"
+      ],
+      "mitre_techniques": [
+        "NA"
+      ],
+      "source": "Nightspire Ransomware Attack Report",
+      "source_link": "https://www.dexpose.io/nightspire-ransomware-attack-on-enem-nostrum-remedies-pvt-ltd/",
+      "first_seen": "2025-11-05",
+      "last_updated": "2025-11-05",
+      "summary": "Nightspire ransomware group targeted Enem Nostrum Remedies Pvt. Ltd, a pharmaceutical company in India, threatening to expose sensitive data.  Monitor credentials, integrate IoCs, and employ real-time alerting.",
+      "relevance_reasons": [
+        "No assets impacted.  Treat as emerging threat."
+      ],
+      "industries_affected": [
+        "Pharmaceutical"
+      ],
+      "regions_or_countries_targeted": [
+        "India"
+      ]
+    },
+    {
+      "id": "6398c8d24f7497a333254d6207b2418e80051139",
+      "threat_name": "Multiple Critical Vulnerabilities in Google Chrome",
+      "title": "India issues urgent alert for Chrome users over serious security vulnerabilities",
+      "severity": "critical",
+      "status": "active",
+      "severity_score": 1.0,
+      "relevance_score": 0.5,
+      "prioritization_score": 0.7,
+      "prioritization_band": "high",
+      "primary_surface": "Endpoint / Email",
+      "theta_deg": 33.0,
+      "radius_norm": 0.3,
+      "assets_impacted": [
+        {
+          "product_id": "prod-m365",
+          "product_name": "Corporate Email & Collaboration (M365)",
+          "owning_team": "Endpoint / Email",
+          "is_crown_jewel": false,
+          "internet_facing": true,
+          "data_sensitivity": "high"
+        }
+      ],
+      "cve_ids": [
+        "NA"
+      ],
+      "mitre_tactics": [
+        "Tactic for Initial Access",
+        "Tactic for Execution",
+        "Tactic for Privilege Escalation",
+        "Tactic for Defense Evasion",
+        "Tactic for Credential Access"
+      ],
+      "mitre_techniques": [
+        "T1203",
+        "T1068",
+        "T1071"
+      ],
+      "source": "CERT-In (Indian Computer Emergency Response Team)",
+      "source_link": "https://www.gg2.net/india-alert-chrome-security-vulnerabilities-2025/",
+      "first_seen": "2025-11-05",
+      "last_updated": "2025-11-05",
+      "summary": "CERT-In issued a high-risk advisory urging immediate update of Google Chrome due to multiple critical vulnerabilities, including remote code execution and data theft.  Update to version 142.0.7444.60 or later immediately.",
+      "relevance_reasons": [
+        "Impacts Corporate Email & Collaboration (M365)",
+        "M365 is internet_facing",
+        "M365 has high data_sensitivity",
+        "Endpoint team owns M365"
+      ],
+      "industries_affected": [
+        "Internet browsers",
+        "Cybersecurity"
+      ],
+      "regions_or_countries_targeted": [
+        "India"
+      ]
+    },
+    {
+      "id": "518f63583f75e9b2a8a1c7375dd7807e",
+      "threat_name": "Multiple High-Severity Vulnerabilities in Google Chrome",
+      "title": "CERT-In Issues High-Severity Alert: Chrome Users in India Must Update Browser Immediately to Avoid Cyber Threats",
+      "severity": "high",
+      "status": "new",
+      "severity_score": 0.75,
+      "relevance_score": 0.45,
+      "prioritization_score": 0.57,
+      "prioritization_band": "medium",
+      "primary_surface": "Endpoint / Email",
+      "theta_deg": 33.58017281755252,
+      "radius_norm": 0.43,
+      "assets_impacted": [
+        {
+          "product_id": "prod-m365",
+          "product_name": "Corporate Email & Collaboration (M365)",
+          "owning_team": "Endpoint / Email",
+          "is_crown_jewel": false,
+          "internet_facing": true,
+          "data_sensitivity": "high"
+        }
+      ],
+      "cve_ids": [
+        "NA"
+      ],
+      "mitre_tactics": [
+        "Tactic for Initial Access",
+        "Tactic for Execution",
+        "Tactic for Privilege Escalation",
+        "Tactic for Defense Evasion",
+        "Tactic for Credential Access"
+      ],
+      "mitre_techniques": [
+        "T1203",
+        "T1059",
+        "T1068",
+        "T1140",
+        "T1555"
+      ],
+      "source": "Hans India",
+      "source_link": "https://www.thehansindia.com/technology/tech-news/cert-in-issues-high-severity-alert-chrome-users-in-india-must-update-browser-immediately-to-avoid-cyber-threats-1020463",
+      "first_seen": "2025-11-04",
+      "last_updated": "2025-11-04",
+      "summary": "CERT-In issued a high-severity alert regarding multiple vulnerabilities in Google Chrome, urging users in India to update immediately. These vulnerabilities could lead to remote code execution, data theft, and privilege escalation.",
+      "relevance_reasons": [
+        "M365 is internet_facing",
+        "M365 data_sensitivity is high",
+        "Org risk_appetite is low"
+      ],
+      "industries_affected": [
+        "Technology"
+      ],
+      "regions_or_countries_targeted": [
+        "India"
+      ]
+    },
+    {
+      "id": "30f9c87a7f723893f82454f043d61813",
+      "threat_name": "The Turkish Rat Evolved Adwind Campaign and Related Threats",
+      "title": "The Turkish Rat Evolved Adwind in a Massive Ongoing Phishing Campaign",
+      "severity": "critical",
+      "status": "active",
+      "severity_score": 1.0,
+      "relevance_score": 0.85,
+      "prioritization_score": 0.94,
+      "prioritization_band": "critical",
+      "primary_surface": "Endpoint / Email",
+      "theta_deg": 30.888666628519115,
+      "radius_norm": 0.06,
+      "assets_impacted": [
+        {
+          "product_id": "prod-m365",
+          "product_name": "Corporate Email & Collaboration (M365)",
+          "owning_team": "Endpoint / Email",
+          "is_crown_jewel": false,
+          "internet_facing": true,
+          "data_sensitivity": "high"
+        },
+        {
+          "product_id": "prod-identity-platform",
+          "product_name": "Customer Identity & Access Platform",
+          "owning_team": "Identity / Access",
+          "is_crown_jewel": true,
+          "internet_facing": true,
+          "data_sensitivity": "high"
+        }
+      ],
+      "cve_ids": [
+        "CVE-2025-12036",
+        "CVE-2025-12428",
+        "CVE-2025-30388",
+        "CVE-2025-53766",
+        "CVE-2025-47984"
+      ],
+      "mitre_tactics": [
+        "Tactic for Initial Access",
+        "Tactic for Execution",
+        "Tactic for Persistence",
+        "Tactic for Privilege Escalation",
+        "Tactic for Defense Evasion",
+        "Tactic for Credential Access",
+        "Tactic for Discovery",
+        "Tactic for Lateral Movement",
+        "Tactic for Collection",
+        "Tactic for Exfiltration",
+        "Tactic for Command and Control"
+      ],
+      "mitre_techniques": [
+        "T1566",
+        "T1486",
+        "T1041",
+        "T1059",
+        "T1071",
+        "T1499"
+      ],
+      "source": "Check Point Research",
+      "source_link": "https://research.checkpoint.com/2025/3rd-november-threat-intelligence-report/",
+      "first_seen": "2025-11-03",
+      "last_updated": "2025-11-03",
+      "summary": "Check Point Research reported an ongoing phishing campaign involving an evolved version of the Adwind RAT targeting multiple industries, including telecom. The campaign exploits vulnerabilities in various software and platforms, leading to data exfiltration, remote code execution, and potential ransomware attacks. The report highlights the increased phishing vulnerability in AI assistant platforms and advises mitigation measures such as patching vulnerabilities and increasing phishing awareness.",
+      "relevance_reasons": [
+        "Impacts Corporate Email & Collaboration (M365) which is internet_facing",
+        "Impacts Corporate Email & Collaboration (M365) which has high business_criticality",
+        "Impacts Corporate Email & Collaboration (M365) which has high data_sensitivity",
+        "Impacts Customer Identity & Access Platform which is internet_facing",
+        "Impacts Customer Identity & Access Platform which has high business_criticality",
+        "Impacts Customer Identity & Access Platform which has high data_sensitivity",
+        "Impacts Customer Identity & Access Platform which is a crown jewel",
+        "Organization has a low risk appetite",
+        "Web threat and detection coverage.web_app is true"
+      ],
+      "industries_affected": [
+        "Software",
+        "Government",
+        "Telecom"
+      ],
+      "regions_or_countries_targeted": [
+        "Hungary",
+        "Belgium",
+        "Italy",
+        "Netherlands",
+        "Serbia"
+      ]
+    },
+    {
+      "id": "b4039e3481e0e5162357d6a945143c37",
+      "threat_name": "China's National Cybersecurity Incident Reporting Measures",
+      "title": "China's CAC Announces New Cybersecurity Incident Reporting Measures",
+      "severity": "medium",
+      "status": "active",
+      "severity_score": 0.5,
+      "relevance_score": 0.2,
+      "prioritization_score": 0.44,
+      "prioritization_band": "medium",
+      "primary_surface": "Legal / Regulatory / Geo-Political",
+      "theta_deg": 207.0246558045603,
+      "radius_norm": 0.56,
+      "assets_impacted": [],
+      "cve_ids": [],
+      "mitre_tactics": [],
+      "mitre_techniques": [],
+      "source": "Global Privacy & Security Compliance Blog by Latham & Watkins LLP",
+      "source_link": "https://www.globalprivacyblog.com/2025/10/chinas-cac-announces-new-cybersecurity-incident-reporting-measures/",
+      "first_seen": "2025-10-30",
+      "last_updated": "2025-10-30",
+      "summary": "China's CAC announced new cybersecurity incident reporting measures effective November 1, 2025, impacting network operators within the PRC and focusing on incidents affecting the country's public interest.",
+      "relevance_reasons": [
+        "Regulatory compliance impacts due to new incident reporting measures in China."
+      ],
+      "industries_affected": [
+        "Information Technology",
+        "Telecommunications"
+      ],
+      "regions_or_countries_targeted": [
+        "People's Republic of China"
+      ]
+    },
+    {
+      "id": "c1857b404252661c93798c0c1176c03f",
+      "threat_name": "Typhoon Cyber Campaigns",
+      "title": "China's ‘Typhoon’ cyber operations target US critical infrastructure sectors in move toward large-scale disruption",
+      "severity": "high",
+      "status": "active",
+      "severity_score": 0.75,
+      "relevance_score": 0.7,
+      "prioritization_score": 0.72,
+      "prioritization_band": "high",
+      "primary_surface": "Network / Edge / OT",
+      "theta_deg": 179.75550195776236,
+      "radius_norm": 0.28,
+      "assets_impacted": [
+        {
+          "product_id": "prod-tower-monitoring-scada",
+          "product_name": "Tower & Power Monitoring SCADA",
+          "owning_team": "Network / Edge / OT",
+          "is_crown_jewel": false,
+          "internet_facing": false,
+          "data_sensitivity": "medium"
+        },
+        {
+          "product_id": "prod-enterprise-sdwan",
+          "product_name": "Enterprise SD-WAN & MPLS Orchestrator",
+          "owning_team": "Network / Edge / OT",
+          "is_crown_jewel": false,
+          "internet_facing": false,
+          "data_sensitivity": "medium"
+        },
+        {
+          "product_id": "prod-core-network-5g",
+          "product_name": "4G/5G Core Network Platform",
+          "owning_team": "Network / Edge / OT",
+          "is_crown_jewel": true,
+          "internet_facing": false,
+          "data_sensitivity": "high"
+        }
+      ],
+      "cve_ids": [],
+      "mitre_tactics": [
+        "Tactic for Initial Access",
+        "Tactic for Execution",
+        "Tactic for Persistence",
+        "Tactic for Defense Evasion",
+        "Tactic for Discovery",
+        "Tactic for Lateral Movement",
+        "Tactic for Collection",
+        "Tactic for Exfiltration",
+        "Tactic for Command and Control"
+      ],
+      "mitre_techniques": [],
+      "source": "Auburn University’s McCrary Institute for Cyber and Critical Infrastructure Security",
+      "source_link": "https://industrialcyber.co/reports/chinas-typhoon-cyber-operations-target-us-critical-infrastructure-sectors-in-move-toward-large-scale-disruption/",
+      "first_seen": "2025-10-31",
+      "last_updated": "2025-10-31",
+      "summary": "China's 'Typhoon' cyber operations target US critical infrastructure sectors, probing critical systems for potential large-scale disruption. Sectors at risk include energy, water, telecommunications, transportation, and healthcare.",
+      "relevance_reasons": [
+        "Impacts Tower & Power Monitoring SCADA",
+        "Impacts Enterprise SD-WAN & MPLS Orchestrator",
+        "Impacts 4G/5G Core Network Platform",
+        "4G/5G Core Network Platform is a crown jewel",
+        "4G/5G Core Network Platform has high data sensitivity",
+        "business_criticality in ['high','mission_critical']",
+        "business_criticality in ['high','mission_critical']"
+      ],
+      "industries_affected": [
+        "Energy",
+        "Water",
+        "Telecommunications",
+        "Transportation",
+        "Healthcare"
+      ],
+      "regions_or_countries_targeted": [
+        "United States"
+      ]
+    },
+    {
+      "id": "45307a40558350f92b3916b7ff834d9c606837ca",
+      "threat_name": "Chinese Economic Espionage",
+      "title": "From Outside Assaults to Insider Threats: Chinese Economic Espionage",
+      "severity": "high",
+      "status": "active",
+      "severity_score": 0.75,
+      "relevance_score": 0.65,
+      "prioritization_score": 0.69,
+      "prioritization_band": "high",
+      "primary_surface": "Data / Exfiltration / Insider",
+      "theta_deg": 154.719,
+      "radius_norm": 0.31,
+      "assets_impacted": [
+        {
+          "product_id": "prod-datalake-analytics",
+          "product_name": "Enterprise Data Lake & Analytics Platform",
+          "owning_team": "Data / Exfiltration / Insider",
+          "is_crown_jewel": false,
+          "internet_facing": false,
+          "data_sensitivity": "high"
+        },
+        {
+          "product_id": "prod-billing-bss",
+          "product_name": "Core Billing & Charging (BSS)",
+          "owning_team": "Data / Exfiltration / Insider",
+          "is_crown_jewel": true,
+          "internet_facing": false,
+          "data_sensitivity": "high"
+        },
+        {
+          "product_id": "prod-payments-bank-core",
+          "product_name": "Airtel Payments Bank Core Banking Platform",
+          "owning_team": "Fraud / Payments / Abuse",
+          "is_crown_jewel": true,
+          "internet_facing": false,
+          "data_sensitivity": "high"
+        }
+      ],
+      "cve_ids": [
+        "NA"
+      ],
+      "mitre_tactics": [
+        "Tactic for Initial Access",
+        "Tactic for Execution",
+        "Tactic for Persistence",
+        "Tactic for Privilege Escalation",
+        "Tactic for Defense Evasion",
+        "Tactic for Credential Access",
+        "Tactic for Discovery",
+        "Tactic for Lateral Movement",
+        "Tactic for Collection",
+        "Tactic for Exfiltration",
+        "Tactic for Command and Control"
+      ],
+      "mitre_techniques": [
+        "NA"
+      ],
+      "source": "ITIF",
+      "source_link": "https://itif.org/publications/2025/11/03/from-outside-assaults-to-insider-threats-chinese-economic-espionage/",
+      "first_seen": "2025-11-03",
+      "last_updated": "2025-11-03",
+      "summary": "Report on Chinese economic espionage targeting the United States, including cyber intrusion and insider threats.",
+      "relevance_reasons": [
+        "Targets multiple industries including private sector, academia, and government.",
+        "Insider theft could impact data exfiltration and billing systems.",
+        "Data lake and analytics platform is a high-value target for espionage."
+      ],
+      "industries_affected": [
+        "Private sector",
+        "Academia",
+        "Government"
+      ],
+      "regions_or_countries_targeted": [
+        "United States"
+      ]
+    },
+    {
+      "id": "88f2280e61e3a64ef0a0212356c6c048",
+      "threat_name": "UNC6384 Exploitation of CVE-2025-9491",
+      "title": "China-Linked Hackers Exploit Windows Shortcut Flaw to Target European Diplomats",
+      "severity": "high",
+      "status": "active",
+      "severity_score": 0.75,
+      "relevance_score": 0.55,
+      "prioritization_score": 0.67,
+      "prioritization_band": "high",
+      "primary_surface": "Endpoint / Email",
+      "theta_deg": 32.356,
+      "radius_norm": 0.33,
+      "assets_impacted": [
+        {
+          "product_id": "prod-m365",
+          "product_name": "Corporate Email & Collaboration (M365)",
+          "owning_team": "Endpoint / Email",
+          "is_crown_jewel": false,
+          "internet_facing": true,
+          "data_sensitivity": "high"
+        }
+      ],
+      "cve_ids": [
+        "CVE-2025-9491"
+      ],
+      "mitre_tactics": [
+        "Tactic for Initial Access",
+        "Tactic for Execution",
+        "Tactic for Persistence",
+        "Tactic for Defense Evasion",
+        "Tactic for Discovery",
+        "Tactic for Command and Control"
+      ],
+      "mitre_techniques": [
+        "T1566",
+        "T1204",
+        "T1055",
+        "T1218",
+        "T1543",
+        "T1083",
+        "T1071"
+      ],
+      "source": "Arctic Wolf",
+      "source_link": "https://thehackernews.com/2025/10/china-linked-hackers-exploit-windows.html",
+      "first_seen": "2025-10-31",
+      "last_updated": "2025-10-31",
+      "summary": "China-linked UNC6384 exploits Windows shortcut flaw (CVE-2025-9491) via spear-phishing to deploy PlugX malware, targeting European diplomatic entities. The attack uses DLL sideloading and HTML Application files for payload delivery and persistence.",
+      "relevance_reasons": [
+        "Impacts internet_facing asset Corporate Email & Collaboration (M365).",
+        "Corporate Email & Collaboration (M365) has high data sensitivity."
+      ],
+      "industries_affected": [
+        "Government",
+        "Diplomatic"
+      ],
+      "regions_or_countries_targeted": [
+        "Hungary",
+        "Belgium",
+        "Italy",
+        "Netherlands",
+        "Serbia"
+      ]
+    },
+    {
+      "id": "e19e05f576089b1777a1d52803922719",
+      "threat_name": "State-Sponsored and Criminal Cyberattacks on US Critical Infrastructure",
+      "title": "Threat Snapshot on US Critical Infrastructure Cybersecurity",
+      "severity": "high",
+      "status": "active",
+      "severity_score": 0.75,
+      "relevance_score": 0.7,
+      "prioritization_score": 0.72,
+      "prioritization_band": "high",
+      "primary_surface": "Network / Edge / OT",
+      "theta_deg": 179.31368003054789,
+      "radius_norm": 0.28,
+      "assets_impacted": [
+        {
+          "product_id": "prod-core-network-5g",
+          "product_name": "4G/5G Core Network Platform",
+          "owning_team": "Network / Edge / OT",
+          "is_crown_jewel": true,
+          "internet_facing": false,
+          "data_sensitivity": "high"
+        },
+        {
+          "product_id": "prod-enterprise-sdwan",
+          "product_name": "Enterprise SD-WAN & MPLS Orchestrator",
+          "owning_team": "Network / Edge / OT",
+          "is_crown_jewel": false,
+          "internet_facing": false,
+          "data_sensitivity": "medium"
+        },
+        {
+          "product_id": "prod-tower-monitoring-scada",
+          "product_name": "Tower & Power Monitoring SCADA",
+          "owning_team": "Network / Edge / OT",
+          "is_crown_jewel": false,
+          "internet_facing": false,
+          "data_sensitivity": "medium"
+        }
+      ],
+      "cve_ids": [],
+      "mitre_tactics": [
+        "Tactic for Initial Access",
+        "Tactic for Execution",
+        "Tactic for Persistence",
+        "Tactic for Defense Evasion",
+        "Tactic for Credential Access",
+        "Tactic for Discovery",
+        "Tactic for Lateral Movement",
+        "Tactic for Collection",
+        "Tactic for Exfiltration",
+        "Tactic for Command and Control"
+      ],
+      "mitre_techniques": [
+        "T1071",
+        "T1027",
+        "T1083",
+        "T1059"
+      ],
+      "source": "Potomac Officers Club’s 2025 Homeland Security Summit report",
+      "source_link": "https://www.executivegov.com/articles/house-cyber-snapshot-china-critical-sectors",
+      "first_seen": "2025-11-12",
+      "last_updated": "2025-11-12",
+      "summary": "Report on state-sponsored and criminal cyberattacks targeting US critical infrastructure.  Identified threat actors include China, Iran, Russia, North Korea, and ransomware groups. Sectors affected are Critical Infrastructure, Financial Services, Telecommunications, Manufacturing, Media, Healthcare, Energy, Transportation, Retail, Wholesale. Calls for a whole-of-society approach and increased public-private collaboration.",
+      "relevance_reasons": [
+        "Impacts 4G/5G Core Network Platform which is a crown jewel",
+        "Impacts Enterprise SD-WAN & MPLS Orchestrator which is business critical",
+        "Impacts Tower & Power Monitoring SCADA"
+      ],
+      "industries_affected": [
+        "Critical Infrastructure",
+        "Financial Services",
+        "Telecommunications",
+        "Manufacturing",
+        "Media",
+        "Healthcare",
+        "Energy",
+        "Transportation",
+        "Retail",
+        "Wholesale"
+      ],
+      "regions_or_countries_targeted": [
+        "United States"
+      ]
+    },
+    {
+      "id": "8328b499694f684a101a4ca72188b567565787b3",
+      "threat_name": "Typhoon Cyber Campaigns",
+      "title": "Code Red: A Guide to Understanding China’s Sophisticated Typhoon Cyber Campaigns",
+      "severity": "critical",
+      "status": "active",
+      "severity_score": 1.0,
+      "relevance_score": 0.85,
+      "prioritization_score": 0.76,
+      "prioritization_band": "high",
+      "primary_surface": "Network / Edge / OT",
+      "theta_deg": 182.54994822419286,
+      "radius_norm": 0.24,
+      "assets_impacted": [
+        {
+          "product_id": "prod-core-network-5g",
+          "product_name": "4G/5G Core Network Platform",
+          "owning_team": "Network / Edge / OT",
+          "is_crown_jewel": true,
+          "internet_facing": false,
+          "data_sensitivity": "high"
+        },
+        {
+          "product_id": "prod-tower-monitoring-scada",
+          "product_name": "Tower & Power Monitoring SCADA",
+          "owning_team": "Network / Edge / OT",
+          "is_crown_jewel": false,
+          "internet_facing": false,
+          "data_sensitivity": "medium"
+        },
+        {
+          "product_id": "prod-enterprise-sdwan",
+          "product_name": "Enterprise SD-WAN & MPLS Orchestrator",
+          "owning_team": "Network / Edge / OT",
+          "is_crown_jewel": false,
+          "internet_facing": false,
+          "data_sensitivity": "medium"
+        }
+      ],
+      "cve_ids": [
+        "NA"
+      ],
+      "mitre_tactics": [
+        "Tactic for Initial Access",
+        "Tactic for Execution",
+        "Tactic for Persistence",
+        "Tactic for Privilege Escalation",
+        "Tactic for Defense Evasion",
+        "Tactic for Credential Access",
+        "Tactic for Discovery",
+        "Tactic for Lateral Movement",
+        "Tactic for Collection",
+        "Tactic for Exfiltration",
+        "Tactic for Command and Control"
+      ],
+      "mitre_techniques": [
+        "T1078",
+        "T1204",
+        "T1059",
+        "T1543",
+        "T1110",
+        "T1027",
+        "T1083",
+        "T1071",
+        "T1041"
+      ],
+      "source": "McCrary Institute for Cyber and Critical Infrastructure Security at Auburn University",
+      "source_link": "https://industrialcyber.co/reports/mccrary-report-flags-chinas-escalating-cyber-tactics-warns-of-typhoon-cyber-threats-to-us-critical-infrastructure/",
+      "first_seen": "2025-10-30",
+      "last_updated": "2025-10-30",
+      "summary": "The McCrary Institute report details China's cyber strategy targeting U.S. critical infrastructure with 'Typhoon' campaigns combining espionage, battlefield preparation, and criminal tactics, posing a significant threat to U.S. security, including disruption of energy, water, and telecommunications networks.",
+      "relevance_reasons": [
+        "Impacts 4G/5G Core Network Platform which is mission_critical",
+        "Impacts 4G/5G Core Network Platform which has high data_sensitivity",
+        "Impacts 4G/5G Core Network Platform which is a crown jewel",
+        "Airtel Secure SOC has low risk appetite",
+        "The threat is server-side, and the patching cadence for servers is monthly"
+      ],
+      "industries_affected": [
+        "Energy",
+        "Water",
+        "Telecommunications",
+        "Government",
+        "Defense",
+        "Manufacturing",
+        "Healthcare",
+        "Transportation"
+      ],
+      "regions_or_countries_targeted": [
+        "United States",
+        "Guam"
+      ]
+    },
+    {
+      "id": "250431c12261c1f9231374533607e7b4",
+      "threat_name": "Multiple Threats and Campaigns",
+      "title": "ThreatsDay Bulletin: AI Tools in Malware, Botnets, GDI Flaws, Election Attacks & More",
+      "severity": "high",
+      "status": "active",
+      "severity_score": 0.75,
+      "relevance_score": 0.775,
+      "prioritization_score": 0.76,
+      "prioritization_band": "high",
+      "primary_surface": "Endpoint / Email",
+      "theta_deg": 27.73,
+      "radius_norm": 0.24,
+      "assets_impacted": [
+        {
+          "product_id": "prod-m365",
+          "product_name": "Corporate Email & Collaboration (M365)",
+          "owning_team": "Endpoint / Email",
+          "is_crown_jewel": false,
+          "internet_facing": true,
+          "data_sensitivity": "high"
+        },
+        {
+          "product_id": "prod-identity-platform",
+          "product_name": "Customer Identity & Access Platform",
+          "owning_team": "Identity / Access",
+          "is_crown_jewel": false,
+          "internet_facing": true,
+          "data_sensitivity": "high"
+        },
+        {
+          "product_id": "prod-recharge-portal",
+          "product_name": "Online Recharge & Payments Portal",
+          "owning_team": "Web Apps / API",
+          "is_crown_jewel": false,
+          "internet_facing": true,
+          "data_sensitivity": "high"
+        },
+        {
+          "product_id": "prod-consumer-app-api",
+          "product_name": "Airtel Thanks Consumer App Backend",
+          "owning_team": "Web Apps / API",
+          "is_crown_jewel": false,
+          "internet_facing": true,
+          "data_sensitivity": "high"
+        },
+        {
+          "product_id": "prod-core-network-5g",
+          "product_name": "4G/5G Core Network Platform",
+          "owning_team": "Network / Edge / OT",
+          "is_crown_jewel": true,
+          "internet_facing": false,
+          "data_sensitivity": "high"
+        }
+      ],
+      "cve_ids": [
+        "CVE-2025-30388"
+      ],
+      "mitre_tactics": [
+        "Tactic for Initial Access",
+        "Tactic for Execution",
+        "Tactic for Persistence",
+        "Tactic for Privilege Escalation",
+        "Tactic for Defense Evasion",
+        "Tactic for Credential Access",
+        "Tactic for Discovery",
+        "Tactic for Lateral Movement",
+        "Tactic for Collection",
+        "Tactic for Exfiltration",
+        "Tactic for Command and Control"
+      ],
+      "mitre_techniques": [
+        "T1566",
+        "T1203",
+        "T1059",
+        "T1071",
+        "T1027",
+        "T1105",
+        "T1070",
+        "T1110",
+        "T1083",
+        "T1041"
+      ],
+      "source": "The Hacker News",
+      "source_link": "https://thehackernews.com/2025/11/threatsday-bulletin-ai-tools-in-malware.html",
+      "first_seen": "2025-11-03",
+      "last_updated": "2025-11-03",
+      "summary": "Multiple cybersecurity threats including Windows GDI vulnerabilities, cybercrime incidents, malware campaigns, and DDoS attacks. Highlights include the use of AI in malware analysis, expansion of RondoDox malware, and phishing campaigns targeting government and financial organizations. Also includes physical violence.",
+      "relevance_reasons": [
+        "Impacts internet_facing asset Corporate Email & Collaboration (M365)",
+        "Impacts internet_facing asset Customer Identity & Access Platform",
+        "Impacts internet_facing asset Online Recharge & Payments Portal",
+        "Impacts internet_facing asset Airtel Thanks Consumer App Backend",
+        "Impacts mission_critical asset 4G/5G Core Network Platform",
+        "risk_appetite is low"
+      ],
+      "industries_affected": [
+        "Government",
+        "Financial",
+        "Technology",
+        "Manufacturing",
+        "Transportation",
+        "Telecommunications",
+        "Media"
+      ],
+      "regions_or_countries_targeted": [
+        "Global",
+        "Europe",
+        "Asia",
+        "Singapore",
+        "Moldova",
+        "China",
+        "Myanmar"
+      ]
+    },
+    {
+      "id": "6806f0754987139f37582e0324650737",
+      "threat_name": "UNC6384 Cyber Espionage Campaign Exploiting ZDI-CAN-25373",
+      "title": "Chinese-Linked Hackers Exploit Windows Flaw to Spy on Belgian and Hungarian Diplomats",
+      "severity": "high",
+      "status": "new",
+      "severity_score": 0.75,
+      "relevance_score": 0.25,
+      "prioritization_score": 0.55,
+      "prioritization_band": "medium",
+      "primary_surface": "Endpoint / Email",
+      "theta_deg": 26.03160382123426,
+      "radius_norm": 0.45,
+      "assets_impacted": [
+        {
+          "product_id": "prod-m365",
+          "product_name": "Corporate Email & Collaboration (M365)",
+          "owning_team": "Endpoint / Email",
+          "is_crown_jewel": false,
+          "internet_facing": true,
+          "data_sensitivity": "high"
+        }
+      ],
+      "cve_ids": [
+        "ZDI-CAN-25373"
+      ],
+      "mitre_tactics": [
+        "Tactic for Initial Access",
+        "Tactic for Execution",
+        "Tactic for Defense Evasion"
+      ],
+      "mitre_techniques": [
+        "T1566",
+        "T1073",
+        "T1086"
+      ],
+      "source": "Arctic Wolf Labs",
+      "source_link": "https://www.infosecurity-magazine.com/news/chinese-hackers-windows-flaw-spy/",
+      "first_seen": "2025-11-06",
+      "last_updated": "2025-11-06",
+      "summary": "Chinese-linked hackers are exploiting a Windows flaw to spy on European diplomats, using spear phishing and DLL side-loading techniques. The campaign, attributed to UNC6384 (Mustang Panda), targets sensitive information through malicious LNK files and PowerShell obfuscation.",
+      "relevance_reasons": [
+        "Threat targets email, a critical vector.",
+        "The threat exploits Windows, which is related to Corporate Email & Collaboration (M365) product.",
+        "Windows vulnerability exploited"
+      ],
+      "industries_affected": [
+        "Diplomatic",
+        "Government"
+      ],
+      "regions_or_countries_targeted": [
+        "Hungary",
+        "Belgium",
+        "Serbia",
+        "Other European nations"
+      ]
+    },
+    {
+      "id": "73f127a713e88a80733c4f899537e2741a893812",
+      "threat_name": "Russian and Chinese APT groups cyber operations",
+      "title": "ESET Research APT Report: Russian attacks surge in Ukraine and Europe; Chinese groups target Latin American governments",
+      "severity": "high",
+      "status": "active",
+      "severity_score": 0.75,
+      "relevance_score": 0.7,
+      "prioritization_score": 0.68,
+      "prioritization_band": "high",
+      "primary_surface": "Third-Party / Vendor Risk",
+      "theta_deg": 237.86514421124014,
+      "radius_norm": 0.32,
+      "assets_impacted": [
+        {
+          "product_id": "prod-crm-care",
+          "product_name": "Customer Care CRM Platform",
+          "owning_team": "Third-Party / Vendor Risk",
+          "is_crown_jewel": false,
+          "internet_facing": true,
+          "data_sensitivity": "high"
+        },
+        {
+          "product_id": "prod-m365",
+          "product_name": "Corporate Email & Collaboration (M365)",
+          "owning_team": "Endpoint / Email",
+          "is_crown_jewel": false,
+          "internet_facing": true,
+          "data_sensitivity": "high"
+        }
+      ],
+      "cve_ids": [
+        "NA"
+      ],
+      "mitre_tactics": [
+        "Tactic for Initial Access",
+        "Tactic for Execution",
+        "Tactic for Persistence",
+        "Tactic for Defense Evasion",
+        "Tactic for Credential Access",
+        "Tactic for Discovery",
+        "Tactic for Lateral Movement",
+        "Tactic for Collection",
+        "Tactic for Exfiltration",
+        "Tactic for Command and Control"
+      ],
+      "mitre_techniques": [
+        "T1190",
+        "T1566",
+        "T1204",
+        "T1059",
+        "T1071",
+        "T1027"
+      ],
+      "source": "ESET",
+      "source_link": "https://www.globenewswire.com/news-release/2025/11/06/3182261/0/en/ESET-Research-APT-Report-Russian-attacks-surge-in-Ukraine-and-Europe-Chinese-groups-target-Latin-American-governments.html",
+      "first_seen": "2025-11-06",
+      "last_updated": "2025-11-06",
+      "summary": "ESET Research reports on increased APT activity from Russian and Chinese groups, targeting various sectors and regions with sophisticated techniques like spearphishing and zero-day exploits.",
+      "relevance_reasons": [
+        "Impacts internet-facing asset Customer Care CRM Platform",
+        "Impacts business-critical asset Customer Care CRM Platform",
+        "Impacts high data sensitivity asset Customer Care CRM Platform",
+        "Impacts internet-facing asset Corporate Email & Collaboration (M365)",
+        "Impacts business-critical asset Corporate Email & Collaboration (M365)",
+        "Impacts high data sensitivity asset Corporate Email & Collaboration (M365)",
+        "Organization has low risk appetite"
+      ],
+      "industries_affected": [
+        "Government",
+        "Financial",
+        "Manufacturing",
+        "Defense",
+        "Logistics",
+        "Energy",
+        "Technology",
+        "Engineering",
+        "Cryptocurrency"
+      ],
+      "regions_or_countries_targeted": [
+        "Ukraine",
+        "European Union",
+        "Latin America",
+        "Asia (South Korea)"
+      ]
+    },
+    {
+      "id": "2c53c97c92555ddb2865221cb43440e2",
+      "threat_name": "InedibleOchotense Campaign and RomCom Attacks",
+      "title": "Trojanized ESET Installers Drop Kalambur Backdoor in Phishing Attacks on Ukraine",
+      "severity": "high",
+      "status": "active",
+      "severity_score": 0.75,
+      "relevance_score": 0.65,
+      "prioritization_score": 0.69,
+      "prioritization_band": "high",
+      "primary_surface": "Endpoint / Email",
+      "theta_deg": 32.33491218834654,
+      "radius_norm": 0.31,
+      "assets_impacted": [
+        {
+          "product_id": "prod-m365",
+          "product_name": "Corporate Email & Collaboration (M365)",
+          "owning_team": "Endpoint / Email",
+          "is_crown_jewel": false,
+          "internet_facing": true,
+          "data_sensitivity": "high"
+        },
+        {
+          "product_id": "prod-airtel-secure-soc",
+          "product_name": "Airtel Secure SOC & Security Portal",
+          "owning_team": "Cloud / Infra / K8s",
+          "is_crown_jewel": false,
+          "internet_facing": true,
+          "data_sensitivity": "medium"
+        }
+      ],
+      "cve_ids": [
+        "CVE-2025-8088"
+      ],
+      "mitre_tactics": [
+        "Tactic for Initial Access",
+        "Tactic for Execution",
+        "Tactic for Persistence",
+        "Tactic for Command and Control"
+      ],
+      "mitre_techniques": [
+        "T1566",
+        "T1204",
+        "T1059",
+        "T1071"
+      ],
+      "source": "The Hacker News",
+      "source_link": "https://thehackernews.com/2025/11/trojanized-eset-installers-drop-kalambur.html",
+      "first_seen": "2025-11-06",
+      "last_updated": "2025-11-06",
+      "summary": "Russia-aligned threat actors InedibleOchotense, Sandworm and RomCom targeted Ukrainian entities and companies in Europe and Canada with spear-phishing attacks, trojanized ESET installers, and exploitation of WinRAR vulnerability CVE-2025-8088, leading to remote access, data exfiltration, and destructive attacks.",
+      "relevance_reasons": [
+        "M365 (Corporate Email) is internet facing, business critical and has high data sensitivity.",
+        "Airtel Secure SOC is internet facing and business critical."
+      ],
+      "industries_affected": [
+        "Cybersecurity",
+        "Government",
+        "Energy",
+        "Logistics",
+        "Financial",
+        "Manufacturing",
+        "Defense"
+      ],
+      "regions_or_countries_targeted": [
+        "Ukraine",
+        "Europe",
+        "Canada"
+      ]
+    },
+    {
+      "id": "5581c316401d988319e8282904f3f1f3",
+      "threat_name": "DragonForce Ransomware Attack",
+      "title": "DragonForce Ransomware Attack targeting Manufacturing",
+      "severity": "high",
+      "status": "active",
+      "severity_score": 0.75,
+      "relevance_score": 0.5,
+      "prioritization_score": 0.65,
+      "prioritization_band": "high",
+      "primary_surface": "Network / Edge / OT",
+      "theta_deg": 178.0,
+      "radius_norm": 0.35,
+      "assets_impacted": [
+        {
+          "product_id": "prod-core-network-5g",
+          "product_name": "4G/5G Core Network Platform",
+          "owning_team": "Network / Edge / OT",
+          "is_crown_jewel": true,
+          "internet_facing": false,
+          "data_sensitivity": "high"
+        },
+        {
+          "product_id": "prod-enterprise-sdwan",
+          "product_name": "Enterprise SD-WAN & MPLS Orchestrator",
+          "owning_team": "Network / Edge / OT",
+          "is_crown_jewel": false,
+          "internet_facing": false,
+          "data_sensitivity": "medium"
+        },
+        {
+          "product_id": "prod-tower-monitoring-scada",
+          "product_name": "Tower & Power Monitoring SCADA",
+          "owning_team": "Network / Edge / OT",
+          "is_crown_jewel": false,
+          "internet_facing": false,
+          "data_sensitivity": "medium"
+        }
+      ],
+      "cve_ids": [],
+      "mitre_tactics": [
+        "Tactic for Initial Access",
+        "Tactic for Execution",
+        "Tactic for Persistence",
+        "Tactic for Privilege Escalation",
+        "Tactic for Defense Evasion",
+        "Tactic for Credential Access",
+        "Tactic for Discovery",
+        "Tactic for Lateral Movement",
+        "Tactic for Collection",
+        "Tactic for Exfiltration",
+        "Tactic for Command and Control"
+      ],
+      "mitre_techniques": [
+        "T1566",
+        "T1190",
+        "T1046",
+        "T1110",
+        "T1053",
+        "T1071",
+        "T1021"
+      ],
+      "source": "Darktrace",
+      "source_link": "https://www.darktrace.com/blog/tracking-a-dragon-investigating-a-dragonforce-affiliated-ransomware-attack-with-darktrace",
+      "first_seen": "2025-11-01",
+      "last_updated": "2025-11-01",
+      "summary": "DragonForce ransomware attack targets manufacturing, using phishing, credential brute-forcing, and data exfiltration. Mitigation includes monitoring for unusual network activity and restricting SMB access.",
+      "relevance_reasons": [
+        "Impacts 4G/5G Core Network Platform (crown jewel, high data sensitivity)",
+        "Impacts Enterprise SD-WAN & MPLS Orchestrator (high business criticality)",
+        "Impacts Tower & Power Monitoring SCADA"
+      ],
+      "industries_affected": [
+        "Manufacturing"
+      ],
+      "regions_or_countries_targeted": [
+        "UK",
+        "Russia"
+      ]
+    },
+    {
+      "id": "7f8698f9659b33a6a51f21e343c7d7b9",
+      "threat_name": "Android System Component Zero-Click Remote Code Execution Vulnerability",
+      "title": "Critical Android 0-Click RCE Vulnerability in System Component",
+      "severity": "critical",
+      "status": "new",
+      "severity_score": 1.0,
+      "relevance_score": 0.0,
+      "prioritization_score": 0.6,
+      "prioritization_band": "high",
+      "primary_surface": "Emerging / Unknown",
+      "theta_deg": 327.9730802660062,
+      "radius_norm": 0.4,
+      "assets_impacted": [],
+      "cve_ids": [
+        "CVE-2025-48593"
+      ],
+      "mitre_tactics": [
+        "Tactic for Initial Access",
+        "Tactic for Execution",
+        "Tactic for Privilege Escalation"
+      ],
+      "mitre_techniques": [
+        "T1204",
+        "T1059"
+      ],
+      "source": "CyberSecurityNews.com",
+      "source_link": "https://cybersecuritynews.com/android-0-click-rce-vulnerability/",
+      "first_seen": "2025-11-04",
+      "last_updated": "2025-11-04",
+      "summary": "A critical zero-click remote code execution vulnerability has been discovered in the Android System component, affecting versions 13 through 16. This vulnerability allows attackers to execute code remotely without user interaction. Users are urged to apply the security patch level 2025-11-01 immediately.",
+      "relevance_reasons": [
+        "No specific assets within the customer profile are directly linked to the Android vulnerability based on product names, vendors, or technologies."
+      ],
+      "industries_affected": [
+        "Mobile Operating Systems"
+      ],
+      "regions_or_countries_targeted": [
+        "Global"
+      ]
+    }
+  ],
+  "activity_chart": [
+    {
+      "date": "2025-10-15",
+      "Critical": 2,
+      "High": 0,
+      "Medium": 0,
+      "Low": 0
+    },
+    {
+      "date": "2025-10-17",
+      "Critical": 0,
+      "High": 1,
+      "Medium": 0,
+      "Low": 0
+    },
+    {
+      "date": "2025-10-20",
+      "Critical": 0,
+      "High": 1,
+      "Medium": 0,
+      "Low": 0
+    },
+    {
+      "date": "2025-10-23",
+      "Critical": 3,
+      "High": 0,
+      "Medium": 0,
+      "Low": 0
+    },
+    {
+      "date": "2025-10-25",
+      "Critical": 0,
+      "High": 0,
+      "Medium": 0,
+      "Low": 1
+    },
+    {
+      "date": "2025-10-27",
+      "Critical": 0,
+      "High": 1,
+      "Medium": 0,
+      "Low": 0
+    },
+    {
+      "date": "2025-10-30",
+      "Critical": 1,
+      "High": 0,
+      "Medium": 1,
+      "Low": 0
+    },
+    {
+      "date": "2025-10-31",
+      "Critical": 0,
+      "High": 3,
+      "Medium": 0,
+      "Low": 0
+    },
+    {
+      "date": "2025-11-01",
+      "Critical": 0,
+      "High": 3,
+      "Medium": 0,
+      "Low": 0
+    },
+    {
+      "date": "2025-11-02",
+      "Critical": 0,
+      "High": 2,
+      "Medium": 0,
+      "Low": 0
+    },
+    {
+      "date": "2025-11-03",
+      "Critical": 2,
+      "High": 5,
+      "Medium": 0,
+      "Low": 0
+    },
+    {
+      "date": "2025-11-04",
+      "Critical": 1,
+      "High": 1,
+      "Medium": 0,
+      "Low": 0
+    },
+    {
+      "date": "2025-11-05",
+      "Critical": 2,
+      "High": 7,
+      "Medium": 1,
+      "Low": 1
+    },
+    {
+      "date": "2025-11-06",
+      "Critical": 5,
+      "High": 5,
+      "Medium": 1,
+      "Low": 1
+    },
+    {
+      "date": "2025-11-07",
+      "Critical": 0,
+      "High": 1,
+      "Medium": 0,
+      "Low": 0
+    },
+    {
+      "date": "2025-11-12",
+      "Critical": 0,
+      "High": 1,
+      "Medium": 0,
+      "Low": 0
+    },
+    {
+      "date": "2025-11-19",
+      "Critical": 0,
+      "High": 0,
+      "Medium": 0,
+      "Low": 1
+    }
+  ],
+  "assets_chart": [
+    {
+      "asset": "Corporate Email & Collaboration (M365)",
+      "count": 22
+    },
+    {
+      "asset": "4G/5G Core Network Platform",
+      "count": 12
+    },
+    {
+      "asset": "Enterprise SD-WAN & MPLS Orchestrator",
+      "count": 12
+    },
+    {
+      "asset": "Tower & Power Monitoring SCADA",
+      "count": 10
+    },
+    {
+      "asset": "Customer Care CRM Platform",
+      "count": 8
+    },
+    {
+      "asset": "Customer Identity & Access Platform",
+      "count": 6
+    },
+    {
+      "asset": "Airtel Secure SOC & Security Portal",
+      "count": 5
+    },
+    {
+      "asset": "Online Recharge & Payments Portal",
+      "count": 4
+    },
+    {
+      "asset": "Enterprise Data Lake & Analytics Platform",
+      "count": 3
+    },
+    {
+      "asset": "Airtel Payments Bank Core Banking Platform",
+      "count": 3
+    },
+    {
+      "asset": "Airtel Thanks Consumer App Backend",
+      "count": 3
+    },
+    {
+      "asset": "Core Billing & Charging (BSS)",
+      "count": 2
+    },
+    {
+      "asset": "Nxtra Data Center & Colocation Platform",
+      "count": 2
+    }
+  ]
+}

@@ -13,8 +13,14 @@ interface FiltersSidebarProps {
 }
 
 const FiltersSidebar = ({ filters, onFiltersChange }: FiltersSidebarProps) => {
-  const severityLevels: SeverityLevel[] = ['Critical', 'High', 'Medium', 'Low'];
-  const statusTypes: StatusType[] = ['New', 'Active', 'Mitigated'];
+  const severityLevels: SeverityLevel[] = ['critical', 'high', 'medium', 'low'];
+  const statusTypes: StatusType[] = ['new', 'active', 'mitigated'];
+  
+  // Helper to capitalize for display
+  const capitalizeFirst = (s: string): string => {
+    if (!s) return s;
+    return s[0].toUpperCase() + s.slice(1).toLowerCase();
+  };
   const timeRanges = [
     { value: 'last24h' as const, label: 'Last 24h' },
     { value: 'last7d' as const, label: 'Last 7 days' },
@@ -81,7 +87,7 @@ const FiltersSidebar = ({ filters, onFiltersChange }: FiltersSidebarProps) => {
                   onClick={() => toggleFilter('severity', sev)}
                   className="rounded-full"
                 >
-                  {sev}
+                  {capitalizeFirst(sev)}
                 </Button>
               ))}
             </div>
@@ -100,7 +106,7 @@ const FiltersSidebar = ({ filters, onFiltersChange }: FiltersSidebarProps) => {
                   size="sm"
                   onClick={() => toggleFilter('statuses', status)}
                 >
-                  {status}
+                  {capitalizeFirst(status)}
                 </Button>
               ))}
             </div>

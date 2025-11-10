@@ -1,0 +1,515 @@
+{
+    "id": "cust-airtel-001",
+    "name": "Bharti Airtel Limited",
+    "sector": "Telecom",
+    "sub_sector": "Telecommunications Service Provider (Mobile, Broadband, DTH, Enterprise Connectivity)",
+    "regions": [
+      "India",
+      "South Asia",
+      "Africa",
+      "Middle East",
+      "Europe",
+      "USA",
+      "APAC"
+    ],
+    "employee_count": 24420,
+    "cloud_providers": [
+      "AWS",
+      "Azure",
+      "GCP",
+      "Airtel Cloud"
+    ],
+    "regulatory_env": [
+      "TRAI",
+      "DoT India",
+      "RBI",
+      "NPCI",
+      "CERT-In",
+      "ISO 27001",
+      "GDPR"
+    ],
+    "critical_business_services": [
+      "Mobile voice and data services for retail and enterprise subscribers",
+      "Prepaid and postpaid billing, recharge and collections across India and Africa",
+      "Home broadband and FTTH internet services (Airtel Xstream Fiber)",
+      "Digital TV and OTT streaming via Airtel Xstream platform",
+      "Airtel Thanks mobile app for customer self-service, rewards and engagement",
+      "Airtel Payments Bank digital banking and wallet services",
+      "Enterprise connectivity (MPLS, Internet Leased Line, SD-WAN, VPN, cloud connect)",
+      "Nxtra data center and cloud colocation services for hyperscalers and enterprises",
+      "CPaaS and cloud telephony services via Airtel IQ for enterprise customers"
+    ],
+    "crown_jewel_products": [
+      "prod-core-network-5g",
+      "prod-billing-bss",
+      "prod-recharge-portal",
+      "prod-consumer-app-api",
+      "prod-identity-platform",
+      "prod-datalake-analytics",
+      "prod-payments-bank-core",
+      "prod-nxtra-dc-platform"
+    ],
+    "products": [
+      {
+        "id": "prod-consumer-app-api",
+        "name": "Airtel Thanks Consumer App Backend",
+        "vendor": "Bharti Airtel (In-house)",
+        "technology": "Java/Spring Boot microservices on Kubernetes (AWS)",
+        "category": "API",
+        "owning_team": "Web Apps / API",
+        "environment": "prod",
+        "hosting_type": "Hybrid",
+        "internet_facing": true,
+        "network_zone": "public_internet",
+        "has_waf_or_reverse_proxy": true,
+        "has_strict_auth": true,
+        "business_criticality": "mission_critical",
+        "data_sensitivity": "high",
+        "logging_coverage": "good",
+        "tags": [
+          "consumer",
+          "mobile-app-backend",
+          "self-service",
+          "payments",
+          "PII",
+          "KYC",
+          "recharge-orchestration"
+        ]
+      },
+      {
+        "id": "prod-recharge-portal",
+        "name": "Online Recharge & Payments Portal",
+        "vendor": "Bharti Airtel (In-house)",
+        "technology": "React SPA + Java backend on Kubernetes",
+        "category": "WebApp",
+        "owning_team": "Web Apps / API",
+        "environment": "prod",
+        "hosting_type": "Hybrid",
+        "internet_facing": true,
+        "network_zone": "public_internet",
+        "has_waf_or_reverse_proxy": true,
+        "has_strict_auth": true,
+        "business_criticality": "mission_critical",
+        "data_sensitivity": "high",
+        "logging_coverage": "good",
+        "tags": [
+          "consumer",
+          "recharge",
+          "payments",
+          "card-tokenization",
+          "upi",
+          "internet-facing"
+        ]
+      },
+      {
+        "id": "prod-xstream-ott",
+        "name": "Airtel Xstream OTT & DTH Platform",
+        "vendor": "Bharti Airtel (In-house + OEMs)",
+        "technology": "Multi-tenant OTT streaming platform with CDN integration",
+        "category": "WebApp",
+        "owning_team": "Web Apps / API",
+        "environment": "prod",
+        "hosting_type": "Hybrid",
+        "internet_facing": true,
+        "network_zone": "public_internet",
+        "has_waf_or_reverse_proxy": true,
+        "has_strict_auth": true,
+        "business_criticality": "high",
+        "data_sensitivity": "medium",
+        "logging_coverage": "good",
+        "tags": [
+          "ott",
+          "streaming",
+          "dth",
+          "cdn",
+          "subscriber-data"
+        ]
+      },
+      {
+        "id": "prod-core-network-5g",
+        "name": "4G/5G Core Network Platform",
+        "vendor": "Multi-vendor (Nokia, Ericsson, others)",
+        "technology": "EPC/5GC core network elements and signaling stack",
+        "category": "Network",
+        "owning_team": "Network / Edge / OT",
+        "environment": "prod",
+        "hosting_type": "Hybrid",
+        "internet_facing": false,
+        "network_zone": "restricted",
+        "has_waf_or_reverse_proxy": false,
+        "has_strict_auth": true,
+        "business_criticality": "mission_critical",
+        "data_sensitivity": "high",
+        "logging_coverage": "moderate",
+        "tags": [
+          "core-network",
+          "4g",
+          "5g",
+          "signalling",
+          "ims",
+          "carrier-grade",
+          "critical-infrastructure"
+        ]
+      },
+      {
+        "id": "prod-enterprise-sdwan",
+        "name": "Enterprise SD-WAN & MPLS Orchestrator",
+        "vendor": "Cisco + Airtel Integrations",
+        "technology": "Airtel SD-Branch and SD-WAN controller for enterprise sites",
+        "category": "Network",
+        "owning_team": "Network / Edge / OT",
+        "environment": "prod",
+        "hosting_type": "OnPrem",
+        "internet_facing": false,
+        "network_zone": "dmz",
+        "has_waf_or_reverse_proxy": false,
+        "has_strict_auth": true,
+        "business_criticality": "high",
+        "data_sensitivity": "medium",
+        "logging_coverage": "good",
+        "tags": [
+          "enterprise",
+          "sd-wan",
+          "mpls",
+          "branch-networking",
+          "managed-service"
+        ]
+      },
+      {
+        "id": "prod-billing-bss",
+        "name": "Core Billing & Charging (BSS)",
+        "vendor": "Tier-1 BSS Vendor + Custom Extensions",
+        "technology": "Telco billing, rating, and charging platform",
+        "category": "Database",
+        "owning_team": "Data / Exfiltration / Insider",
+        "environment": "prod",
+        "hosting_type": "OnPrem",
+        "internet_facing": false,
+        "network_zone": "internal",
+        "has_waf_or_reverse_proxy": false,
+        "has_strict_auth": true,
+        "business_criticality": "mission_critical",
+        "data_sensitivity": "high",
+        "logging_coverage": "good",
+        "tags": [
+          "billing",
+          "charging",
+          "cdr",
+          "financial",
+          "customer-data",
+          "regulatory"
+        ]
+      },
+      {
+        "id": "prod-payments-bank-core",
+        "name": "Airtel Payments Bank Core Banking Platform",
+        "vendor": "Airtel Payments Bank + Banking OEM",
+        "technology": "Core banking, wallets and UPI rails",
+        "category": "Database",
+        "owning_team": "Fraud / Payments / Abuse",
+        "environment": "prod",
+        "hosting_type": "Hybrid",
+        "internet_facing": false,
+        "network_zone": "internal",
+        "has_waf_or_reverse_proxy": false,
+        "has_strict_auth": true,
+        "business_criticality": "mission_critical",
+        "data_sensitivity": "high",
+        "logging_coverage": "good",
+        "tags": [
+          "payments-bank",
+          "upi",
+          "wallet",
+          "financial-data",
+          "kyc",
+          "rbi-regulated"
+        ]
+      },
+      {
+        "id": "prod-datalake-analytics",
+        "name": "Enterprise Data Lake & Analytics Platform",
+        "vendor": "AWS",
+        "technology": "S3-based data lake with EMR/Glue/Spark pipelines",
+        "category": "Database",
+        "owning_team": "Data / Exfiltration / Insider",
+        "environment": "prod",
+        "hosting_type": "IaaS",
+        "internet_facing": false,
+        "network_zone": "internal",
+        "has_waf_or_reverse_proxy": false,
+        "has_strict_auth": true,
+        "business_criticality": "high",
+        "data_sensitivity": "high",
+        "logging_coverage": "moderate",
+        "tags": [
+          "analytics",
+          "big-data",
+          "pii",
+          "usage-data",
+          "fraud-analytics",
+          "churn-models"
+        ]
+      },
+      {
+        "id": "prod-identity-platform",
+        "name": "Customer Identity & Access Platform",
+        "vendor": "Azure AD B2C / In-house IAM",
+        "technology": "OIDC/OAuth2 identity provider and SSO gateway",
+        "category": "Identity",
+        "owning_team": "Identity / Access",
+        "environment": "prod",
+        "hosting_type": "Hybrid",
+        "internet_facing": true,
+        "network_zone": "public_internet",
+        "has_waf_or_reverse_proxy": true,
+        "has_strict_auth": true,
+        "business_criticality": "high",
+        "data_sensitivity": "high",
+        "logging_coverage": "excellent",
+        "tags": [
+          "iam",
+          "sso",
+          "mfa",
+          "consumer-identity",
+          "oauth2",
+          "oidc",
+          "high-risk-target"
+        ]
+      },
+      {
+        "id": "prod-m365",
+        "name": "Corporate Email & Collaboration (M365)",
+        "vendor": "Microsoft",
+        "technology": "Microsoft 365 (Exchange Online, SharePoint, Teams)",
+        "category": "Email",
+        "owning_team": "Endpoint / Email",
+        "environment": "prod",
+        "hosting_type": "SaaS",
+        "internet_facing": true,
+        "network_zone": "public_internet",
+        "has_waf_or_reverse_proxy": false,
+        "has_strict_auth": true,
+        "business_criticality": "high",
+        "data_sensitivity": "high",
+        "logging_coverage": "good",
+        "tags": [
+          "email",
+          "collaboration",
+          "m365",
+          "o365",
+          "phishing-target",
+          "exec-mailboxes"
+        ]
+      },
+      {
+        "id": "prod-crm-care",
+        "name": "Customer Care CRM Platform",
+        "vendor": "Salesforce",
+        "technology": "Salesforce Service Cloud + custom integrations",
+        "category": "CloudService",
+        "owning_team": "Third-Party / Vendor Risk",
+        "environment": "prod",
+        "hosting_type": "SaaS",
+        "internet_facing": true,
+        "network_zone": "public_internet",
+        "has_waf_or_reverse_proxy": false,
+        "has_strict_auth": true,
+        "business_criticality": "high",
+        "data_sensitivity": "high",
+        "logging_coverage": "minimal",
+        "tags": [
+          "crm",
+          "customer-care",
+          "call-center",
+          "sensitive-notes",
+          "case-history"
+        ]
+      },
+      {
+        "id": "prod-tower-monitoring-scada",
+        "name": "Tower & Power Monitoring SCADA",
+        "vendor": "Industrial/OT Vendor",
+        "technology": "SCADA platform for tower power, environment and alarms",
+        "category": "ICS_OT",
+        "owning_team": "Network / Edge / OT",
+        "environment": "prod",
+        "hosting_type": "OnPrem",
+        "internet_facing": false,
+        "network_zone": "restricted",
+        "has_waf_or_reverse_proxy": false,
+        "has_strict_auth": true,
+        "business_criticality": "high",
+        "data_sensitivity": "medium",
+        "logging_coverage": "minimal",
+        "tags": [
+          "ot",
+          "tower-monitoring",
+          "scada",
+          "infrastructure-availability",
+          "remote-sites"
+        ]
+      },
+      {
+        "id": "prod-nxtra-dc-platform",
+        "name": "Nxtra Data Center & Colocation Platform",
+        "vendor": "Nxtra by Airtel",
+        "technology": "Hyper-connected core and edge data centers across 120+ locations",
+        "category": "CloudService",
+        "owning_team": "Cloud / Infra / K8s",
+        "environment": "prod",
+        "hosting_type": "OnPrem",
+        "internet_facing": false,
+        "network_zone": "dmz",
+        "has_waf_or_reverse_proxy": false,
+        "has_strict_auth": true,
+        "business_criticality": "mission_critical",
+        "data_sensitivity": "medium",
+        "logging_coverage": "good",
+        "tags": [
+          "colocation",
+          "dc",
+          "hyperscaler-hosting",
+          "critical-infrastructure",
+          "ai-ready"
+        ]
+      },
+      {
+        "id": "prod-airtel-iq-cpaas",
+        "name": "Airtel IQ CPaaS & Cloud Telephony",
+        "vendor": "Bharti Airtel (Airtel IQ)",
+        "technology": "CPaaS platform for omnichannel messaging, voice, and video APIs",
+        "category": "CloudService",
+        "owning_team": "Web Apps / API",
+        "environment": "prod",
+        "hosting_type": "SaaS",
+        "internet_facing": true,
+        "network_zone": "public_internet",
+        "has_waf_or_reverse_proxy": true,
+        "has_strict_auth": true,
+        "business_criticality": "high",
+        "data_sensitivity": "medium",
+        "logging_coverage": "good",
+        "tags": [
+          "cpaas",
+          "cloud-telephony",
+          "sms",
+          "voice",
+          "otp-delivery",
+          "enterprise-customers"
+        ]
+      },
+      {
+        "id": "prod-airtel-secure-soc",
+        "name": "Airtel Secure SOC & Security Portal",
+        "vendor": "Bharti Airtel (Airtel Secure)",
+        "technology": "Managed security services platform backed by Elastic Security",
+        "category": "CloudService",
+        "owning_team": "Cloud / Infra / K8s",
+        "environment": "prod",
+        "hosting_type": "SaaS",
+        "internet_facing": true,
+        "network_zone": "public_internet",
+        "has_waf_or_reverse_proxy": true,
+        "has_strict_auth": true,
+        "business_criticality": "high",
+        "data_sensitivity": "medium",
+        "logging_coverage": "excellent",
+        "tags": [
+          "soc",
+          "siem",
+          "mdr",
+          "waf-as-a-service",
+          "ddos-protection",
+          "customer-portal"
+        ]
+      }
+    ],
+    "third_party_providers": [
+      {
+        "name": "Microsoft 365",
+        "service_type": "Collaboration & Email (M365)",
+        "criticality": "high"
+      },
+      {
+        "name": "Salesforce",
+        "service_type": "CRM & Customer Care",
+        "criticality": "high"
+      },
+      {
+        "name": "AWS",
+        "service_type": "Cloud IaaS/PaaS (Core Workloads & Data Lake)",
+        "criticality": "mission_critical"
+      },
+      {
+        "name": "Azure",
+        "service_type": "Cloud IaaS/PaaS & Identity (Azure AD, Azure AD B2C)",
+        "criticality": "high"
+      },
+      {
+        "name": "Google Cloud / Perplexity Partnership",
+        "service_type": "AI & cloud collaboration for search and AI workloads",
+        "criticality": "medium"
+      },
+      {
+        "name": "Elastic Security",
+        "service_type": "SIEM, endpoint and cloud security analytics",
+        "criticality": "high"
+      },
+      {
+        "name": "Cisco Meraki",
+        "service_type": "SD-Branch and SD-WAN platform for enterprise customers",
+        "criticality": "medium"
+      },
+      {
+        "name": "Payment Gateway Aggregator",
+        "service_type": "Online Payments & Card Processing for Recharge/Bills",
+        "criticality": "high"
+      },
+      {
+        "name": "IBM",
+        "service_type": "Cloud infrastructure and AI-ready servers for Airtel Cloud",
+        "criticality": "medium"
+      }
+    ],
+    "security_ops": {
+      "soc_model": "24x7",
+      "team_size": 120,
+      "risk_appetite": "low",
+      "mean_time_to_detect": "<48h",
+      "mean_time_to_respond": "2-7d",
+      "has_ir_runbooks": true,
+      "has_threat_hunting": true,
+      "has_ti_platform": true,
+      "edr_products": [
+        "Microsoft Defender for Endpoint",
+        "CrowdStrike Falcon (selected endpoints)"
+      ],
+      "siem_products": [
+        "Elastic Security",
+        "Splunk Enterprise Security (legacy / selective use)"
+      ],
+      "email_security": [
+        "Microsoft Defender for Office 365",
+        "Proofpoint (select domains)"
+      ],
+      "vulnerability_mgmt": [
+        "Qualys VMDR",
+        "Tenable.io"
+      ],
+      "patching_cadence_servers": "monthly",
+      "patching_cadence_endpoints": "monthly",
+      "has_mfa_everywhere": true,
+      "has_ews_or_wsus_internet_exposed": false,
+      "detection_coverage": {
+        "endpoint": true,
+        "email": true,
+        "identity": true,
+        "network": true,
+        "cloud": true,
+        "web_app": true,
+        "ics_ot": true
+      },
+      "notes": "Mature 24x7 global SOC with managed security services offerings (Airtel Secure) built on Elastic Security. Strong identity, endpoint and email security controls, plus dedicated threat hunting and MDR teams. Nxtra data centers provide additional physical and infrastructure security controls. Key focus areas include fraud and abuse prevention on payments and recharge channels, protection of 4G/5G core and signaling infrastructure, and improving visibility into legacy OT/SCADA and complex multi-cloud environments."
+    }
+  }
+  

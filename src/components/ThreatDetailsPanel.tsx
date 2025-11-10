@@ -29,20 +29,34 @@ interface ThreatDetailsPanelProps {
 const ThreatDetailsPanel = ({ threat, onClose, onOpenActModal }: ThreatDetailsPanelProps) => {
   const [isDescriptionOpen, setIsDescriptionOpen] = useState(true);
 
+  const capitalizeFirst = (s: string): string => {
+    if (!s) return s;
+    return s[0].toUpperCase() + s.slice(1).toLowerCase();
+  };
+
+  const getPrimaryAsset = (): string => {
+    if (threat.assets_impacted && threat.assets_impacted.length > 0) {
+      return threat.assets_impacted[0].product_name;
+    }
+    return 'Unknown Asset';
+  };
+
   const getSeverityColor = () => {
     switch (threat.severity) {
-      case 'Critical': return 'bg-danger text-danger-foreground';
-      case 'High': return 'bg-warning text-warning-foreground';
-      case 'Medium': return 'bg-primary text-primary-foreground';
-      case 'Low': return 'bg-muted text-foreground';
+      case 'critical': return 'bg-danger text-danger-foreground';
+      case 'high': return 'bg-warning text-warning-foreground';
+      case 'medium': return 'bg-primary text-primary-foreground';
+      case 'low': return 'bg-muted text-foreground';
+      default: return 'bg-muted text-foreground';
     }
   };
 
   const getStatusColor = () => {
     switch (threat.status) {
-      case 'New': return 'bg-accent text-accent-foreground';
-      case 'Active': return 'bg-warning text-warning-foreground';
-      case 'Mitigated': return 'bg-success text-success-foreground';
+      case 'new': return 'bg-accent text-accent-foreground';
+      case 'active': return 'bg-warning text-warning-foreground';
+      case 'mitigated': return 'bg-success text-success-foreground';
+      default: return 'bg-muted text-foreground';
     }
   };
 
@@ -62,16 +76,16 @@ const ThreatDetailsPanel = ({ threat, onClose, onOpenActModal }: ThreatDetailsPa
       <div className="p-6 border-b border-border">
         <div className="flex items-start justify-between mb-3">
           <div className="flex-1">
-            <h2 className="text-xl font-bold mb-1">{threat.name}</h2>
-            <p className="text-sm text-muted-foreground">({threat.asset})</p>
+            <h2 className="text-xl font-bold mb-1">{threat.threat_name}</h2>
+            <p className="text-sm text-muted-foreground">({getPrimaryAsset()})</p>
           </div>
           <Button variant="ghost" size="icon" onClick={onClose}>
             <X className="h-5 w-5" />
           </Button>
         </div>
         <div className="flex gap-2">
-          <Badge className={getSeverityColor()}>{threat.severity}</Badge>
-          <Badge className={getStatusColor()}>{threat.status}</Badge>
+          <Badge className={getSeverityColor()}>{capitalizeFirst(threat.severity)}</Badge>
+          <Badge className={getStatusColor()}>{capitalizeFirst(threat.status)}</Badge>
         </div>
       </div>
 
@@ -94,35 +108,31 @@ const ThreatDetailsPanel = ({ threat, onClose, onOpenActModal }: ThreatDetailsPa
                 <p className="text-muted-foreground text-xs mb-1">Last Updated</p>
                 <p className="font-medium">{new Date(threat.last_updated).toLocaleDateString('en-GB')}</p>
               </div>
-              {threat.confidence && (
+              <div>
+                <p className="text-muted-foreground text-xs mb-1">Prioritization Score</p>
+                <p className="font-medium">{(threat.prioritization_score * 100).toFixed(0)}/100</p>
+              </div>
+              {threat.mitre_tactics && threat.mitre_tactics.length > 0 && (
                 <div>
-                  <p className="text-muted-foreground text-xs mb-1">Confidence</p>
-                  <p className="font-medium">{threat.confidence}</p>
+                  <p className="text-muted-foreground text-xs mb-1">MITRE ATT&CK Tactics</p>
+                  <p className="font-medium">{threat.mitre_tactics[0]}</p>
                 </div>
               )}
-              {threat.kill_chain_phase && (
-                <div>
-                  <p className="text-muted-foreground text-xs mb-1">MITRE ATT&CK Phase</p>
-                  <p className="font-medium">{threat.kill_chain_phase}</p>
-                </div>
-              )}
-              {threat.score && (
-                <div>
-                  <p className="text-muted-foreground text-xs mb-1">Risk Score</p>
-                  <p className="font-medium">{threat.score}/100</p>
-                </div>
-              )}
+              <div>
+                <p className="text-muted-foreground text-xs mb-1">Primary Surface</p>
+                <p className="font-medium">{threat.primary_surface}</p>
+              </div>
             </div>
           </div>
 
           {/* CVEs */}
-          {threat.cves && threat.cves.length > 0 && (
+          {threat.cve_ids && threat.cve_ids.length > 0 && threat.cve_ids.filter(cve => cve && cve !== 'NA').length > 0 && (
             <>
               <Separator />
               <div>
                 <h3 className="font-semibold mb-2 text-sm">CVE List</h3>
                 <div className="flex flex-wrap gap-2">
-                  {threat.cves.map((cve) => (
+                  {threat.cve_ids.filter(cve => cve && cve !== 'NA').map((cve) => (
                     <Badge key={cve} variant="outline" className="font-mono text-xs">
                       {cve}
                     </Badge>
@@ -132,16 +142,38 @@ const ThreatDetailsPanel = ({ threat, onClose, onOpenActModal }: ThreatDetailsPa
             </>
           )}
 
-          {/* Affected Versions */}
-          {threat.affected_versions && threat.affected_versions.length > 0 && (
+          {/* Assets Impacted */}
+          {threat.assets_impacted && threat.assets_impacted.length > 0 && (
             <>
               <Separator />
               <div>
-                <h3 className="font-semibold mb-2 text-sm">Affected Versions</h3>
+                <h3 className="font-semibold mb-2 text-sm">Assets Impacted</h3>
+                <div className="space-y-2">
+                  {threat.assets_impacted.map((asset, i) => (
+                    <div key={i} className="p-2 bg-muted/50 rounded text-sm">
+                      <p className="font-medium">{asset.product_name}</p>
+                      <div className="flex gap-2 mt-1">
+                        {asset.is_crown_jewel && <Badge variant="secondary" className="text-xs">Crown Jewel</Badge>}
+                        {asset.internet_facing && <Badge variant="outline" className="text-xs">Internet Facing</Badge>}
+                        <Badge variant="outline" className="text-xs">Data: {capitalizeFirst(asset.data_sensitivity)}</Badge>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </>
+          )}
+
+          {/* MITRE Tactics */}
+          {threat.mitre_tactics && threat.mitre_tactics.length > 0 && (
+            <>
+              <Separator />
+              <div>
+                <h3 className="font-semibold mb-2 text-sm">MITRE ATT&CK Tactics</h3>
                 <div className="flex flex-wrap gap-2">
-                  {threat.affected_versions.map((version, i) => (
-                    <Badge key={i} variant="secondary" className="text-xs">
-                      {version}
+                  {threat.mitre_tactics.map((tactic, i) => (
+                    <Badge key={i} variant="outline" className="text-xs">
+                      {tactic}
                     </Badge>
                   ))}
                 </div>
@@ -153,7 +185,7 @@ const ThreatDetailsPanel = ({ threat, onClose, onOpenActModal }: ThreatDetailsPa
           <Separator />
           <Collapsible open={isDescriptionOpen} onOpenChange={setIsDescriptionOpen}>
             <CollapsibleTrigger className="w-full flex items-center justify-between mb-2">
-              <h3 className="font-semibold text-sm">Description</h3>
+              <h3 className="font-semibold text-sm">Summary</h3>
               {isDescriptionOpen ? (
                 <ChevronUp className="h-4 w-4 text-muted-foreground" />
               ) : (
@@ -161,61 +193,62 @@ const ThreatDetailsPanel = ({ threat, onClose, onOpenActModal }: ThreatDetailsPa
               )}
             </CollapsibleTrigger>
             <CollapsibleContent>
-              <p className="text-sm text-muted-foreground leading-relaxed">{threat.description}</p>
+              <p className="text-sm text-muted-foreground leading-relaxed">{threat.summary}</p>
             </CollapsibleContent>
           </Collapsible>
 
-          {/* IOCs */}
-          {threat.iocs && threat.iocs.length > 0 && (
-            <>
-              <Separator />
-              <div>
-                <h3 className="font-semibold mb-3 text-sm">Indicators of Compromise</h3>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead className="text-xs">Type</TableHead>
-                      <TableHead className="text-xs">Value</TableHead>
-                      <TableHead className="text-xs">First Seen</TableHead>
-                      <TableHead className="text-xs">Last Seen</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {threat.iocs.map((ioc, i) => (
-                      <TableRow key={i}>
-                        <TableCell className="text-xs font-medium">{ioc.type}</TableCell>
-                        <TableCell className="text-xs font-mono">{ioc.value}</TableCell>
-                        <TableCell className="text-xs text-muted-foreground">
-                          {ioc.first_seen ? new Date(ioc.first_seen).toLocaleDateString('en-GB') : '-'}
-                        </TableCell>
-                        <TableCell className="text-xs text-muted-foreground">
-                          {ioc.last_seen ? new Date(ioc.last_seen).toLocaleDateString('en-GB') : '-'}
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </div>
-            </>
-          )}
-
-          {/* Recommended Actions */}
-          {threat.recommended_actions && threat.recommended_actions.length > 0 && (
+          {/* Relevance Reasons */}
+          {threat.relevance_reasons && threat.relevance_reasons.length > 0 && (
             <>
               <Separator />
               <div>
                 <h3 className="font-semibold mb-3 text-sm flex items-center gap-2">
                   <AlertTriangle className="h-4 w-4 text-warning" />
-                  Recommended Actions
+                  Relevance Reasons
                 </h3>
                 <ul className="space-y-2">
-                  {threat.recommended_actions.map((action, i) => (
+                  {threat.relevance_reasons.map((reason, i) => (
                     <li key={i} className="text-sm flex gap-2">
                       <span className="text-primary font-bold">•</span>
-                      <span className="flex-1 text-muted-foreground">{action}</span>
+                      <span className="flex-1 text-muted-foreground">{reason}</span>
                     </li>
                   ))}
                 </ul>
+              </div>
+            </>
+          )}
+
+          {/* Industries Affected */}
+          {threat.industries_affected && threat.industries_affected.length > 0 && (
+            <>
+              <Separator />
+              <div>
+                <h3 className="font-semibold mb-2 text-sm">Industries Affected</h3>
+                <div className="flex flex-wrap gap-2">
+                  {threat.industries_affected.map((industry, i) => (
+                    <Badge key={i} variant="secondary" className="text-xs">
+                      {industry}
+                    </Badge>
+                  ))}
+                </div>
+              </div>
+            </>
+          )}
+
+          {/* Regions Targeted */}
+          {threat.regions_or_countries_targeted && threat.regions_or_countries_targeted.length > 0 && 
+           threat.regions_or_countries_targeted.filter(r => r && r !== 'NA').length > 0 && (
+            <>
+              <Separator />
+              <div>
+                <h3 className="font-semibold mb-2 text-sm">Regions/Countries Targeted</h3>
+                <div className="flex flex-wrap gap-2">
+                  {threat.regions_or_countries_targeted.filter(r => r && r !== 'NA').map((region, i) => (
+                    <Badge key={i} variant="outline" className="text-xs">
+                      {region}
+                    </Badge>
+                  ))}
+                </div>
               </div>
             </>
           )}

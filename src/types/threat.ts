@@ -1,44 +1,50 @@
-export type SeverityLevel = 'Critical' | 'High' | 'Medium' | 'Low';
-export type StatusType = 'New' | 'Active' | 'Mitigated';
+// MongoDB schema-compatible types
+export type SeverityLevel = 'critical' | 'high' | 'medium' | 'low';
+export type StatusType = 'new' | 'active' | 'mitigated';
 
-export interface IOC {
-  type: string;
-  value: string;
-  first_seen?: string;
-  last_seen?: string;
-}
-
-export interface Geo {
-  lat: number;
-  lon: number;
+export interface RadarThreatAsset {
+  product_id: string;
+  product_name: string;
+  owning_team: string;
+  is_crown_jewel: boolean;
+  internet_facing: boolean;
+  data_sensitivity: 'low' | 'medium' | 'high';
 }
 
 export interface Threat {
+  // MongoDB RadarThreatPoint schema
   id: string;
-  name: string;
-  asset: string;
+  threat_name: string;
+  title: string;
   severity: SeverityLevel;
   status: StatusType;
+  severity_score: number;
+  relevance_score: number;
+  prioritization_score: number;
+  prioritization_band: 'critical' | 'high' | 'medium' | 'low';
+  primary_surface: string;
+  theta_deg: number;
+  radius_norm: number;
+  assets_impacted: RadarThreatAsset[];
+  cve_ids: string[];
+  mitre_tactics: string[];
+  mitre_techniques: string[];
+  source: string;
+  source_link: string;
   first_seen: string;
   last_updated: string;
-  score?: number;
-  description: string;
-  source: string;
-  cves?: string[];
-  kill_chain_phase?: string;
-  iocs?: IOC[];
-  geo?: Geo;
-  recommended_actions?: string[];
-  affected_versions?: string[];
-  confidence?: string;
+  summary: string;
+  relevance_reasons: string[];
+  industries_affected: string[];
+  regions_or_countries_targeted: string[];
 }
 
 export interface FilterState {
   search: string;
-  severity: SeverityLevel[];
+  severity: SeverityLevel[];  // Now lowercase: 'critical', 'high', etc.
   assets: string[];
   sources: string[];
-  statuses: StatusType[];
+  statuses: StatusType[];  // Now lowercase: 'new', 'active', 'mitigated'
   tags: string[];
   timeRange: 'last24h' | 'last7d' | 'last30d' | 'custom';
 }

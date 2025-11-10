@@ -1,5 +1,7 @@
+'use client';
+
 import { useState, useEffect, useMemo } from 'react';
-import { Threat, FilterState, SeverityLevel } from '@/types/threat';
+import { Threat, FilterState, SeverityLevel, ActivityDataPoint, AssetImpact } from '@/types/threat';
 import { 
   getThreats, 
   subscribeToUpdates, 
@@ -16,6 +18,9 @@ import ActivityChart from '@/components/ActivityChart';
 import AssetsChart from '@/components/AssetsChart';
 import ThreatDetailsPanel from '@/components/ThreatDetailsPanel';
 import ActModal from '@/components/ActModal';
+import NotificationsPanel from '@/components/NotificationsPanel';
+import CriticalAlertBar from '@/components/CriticalAlertBar';
+import KpiThreatsModal from '@/components/KpiThreatsModal';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetTrigger, SheetContent } from '@/components/ui/sheet';
 import { Menu, BarChart2 } from 'lucide-react';
@@ -27,42 +32,70 @@ const Index = () => {
   const [actModalOpen, setActModalOpen] = useState(false);
   const [actModalThreat, setActModalThreat] = useState<Threat | null>(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [kpiModalOpen, setKpiModalOpen] = useState(false);
+  const [kpiModalTitle, setKpiModalTitle] = useState('');
+  const [kpiModalThreats, setKpiModalThreats] = useState<Threat[]>([]);
 
   const [filters, setFilters] = useState<FilterState>({
     search: '',
     severity: [],
     assets: [],
     sources: [],
-    statuses: ['New', 'Active'],
+    statuses: ['new', 'active'],  // Lowercase to match MongoDB schema
     tags: [],
     timeRange: 'last30d',
   });
+  
+  const [kpis, setKpis] = useState({ active: 0, critical: 0, high: 0, newLast24h: 0, assetsImpacted: 0 });
+  const [activityData, setActivityData] = useState<ActivityDataPoint[]>([]);
+  const [assetImpacts, setAssetImpacts] = useState<AssetImpact[]>([]);
+  const [availableAssets, setAvailableAssets] = useState<string[]>([]);
+  const [availableSources, setAvailableSources] = useState<string[]>([]);
 
-  // Fetch threats
+  // Fetch all data
   useEffect(() => {
-    const loadThreats = async () => {
+    const loadData = async () => {
       setLoading(true);
-      const data = await getThreats(filters);
-      setThreats(data);
-      setLoading(false);
+      try {
+        const [threatsData, kpisData, activityDataData, assetImpactsData, assetsData, sourcesData] = await Promise.all([
+          getThreats(filters),
+          calculateKpis(),
+          getActivityData(),
+          getAssetImpacts(),
+          getUniqueAssets(),
+          getUniqueSources(),
+        ]);
+        setThreats(threatsData);
+        setKpis(kpisData);
+        setActivityData(activityDataData);
+        setAssetImpacts(assetImpactsData);
+        setAvailableAssets(assetsData);
+        setAvailableSources(sourcesData);
+      } catch (error) {
+        console.error('Error loading data:', error);
+      } finally {
+        setLoading(false);
+      }
     };
-    loadThreats();
+    loadData();
   }, [filters]);
 
   // Subscribe to live updates
   useEffect(() => {
-    const unsubscribe = subscribeToUpdates(() => {
-      getThreats(filters).then(setThreats);
+    const unsubscribe = subscribeToUpdates(async () => {
+      const [threatsData, kpisData, activityDataData, assetImpactsData] = await Promise.all([
+        getThreats(filters),
+        calculateKpis(),
+        getActivityData(),
+        getAssetImpacts(),
+      ]);
+      setThreats(threatsData);
+      setKpis(kpisData);
+      setActivityData(activityDataData);
+      setAssetImpacts(assetImpactsData);
     });
     return unsubscribe;
   }, [filters]);
-
-  // Calculate derived data
-  const kpis = useMemo(() => calculateKpis(threats), [threats]);
-  const activityData = useMemo(() => getActivityData(), []);
-  const assetImpacts = useMemo(() => getAssetImpacts(threats), [threats]);
-  const availableAssets = useMemo(() => getUniqueAssets(), []);
-  const availableSources = useMemo(() => getUniqueSources(), []);
 
   const handleThreatClick = (threatId: string, multiSelect: boolean) => {
     // Single selection - clicking a threat selects it and opens the details panel
@@ -94,6 +127,18 @@ const Index = () => {
     }));
   };
 
+  const handleKpiCardClick = (cardType: 'active' | 'critical' | 'high' | 'new24h', cardThreats: Threat[]) => {
+    const titles: Record<typeof cardType, string> = {
+      active: 'Active Threats',
+      critical: 'Critical Open Threats',
+      high: 'High Severity Threats',
+      new24h: 'New Threats (Last 24h)',
+    };
+    setKpiModalTitle(titles[cardType]);
+    setKpiModalThreats(cardThreats);
+    setKpiModalOpen(true);
+  };
+
   return (
     <div className="h-screen w-screen bg-background text-foreground flex overflow-hidden">
       {/* Collapsible Sidebar */}
@@ -108,6 +153,9 @@ const Index = () => {
 
       {/* Main Content */}
       <div className="flex-1 flex flex-col overflow-hidden">
+        {/* Pre-Header Alert Bar */}
+        <CriticalAlertBar criticalThreats={threats} />
+        
         {/* Header */}
         <header className="bg-card border-b border-border p-4 flex items-center justify-between shrink-0">
           <div className="flex items-center gap-4">
@@ -119,14 +167,24 @@ const Index = () => {
               <p className="text-sm text-muted-foreground">Real-time threat intelligence overview</p>
             </div>
           </div>
-          <div className="text-sm text-muted-foreground">
-            Last updated: {new Date().toLocaleTimeString()}
+          <div className="flex items-center gap-4">
+            <NotificationsPanel 
+              criticalThreats={threats} 
+              onThreatClick={(threatId) => handleThreatClick(threatId, false)}
+            />
+            <div className="text-sm text-muted-foreground">
+              Last updated: {new Date().toLocaleTimeString()}
+            </div>
           </div>
         </header>
 
         {/* Dashboard Grid */}
         <main className="flex-1 overflow-y-auto p-4 space-y-4">
-          <KpiCards data={kpis} />
+          <KpiCards 
+            data={kpis} 
+            threats={threats}
+            onCardClick={handleKpiCardClick}
+          />
           
           <div className="grid grid-cols-3 gap-4 h-[calc(100%-120px)] relative">
             {/* Radar takes 2/3 width */}
@@ -167,6 +225,18 @@ const Index = () => {
             threat={actModalThreat}
             open={actModalOpen}
             onClose={handleCloseActModal}
+          />
+
+          {/* KPI Threats Modal */}
+          <KpiThreatsModal
+            open={kpiModalOpen}
+            onClose={() => setKpiModalOpen(false)}
+            title={kpiModalTitle}
+            threats={kpiModalThreats}
+            onThreatClick={(threatId) => {
+              handleThreatClick(threatId, false);
+              setKpiModalOpen(false);
+            }}
           />
         </main>
       </div>
