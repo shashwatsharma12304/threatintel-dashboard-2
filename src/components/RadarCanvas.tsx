@@ -18,7 +18,6 @@ interface ThreatPosition {
   y: number;
   threat: Threat;
 }
-
 const RadarCanvas = ({ threats, selectedThreatIds, onThreatClick, activeSeverityFilter, onSeverityFilterChange }: RadarCanvasProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
