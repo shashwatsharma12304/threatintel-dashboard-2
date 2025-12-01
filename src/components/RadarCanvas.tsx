@@ -1,8 +1,12 @@
 import { useEffect, useRef, useState, useMemo, useCallback } from 'react';
-import { Threat, SeverityLevel } from '@/types/threat';
+import { Threat, SeverityLevel, StatusType, QuadrantType, getQuadrant, getDefenderFunction, QUADRANT_INFO } from '@/types/threat';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { ZoomIn, ZoomOut, RotateCcw } from 'lucide-react';
+import { ZoomIn, ZoomOut, RotateCcw, Maximize2 } from 'lucide-react';
+import { Dialog, DialogContent } from '@/components/ui/dialog';
+import { Checkbox } from '@/components/ui/checkbox';
+import { Label } from '@/components/ui/label';
+import SpotlightLayout from '@/components/SpotlightLayout';
 
 interface RadarCanvasProps {
   threats: Threat[];
@@ -17,10 +21,14 @@ interface ThreatPosition {
   x: number;
   y: number;
   threat: Threat;
+  quadrant: QuadrantType;
 }
+
 const RadarCanvas = ({ threats, selectedThreatIds, onThreatClick, activeSeverityFilter, onSeverityFilterChange }: RadarCanvasProps) => {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const modalCanvasRef = useRef<HTMLCanvasElement>(null);
+  const modalContainerRef = useRef<HTMLDivElement>(null);
   const [hoveredThreat, setHoveredThreat] = useState<Threat | null>(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
   const [zoom, setZoom] = useState(1);
@@ -32,12 +40,19 @@ const RadarCanvas = ({ threats, selectedThreatIds, onThreatClick, activeSeverity
   const [hasMoved, setHasMoved] = useState(false);
   const sweepAngleRef = useRef(0);
   const animationFrameRef = useRef<number>();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalSize, setModalSize] = useState(800);
 
-  const size = 600;
+  // Spotlight-specific filters
+  const [spotlightFilters, setSpotlightFilters] = useState({
+    statuses: ['new', 'active', 'mitigated'] as StatusType[],
+    severities: ['critical', 'high', 'medium', 'low'] as SeverityLevel[],
+  });
+
+  const [size, setSize] = useState(600);
   const center = size / 2;
   const rings = 4;
   const ringGap = (size * 0.85) / (2 * rings);
-  const perspective = 0; // Set to 0 to disable 3D projection
 
   const severityToRing: Record<SeverityLevel, number> = {
     critical: 1,
@@ -51,6 +66,18 @@ const RadarCanvas = ({ threats, selectedThreatIds, onThreatClick, activeSeverity
     high: '#FFA940',
     medium: '#FFD666',
     low: '#69C0FF',
+  };
+
+  // Quadrant angle ranges (canvas coordinates: 0° = right, clockwise)
+  // Pre-Protect (Top-Left): 180-270°
+  // Post-Protect (Top-Right): 270-360°
+  // Pre-Detect (Bottom-Left): 90-180°
+  // Post-Detect (Bottom-Right): 0-90°
+  const quadrantAngleRange: Record<QuadrantType, { min: number; max: number }> = {
+    post_detect: { min: 0, max: 90 },      // Bottom-Right: Post × Detect/Respond
+    pre_detect: { min: 90, max: 180 },     // Bottom-Left: Pre × Detect/Respond
+    pre_protect: { min: 180, max: 270 },   // Top-Left: Pre × Protect
+    post_protect: { min: 270, max: 360 },  // Top-Right: Post × Protect
   };
 
   // Helper to get primary asset name
@@ -67,65 +94,49 @@ const RadarCanvas = ({ threats, selectedThreatIds, onThreatClick, activeSeverity
     return s[0].toUpperCase() + s.slice(1).toLowerCase();
   };
 
-  const getQuadrantForAsset = (asset: string): 'NW' | 'NE' | 'SE' | 'SW' => {
-    const lowerAsset = asset.toLowerCase();
-    // NW: Identity/Access (SSO, IAM, AD/Entra)
-    if (['sso', 'iam', 'ad', 'entra', 'okta', 'identity', 'auth'].some(kw => lowerAsset.includes(kw))) {
-      return 'NW';
-    }
-    // NE: Endpoint & Email (EDR, mail, browsers)
-    if (['edr', 'mail', 'browser', 'endpoint', 'windows', 'linux', 'email', 'workstation'].some(kw => lowerAsset.includes(kw))) {
-      return 'NE';
-    }
-    // SE: Cloud/SaaS/Containers (AWS, GCP, K8s)
-    if (['aws', 'gcp', 'k8s', 'kubernetes', 'container', 'saas', 'cloud', 's3', 'serverless', 'npm', 'java', 'web application'].some(kw => lowerAsset.includes(kw))) {
-      return 'SE';
-    }
-    // SW: Network/Edge/OT (VPN, FW, IoT/ICS)
-    if (['vpn', 'fw', 'firewall', 'iot', 'ics', 'network', 'edge', 'router', 'switch', 'database', 'db', 'redis', 'postgresql'].some(kw => lowerAsset.includes(kw))) {
-      return 'SW';
-    }
-    // Fallback
-    const hash = asset.split('').reduce((acc, char) => char.charCodeAt(0) + ((acc << 5) - acc), 0);
-    const quadrants: ('NW' | 'NE' | 'SE' | 'SW')[] = ['SE', 'NE', 'SW', 'NW']; // Spreading the fallback
-    return quadrants[Math.abs(hash) % 4];
-  };
-
-  const quadrantAngleRange: Record<'NW' | 'NE' | 'SE' | 'SW', { min: number, max: number }> = {
-    SE: { min: 0, max: 90 },     // Bottom-Right
-    SW: { min: 90, max: 180 },   // Bottom-Left
-    NW: { min: 180, max: 270 }, // Top-Left
-    NE: { min: 270, max: 360 }, // Top-Right
-  };
-
-  // Hash function for stable angle generation
-  const hashToAngle = (id: string): number => {
+  // Hash function for stable angle generation within quadrant
+  const hashToAngleOffset = (id: string, range: number): number => {
     let hash = 0;
     for (let i = 0; i < id.length; i++) {
       hash = ((hash << 5) - hash) + id.charCodeAt(i);
       hash = hash & hash;
     }
-    return ((hash % 360) + 360) % 360;
+    return Math.abs(hash % Math.floor(range * 0.8)) + (range * 0.1); // Keep away from edges
   };
 
-  // Calculate positions using MongoDB theta_deg and radius_norm
+  // Calculate positions based on quadrant mapping
   const threatPositions = useMemo(() => {
     const positions: ThreatPosition[] = [];
+    const quadrantCounts: Record<QuadrantType, number> = {
+      pre_protect: 0,
+      pre_detect: 0,
+      post_protect: 0,
+      post_detect: 0,
+    };
     
     threats.forEach((threat) => {
-      // Use theta_deg and radius_norm directly from MongoDB
-      const angle = threat.theta_deg;
-      const normalizedRadius = threat.radius_norm;
+      const quadrant = getQuadrant(threat);
+      const { min, max } = quadrantAngleRange[quadrant];
+      const angleRange = max - min;
       
-      // Convert normalized radius (0-1) to pixel radius
-      // Invert: higher priority (lower radius_norm) = closer to center
+      // Calculate angle within quadrant using hash for distribution
+      const angleOffset = hashToAngleOffset(threat.id, angleRange);
+      const angle = min + angleOffset;
+      
+      // Use severity to determine distance from center
+      // Critical = closest to center, Low = furthest
+      const ring = severityToRing[threat.severity];
       const maxRadius = ringGap * rings;
-      const radius = normalizedRadius * maxRadius;
+      const baseRadius = (ring / rings) * maxRadius;
+      // Add small random offset based on id hash for visual spread
+      const radiusOffset = (hashToAngleOffset(threat.id + 'r', ringGap * 0.5)) - (ringGap * 0.25);
+      const radius = Math.max(ringGap * 0.5, Math.min(maxRadius, baseRadius + radiusOffset));
 
       const x = center + radius * Math.cos((angle * Math.PI) / 180);
       const y = center + radius * Math.sin((angle * Math.PI) / 180);
 
-      positions.push({ id: threat.id, x, y, threat });
+      positions.push({ id: threat.id, x, y, threat, quadrant });
+      quadrantCounts[quadrant]++;
     });
 
     return positions;
@@ -137,18 +148,24 @@ const RadarCanvas = ({ threats, selectedThreatIds, onThreatClick, activeSeverity
     return threatPositions.filter(pos => pos.threat.severity === activeSeverityFilter);
   }, [threatPositions, activeSeverityFilter]);
 
+  // Filter threats for spotlight modal
+  const spotlightFilteredPositions = useMemo(() => {
+    return threatPositions.filter(pos => {
+      const statusMatch = spotlightFilters.statuses.includes(pos.threat.status);
+      const severityMatch = spotlightFilters.severities.includes(pos.threat.severity);
+      return statusMatch && severityMatch;
+    });
+  }, [threatPositions, spotlightFilters]);
+
   // Find threat at mouse position
   const findThreatAtPosition = useCallback((mouseX: number, mouseY: number): ThreatPosition | null => {
     const canvas = canvasRef.current;
     if (!canvas) return null;
 
     const rect = canvas.getBoundingClientRect();
-    const scaleX = canvas.width / rect.width;
-    const scaleY = canvas.height / rect.height;
-    const x = (mouseX - rect.left) * scaleX;
-    const y = (mouseY - rect.top) * scaleY;
+    const x = mouseX - rect.left;
+    const y = mouseY - rect.top;
 
-    // Account for zoom and pan
     const centerX = size / 2;
     const centerY = size / 2;
     const adjustedX = centerX + (x - centerX - panX) / zoom;
@@ -156,267 +173,245 @@ const RadarCanvas = ({ threats, selectedThreatIds, onThreatClick, activeSeverity
 
     for (const pos of filteredPositions) {
       const dist = Math.sqrt((pos.x - adjustedX) ** 2 + (pos.y - adjustedY) ** 2);
-      if (dist < 6) { // Adjusted for smaller dots
+      if (dist < 8) {
         return pos;
       }
     }
     return null;
-  }, [filteredPositions, zoom, panX, panY]);
+  }, [filteredPositions, zoom, panX, panY, size]);
 
-  // Helper function to project 3D coordinates with perspective
-  const project3D = useCallback((x: number, y: number, z: number) => {
-    const scale = 1 / (1 + z * perspective);
-    return {
-      x: center + (x - center) * scale,
-      y: center + (y - center) * scale,
-      scale: scale
-    };
-  }, [center, perspective]);
+  // Draw function with quadrant-based design
+  const draw = useCallback((canvas?: HTMLCanvasElement, customSize?: number, positions?: ThreatPosition[]) => {
+    const targetCanvas = canvas || canvasRef.current;
+    if (!targetCanvas) return;
+    const canvasSize = customSize || size;
+    // Don't draw if canvas size is not properly set yet or too small
+    // Minimum size of 100px to ensure proper rendering
+    if (canvasSize < 100) return;
+    const canvasCenter = canvasSize / 2;
+    const canvasRingGap = (canvasSize * 0.85) / (2 * rings);
+    const positionsToRender = positions || filteredPositions;
 
-  // Draw function with new flat design
-  const draw = useCallback(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext('2d');
+    const ctx = targetCanvas.getContext('2d');
     if (!ctx) return;
 
-    // Clear canvas
-    ctx.clearRect(0, 0, size, size);
+    const dpr = window.devicePixelRatio || 1;
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+
+    // Clear canvas and set theme-aware background
+    const isDark = document.documentElement.classList.contains('dark');
+    ctx.fillStyle = isDark ? '#0A0F1E' : '#FFFFFF';
+    ctx.fillRect(0, 0, canvasSize, canvasSize);
 
     // Apply zoom and pan transform
     ctx.save();
-    ctx.translate(center + panX, center + panY);
+    ctx.translate(canvasCenter + panX, canvasCenter + panY);
     ctx.scale(zoom, zoom);
-    ctx.translate(-center, -center);
+    ctx.translate(-canvasCenter, -canvasCenter);
 
-    // Draw dark background with subtle gradient
-    const bgGradient = ctx.createRadialGradient(center, center, 0, center, center, size);
-    bgGradient.addColorStop(0, '#0A0E1A');
-    bgGradient.addColorStop(0.5, '#0D1117');
-    bgGradient.addColorStop(1, '#050709');
-    ctx.fillStyle = bgGradient;
-    ctx.fillRect(0, 0, size, size);
+    const radarGreen = '#1a5c3a';
+    const radarGreenBright = '#00ff88';
 
-    const radarGreen = '#3D9970'; // Muted green for a tactical look
-    const radarGreenBright = '#61FFB8'; // Bright green for highlights
-
-    // Draw rings with improved styling
+    // Draw concentric rings
     for (let i = 0; i < rings; i++) {
-      const ringRadius = (i + 1) * ringGap;
+      const ringRadius = (i + 1) * canvasRingGap;
       const ringAlpha = 0.3 + (i * 0.1);
       
-      // Outer glow
-      ctx.shadowBlur = 10;
+      ctx.shadowBlur = 12;
       ctx.shadowColor = radarGreen;
       ctx.strokeStyle = radarGreen;
-      ctx.lineWidth = 1.5;
+      ctx.lineWidth = 2;
       ctx.globalAlpha = ringAlpha;
       ctx.beginPath();
-      ctx.arc(center, center, ringRadius, 0, Math.PI * 2);
+      ctx.arc(canvasCenter, canvasCenter, ringRadius, 0, Math.PI * 2);
       ctx.stroke();
       
-      // Inner highlight
       ctx.shadowBlur = 0;
       ctx.strokeStyle = radarGreenBright;
-      ctx.lineWidth = 0.5;
-      ctx.globalAlpha = ringAlpha * 0.5;
-      ctx.beginPath();
-      ctx.arc(center, center, ringRadius - 1, 0, Math.PI * 2);
-      ctx.stroke();
-    }
-    ctx.globalAlpha = 1;
-    ctx.shadowBlur = 0;
-
-    // Draw spokes (8 spokes every 45°) with gradient
-    ctx.globalAlpha = 0.4;
-    for (let i = 0; i < 8; i++) {
-      const angle = (i * 45 * Math.PI) / 180;
-      const gradient = ctx.createLinearGradient(
-        center, center,
-        center + (ringGap * rings) * Math.cos(angle),
-        center + (ringGap * rings) * Math.sin(angle)
-      );
-      gradient.addColorStop(0, radarGreenBright);
-      gradient.addColorStop(0.5, radarGreen);
-      gradient.addColorStop(1, 'rgba(61, 153, 112, 0)');
-      
-      ctx.strokeStyle = gradient;
       ctx.lineWidth = 1;
+      ctx.globalAlpha = ringAlpha * 0.7;
       ctx.beginPath();
-      ctx.moveTo(center, center);
-      ctx.lineTo(center + (ringGap * rings) * Math.cos(angle), center + (ringGap * rings) * Math.sin(angle));
+      ctx.arc(canvasCenter, canvasCenter, Math.max(1, ringRadius - 1), 0, Math.PI * 2);
       ctx.stroke();
     }
     ctx.globalAlpha = 1;
-
-    // Draw Quadrant Labels with improved styling
-    // NW Quadrant (Top-Left)
-    ctx.textAlign = 'left';
-    ctx.textBaseline = 'top';
-    ctx.shadowBlur = 8;
-    ctx.shadowColor = 'rgba(0, 0, 0, 0.8)';
-    ctx.fillStyle = '#94e8c1'; // Brighter green for title
-    ctx.font = `bold 13px "Inter", "Helvetica Neue", sans-serif`;
-    ctx.fillText('Identity/Access', 40, 40);
-    ctx.fillStyle = '#7C8A9A'; // Muted gray for subtitle
-    ctx.font = `normal 10px "Inter", "Helvetica Neue", sans-serif`;
-    ctx.fillText('(SSO, IAM, AD/Entra)', 40, 58);
-
-    // NE Quadrant (Top-Right)
-    ctx.textAlign = 'right';
-    ctx.textBaseline = 'top';
-    ctx.fillStyle = '#94e8c1';
-    ctx.font = `bold 13px "Inter", "Helvetica Neue", sans-serif`;
-    ctx.fillText('Endpoint & Email', size - 40, 40);
-    ctx.fillStyle = '#7C8A9A';
-    ctx.font = `normal 10px "Inter", "Helvetica Neue", sans-serif`;
-    ctx.fillText('(EDR, mail, browsers)', size - 40, 58);
-
-    // SW Quadrant (Bottom-Left)
-    ctx.textAlign = 'left';
-    ctx.textBaseline = 'bottom';
-    ctx.fillStyle = '#7C8A9A';
-    ctx.font = `normal 10px "Inter", "Helvetica Neue", sans-serif`;
-    ctx.fillText('(VPN, FW, IoT/ICS)', 40, size - 40);
-    ctx.fillStyle = '#94e8c1';
-    ctx.font = `bold 13px "Inter", "Helvetica Neue", sans-serif`;
-    ctx.fillText('Network/Edge/OT', 40, size - 58);
-
-    // SE Quadrant (Bottom-Right)
-    ctx.textAlign = 'right';
-    ctx.textBaseline = 'bottom';
-    ctx.fillStyle = '#7C8A9A';
-    ctx.font = `normal 10px "Inter", "Helvetica Neue", sans-serif`;
-    ctx.fillText('(AWS, GCP, K8s)', size - 40, size - 40);
-    ctx.fillStyle = '#94e8c1';
-    ctx.font = `bold 13px "Inter", "Helvetica Neue", sans-serif`;
-    ctx.fillText('Cloud/SaaS/Containers', size - 40, size - 58);
     ctx.shadowBlur = 0;
 
-    // Reset text properties
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
+    // Draw quadrant dividing lines (X and Y axes through center)
+    const maxRadius = canvasRingGap * rings;
+    
+    // Horizontal axis (Pre vs Post)
+    const hGradient = ctx.createLinearGradient(canvasCenter - maxRadius, canvasCenter, canvasCenter + maxRadius, canvasCenter);
+    hGradient.addColorStop(0, 'rgba(0, 255, 136, 0)');
+    hGradient.addColorStop(0.3, radarGreen);
+    hGradient.addColorStop(0.5, radarGreenBright);
+    hGradient.addColorStop(0.7, radarGreen);
+    hGradient.addColorStop(1, 'rgba(0, 255, 136, 0)');
+    
+    ctx.strokeStyle = hGradient;
+    ctx.lineWidth = 2;
+    ctx.globalAlpha = 0.8;
+    ctx.beginPath();
+    ctx.moveTo(canvasCenter - maxRadius, canvasCenter);
+    ctx.lineTo(canvasCenter + maxRadius, canvasCenter);
+    ctx.stroke();
 
-    // Draw sweep wedge with improved animation
+    // Vertical axis (Protect vs Detect/Respond)
+    const vGradient = ctx.createLinearGradient(canvasCenter, canvasCenter - maxRadius, canvasCenter, canvasCenter + maxRadius);
+    vGradient.addColorStop(0, 'rgba(0, 255, 136, 0)');
+    vGradient.addColorStop(0.3, radarGreen);
+    vGradient.addColorStop(0.5, radarGreenBright);
+    vGradient.addColorStop(0.7, radarGreen);
+    vGradient.addColorStop(1, 'rgba(0, 255, 136, 0)');
+    
+    ctx.strokeStyle = vGradient;
+    ctx.beginPath();
+    ctx.moveTo(canvasCenter, canvasCenter - maxRadius);
+    ctx.lineTo(canvasCenter, canvasCenter + maxRadius);
+    ctx.stroke();
+    ctx.globalAlpha = 1;
+
+    // Draw Quadrant Labels - simplified
+    const labelTitleColor = isDark ? '#94e8c1' : '#1a5c3a';
+    
+    ctx.shadowBlur = 2;
+    ctx.shadowColor = isDark ? 'rgba(0, 0, 0, 0.8)' : 'rgba(255, 255, 255, 0.8)';
+    ctx.font = `bold 11px "Inter", "Helvetica Neue", sans-serif`;
+
+    // Pre × Protect (Top-Left)
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'top';
+    ctx.fillStyle = labelTitleColor;
+    ctx.fillText('PRE × PROTECT', 15, 15);
+
+    // Post × Protect (Top-Right)
+    ctx.textAlign = 'right';
+    ctx.fillText('POST × PROTECT', canvasSize - 15, 15);
+
+    // Pre × Detect/Respond (Bottom-Left)
+    ctx.textAlign = 'left';
+    ctx.textBaseline = 'bottom';
+    ctx.fillText('PRE × DETECT', 15, canvasSize - 15);
+
+    // Post × Detect/Respond (Bottom-Right)
+    ctx.textAlign = 'right';
+    ctx.fillText('POST × DETECT', canvasSize - 15, canvasSize - 15);
+    
+    ctx.shadowBlur = 0;
+
+    // Draw sweep wedge
     const sweepAngle = sweepAngleRef.current;
-    const sweepWidth = 60; // degrees
+    const sweepWidth = 60;
     
     ctx.save();
-    ctx.translate(center, center);
+    ctx.translate(canvasCenter, canvasCenter);
     ctx.rotate((sweepAngle * Math.PI) / 180);
     
-    // Enhanced sweep gradient
-    const sweepGradient = ctx.createRadialGradient(0, 0, 0, 0, 0, ringGap * rings);
-    sweepGradient.addColorStop(0, 'rgba(97, 255, 184, 0.4)');
-    sweepGradient.addColorStop(0.3, 'rgba(61, 153, 112, 0.25)');
-    sweepGradient.addColorStop(0.7, 'rgba(61, 153, 112, 0.1)');
-    sweepGradient.addColorStop(1, 'rgba(61, 153, 112, 0)');
+    const sweepGradient = ctx.createRadialGradient(0, 0, 0, 0, 0, canvasRingGap * rings);
+    sweepGradient.addColorStop(0, 'rgba(0, 255, 136, 0.5)');
+    sweepGradient.addColorStop(0.3, 'rgba(26, 92, 58, 0.35)');
+    sweepGradient.addColorStop(0.7, 'rgba(26, 92, 58, 0.15)');
+    sweepGradient.addColorStop(1, 'rgba(26, 92, 58, 0)');
     
     ctx.fillStyle = sweepGradient;
     ctx.beginPath();
     ctx.moveTo(0, 0);
-    ctx.arc(0, 0, ringGap * rings, 0, (sweepWidth * Math.PI) / 180);
+    ctx.arc(0, 0, canvasRingGap * rings, 0, (sweepWidth * Math.PI) / 180);
     ctx.lineTo(0, 0);
     ctx.fill();
     
-    // Leading edge with glow
-    ctx.shadowBlur = 15;
+    ctx.shadowBlur = 20;
     ctx.shadowColor = radarGreenBright;
     ctx.strokeStyle = radarGreenBright;
+    ctx.lineWidth = 3;
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.lineTo(canvasRingGap * rings, 0);
+    ctx.stroke();
+    
+    ctx.shadowBlur = 5;
+    ctx.shadowColor = radarGreen;
+    ctx.strokeStyle = radarGreen;
     ctx.lineWidth = 2;
     ctx.beginPath();
     ctx.moveTo(0, 0);
-    ctx.lineTo(ringGap * rings, 0);
-    ctx.stroke();
-    
-    // Secondary edge line
-    ctx.shadowBlur = 0;
-    ctx.strokeStyle = radarGreen;
-    ctx.lineWidth = 1;
-    ctx.beginPath();
-    ctx.moveTo(0, 0);
-    ctx.lineTo(ringGap * rings, 0);
+    ctx.lineTo(canvasRingGap * rings, 0);
     ctx.stroke();
     
     ctx.restore();
 
-    // Draw ring labels
+    // Draw minimal severity indicators on left edge
     const severities: SeverityLevel[] = ['critical', 'high', 'medium', 'low'];
-    ctx.fillStyle = radarGreen;
-    ctx.font = 'bold 9px "Courier New", monospace';
-    ctx.textAlign = 'center';
+    ctx.font = 'bold 8px "Inter", sans-serif';
+    ctx.textAlign = 'right';
     ctx.textBaseline = 'middle';
+    ctx.fillStyle = isDark ? 'rgba(148, 232, 193, 0.6)' : 'rgba(26, 92, 58, 0.6)';
+    
     for (let i = 0; i < rings; i++) {
-        const ringRadius = (i + 1) * ringGap;
-        // Position labels along the top spoke
-        ctx.save();
-        ctx.translate(center, center - ringRadius);
-        ctx.rotate(-Math.PI / 2);
-        ctx.fillStyle = '#1e4b37';
-        ctx.fillRect(-25, -10, 50, 20);
-        ctx.fillStyle = '#94e8c1';
-        ctx.fillText(capitalizeFirst(severities[i]), 0, 0);
-        ctx.restore();
+      const ringRadius = (i + 1) * canvasRingGap;
+      ctx.fillText(severities[i].charAt(0).toUpperCase(), canvasCenter - ringRadius - 4, canvasCenter);
     }
 
-    // Draw center dot with enhanced styling
-    const centerGlow = ctx.createRadialGradient(center, center, 0, center, center, 20);
-    centerGlow.addColorStop(0, '#A6FFD5');
-    centerGlow.addColorStop(0.5, 'rgba(97, 255, 184, 0.5)');
-    centerGlow.addColorStop(1, 'rgba(61, 153, 112, 0)');
+    // Draw center dot
+    const centerGlow = ctx.createRadialGradient(canvasCenter, canvasCenter, 0, canvasCenter, canvasCenter, 20);
+    centerGlow.addColorStop(0, '#00ff88');
+    centerGlow.addColorStop(0.5, 'rgba(0, 255, 136, 0.5)');
+    centerGlow.addColorStop(1, 'rgba(26, 92, 58, 0)');
     ctx.shadowBlur = 20;
     ctx.shadowColor = radarGreenBright;
     ctx.fillStyle = centerGlow;
     ctx.beginPath();
-    ctx.arc(center, center, 20, 0, Math.PI * 2);
+    ctx.arc(canvasCenter, canvasCenter, 20, 0, Math.PI * 2);
     ctx.fill();
     
     ctx.shadowBlur = 0;
     ctx.fillStyle = '#EFFFF5';
     ctx.beginPath();
-    ctx.arc(center, center, 5, 0, Math.PI * 2);
+    ctx.arc(canvasCenter, canvasCenter, 5, 0, Math.PI * 2);
     ctx.fill();
     
-    // Inner core
     ctx.fillStyle = radarGreenBright;
     ctx.beginPath();
-    ctx.arc(center, center, 2, 0, Math.PI * 2);
+    ctx.arc(canvasCenter, canvasCenter, 2, 0, Math.PI * 2);
     ctx.fill();
 
-    ctx.shadowBlur = 5;
-    ctx.shadowColor = 'rgba(0, 0, 0, 0.8)';
-    ctx.fillStyle = radarGreenBright;
-    ctx.font = 'bold 10px "Inter", "Courier New", monospace';
-    ctx.fillText('YOU', center, center + 22);
+    ctx.shadowBlur = 3;
+    ctx.shadowColor = isDark ? 'rgba(0, 0, 0, 0.8)' : 'rgba(255, 255, 255, 0.8)';
+    ctx.fillStyle = isDark ? '#94e8c1' : '#1a5c3a';
+    ctx.font = 'bold 11px "Inter", sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('YOU', canvasCenter, canvasCenter + 24);
     ctx.shadowBlur = 0;
 
-
     // Draw threat dots
-    const sortedPositions = [...filteredPositions].sort((a, b) => {
-      const distA = Math.sqrt((a.x - center) ** 2 + (a.y - center) ** 2);
-      const distB = Math.sqrt((b.x - center) ** 2 + (b.y - center) ** 2);
-      return distB - distA; // Draw far ones first
+    const sortedPositions = [...positionsToRender].sort((a, b) => {
+      const distA = Math.sqrt((a.x - canvasCenter) ** 2 + (a.y - canvasCenter) ** 2);
+      const distB = Math.sqrt((b.x - canvasCenter) ** 2 + (b.y - canvasCenter) ** 2);
+      return distB - distA;
     });
 
     sortedPositions.forEach(({ id, x, y, threat }) => {
       const isSelected = selectedThreatIds.includes(id);
       const dotColor = severityColors[threat.severity];
       const isNew = threat.status === 'new';
+      const hasSelection = selectedThreatIds.length > 0;
 
       let alpha = 1;
-      if (isNew) {
-        // Blinking effect for new items
+      
+      // Dim non-selected threats when there's a selection
+      if (hasSelection && !isSelected) {
+        alpha = 0.3;
+      } else if (isNew) {
+        // Blinking effect for new items (only when not dimmed)
         alpha = 0.5 + Math.sin(Date.now() / 200) * 0.5;
       }
       
-      // Pulsing ring for selected threats (adjusted for smaller dots)
       if (isSelected) {
         const pulseTime = Date.now() / 1000;
-        const pulseRadius = 8 + Math.sin(pulseTime * 3) * 3;
+        const pulseRadius = 10 + Math.sin(pulseTime * 3) * 3;
         const pulseAlpha = 0.6 - Math.abs(Math.sin(pulseTime * 3)) * 0.4;
         
-        ctx.shadowBlur = 10;
+        ctx.shadowBlur = 15;
         ctx.shadowColor = dotColor;
         ctx.globalAlpha = pulseAlpha;
         ctx.strokeStyle = dotColor;
@@ -425,10 +420,9 @@ const RadarCanvas = ({ threats, selectedThreatIds, onThreatClick, activeSeverity
         ctx.arc(x, y, pulseRadius, 0, Math.PI * 2);
         ctx.stroke();
         
-        // Additional outer pulse ring
         const outerPulseRadius = pulseRadius + 6;
         const outerPulseAlpha = pulseAlpha * 0.3;
-        ctx.shadowBlur = 5;
+        ctx.shadowBlur = 8;
         ctx.globalAlpha = outerPulseAlpha;
         ctx.beginPath();
         ctx.arc(x, y, outerPulseRadius, 0, Math.PI * 2);
@@ -438,41 +432,48 @@ const RadarCanvas = ({ threats, selectedThreatIds, onThreatClick, activeSeverity
       
       ctx.globalAlpha = alpha;
 
-      // Outer ring of the dot (reduced by half: 8->4, 7->3.5)
+      // Larger dots for selected threats
+      const dotRadius = isSelected ? 8 : 7;
       ctx.strokeStyle = dotColor;
-      ctx.lineWidth = isSelected ? 2 : 1.5;
-      ctx.shadowBlur = isSelected ? 8 : 4;
+      ctx.lineWidth = isSelected ? 3 : 2;
+      ctx.shadowBlur = isSelected ? 18 : (hasSelection && !isSelected ? 2 : 6);
       ctx.shadowColor = dotColor;
       ctx.beginPath();
-      ctx.arc(x, y, 4, 0, Math.PI * 2);
+      ctx.arc(x, y, dotRadius, 0, Math.PI * 2);
       ctx.stroke();
 
-      // Inner fill of the dot
       ctx.shadowBlur = 0;
       ctx.fillStyle = dotColor;
-      ctx.globalAlpha = alpha * 0.6;
+      ctx.globalAlpha = alpha * 0.8;
       ctx.beginPath();
-      ctx.arc(x, y, 3.5, 0, Math.PI * 2);
+      ctx.arc(x, y, Math.max(1, dotRadius - 1), 0, Math.PI * 2);
       ctx.fill();
       
-      // Core highlight
-      ctx.globalAlpha = alpha;
-      ctx.fillStyle = '#FFFFFF';
-      ctx.beginPath();
-      ctx.arc(x - 1, y - 1, 1, 0, Math.PI * 2);
-      ctx.fill();
+      // Only show highlight for selected or when no selection
+      if (isSelected || !hasSelection) {
+        ctx.globalAlpha = alpha;
+        ctx.fillStyle = '#FFFFFF';
+        ctx.beginPath();
+        ctx.arc(x - 2, y - 2, 2, 0, Math.PI * 2);
+        ctx.fill();
+      }
 
-      ctx.globalAlpha = 1; // Reset alpha
+      ctx.globalAlpha = 1;
     });
 
     ctx.restore();
-  }, [filteredPositions, selectedThreatIds, zoom, panX, panY, center, project3D, severityToRing, severityColors]);
+  }, [filteredPositions, selectedThreatIds, zoom, panX, panY, size, rings, severityColors]);
 
   // Animation loop
   useEffect(() => {
     const animate = () => {
       sweepAngleRef.current = (sweepAngleRef.current + 1.2) % 360;
       draw();
+      
+      if (isModalOpen && modalCanvasRef.current) {
+        draw(modalCanvasRef.current, modalSize, spotlightFilteredPositions);
+      }
+      
       animationFrameRef.current = requestAnimationFrame(animate);
     };
 
@@ -483,14 +484,10 @@ const RadarCanvas = ({ threats, selectedThreatIds, onThreatClick, activeSeverity
         cancelAnimationFrame(animationFrameRef.current);
       }
     };
-  }, [draw]);
+  }, [draw, isModalOpen, modalSize, spotlightFilteredPositions]);
 
   // Mouse handlers
   const handleMouseDown = (e: React.MouseEvent<HTMLCanvasElement>) => {
-    // Start dragging if:
-    // 1. Middle mouse button (button 1)
-    // 2. Ctrl/Cmd + left click
-    // 3. Right mouse button
     if (e.button === 1 || e.ctrlKey || e.metaKey || e.button === 2) {
       e.preventDefault();
       setIsDragging(true);
@@ -498,10 +495,8 @@ const RadarCanvas = ({ threats, selectedThreatIds, onThreatClick, activeSeverity
       setDragStart({ x: e.clientX, y: e.clientY });
       setPanStart({ x: panX, y: panY });
     } else if (e.button === 0) {
-      // Left click - check if clicking on empty space
       const threat = findThreatAtPosition(e.clientX, e.clientY);
       if (!threat) {
-        // Start dragging if clicking on empty space
         setIsDragging(true);
         setHasMoved(false);
         setDragStart({ x: e.clientX, y: e.clientY });
@@ -512,11 +507,9 @@ const RadarCanvas = ({ threats, selectedThreatIds, onThreatClick, activeSeverity
 
   const handleMouseMove = (e: React.MouseEvent<HTMLCanvasElement>) => {
     if (isDragging) {
-      // Calculate pan delta
       const deltaX = e.clientX - dragStart.x;
       const deltaY = e.clientY - dragStart.y;
       
-      // Check if mouse has moved significantly (more than 3 pixels)
       if (Math.abs(deltaX) > 3 || Math.abs(deltaY) > 3) {
         setHasMoved(true);
       }
@@ -542,11 +535,9 @@ const RadarCanvas = ({ threats, selectedThreatIds, onThreatClick, activeSeverity
   };
 
   const handleClick = (e: React.MouseEvent<HTMLCanvasElement>) => {
-    // Only trigger click if we didn't drag (or moved less than 3 pixels)
     if (!hasMoved) {
       const threat = findThreatAtPosition(e.clientX, e.clientY);
       if (threat) {
-        // Single selection - clicking a threat selects it and opens the details panel
         onThreatClick(threat.id, false);
       }
     }
@@ -576,92 +567,388 @@ const RadarCanvas = ({ threats, selectedThreatIds, onThreatClick, activeSeverity
   // Setup canvas size
   useEffect(() => {
     const canvas = canvasRef.current;
-    if (!canvas) return;
+    const container = containerRef.current;
+    if (!canvas || !container) return;
     
-    canvas.width = size;
-    canvas.height = size;
+    const updateSize = () => {
+      const containerWidth = container.clientWidth;
+      const containerHeight = container.clientHeight;
+      const displaySize = Math.min(containerWidth, containerHeight) * 0.95;
+      
+      const dpr = window.devicePixelRatio || 1;
+      canvas.width = displaySize * dpr;
+      canvas.height = displaySize * dpr;
+      
+      setSize(displaySize);
+    };
+    
+    updateSize();
+    
+    const resizeObserver = new ResizeObserver(updateSize);
+    resizeObserver.observe(container);
+    
+    const mediaQuery = window.matchMedia(`(resolution: ${window.devicePixelRatio}dppx)`);
+    mediaQuery.addEventListener('change', updateSize);
+    
+    return () => {
+      resizeObserver.disconnect();
+      mediaQuery.removeEventListener('change', updateSize);
+    };
   }, []);
 
+  // Reset spotlight filters when modal closes
+  useEffect(() => {
+    if (!isModalOpen) {
+      setSpotlightFilters({
+        statuses: ['new', 'active', 'mitigated'] as StatusType[],
+        severities: ['critical', 'high', 'medium', 'low'] as SeverityLevel[],
+      });
+    }
+  }, [isModalOpen]);
+
+  // Setup modal canvas
+  useEffect(() => {
+    if (isModalOpen && modalCanvasRef.current && modalContainerRef.current) {
+      const modalCanvas = modalCanvasRef.current;
+      const modalContainer = modalContainerRef.current;
+      
+      const updateModalSize = () => {
+        const containerWidth = modalContainer.clientWidth;
+        const containerHeight = modalContainer.clientHeight;
+        const displaySize = Math.min(containerWidth, containerHeight) * 0.95;
+        
+        const dpr = window.devicePixelRatio || 1;
+        modalCanvas.width = displaySize * dpr;
+        modalCanvas.height = displaySize * dpr;
+        
+        setModalSize(displaySize);
+      };
+      
+      updateModalSize();
+      
+      const resizeObserver = new ResizeObserver(updateModalSize);
+      resizeObserver.observe(modalContainer);
+      
+      const mediaQuery = window.matchMedia(`(resolution: ${window.devicePixelRatio}dppx)`);
+      mediaQuery.addEventListener('change', updateModalSize);
+      
+      return () => {
+        resizeObserver.disconnect();
+        mediaQuery.removeEventListener('change', updateModalSize);
+      };
+    }
+  }, [isModalOpen]);
+
+  // Get quadrant display name for tooltip
+  const getQuadrantDisplayName = (threat: Threat): string => {
+    const quadrant = getQuadrant(threat);
+    return QUADRANT_INFO[quadrant].title;
+  };
+
+  const getQuadrantReasoning = (threat: Threat): { stage: string; function: string; tactics: string[]; quadrant: string; reasoning: string } => {
+    // Check if any post-compromise tactics are present
+    const postCompromiseTactics = ['persistence', 'privilege escalation', 'defense evasion', 'credential access', 
+                                   'discovery', 'lateral movement', 'collection', 'command and control', 
+                                   'exfiltration', 'impact', 'c2'];
+    
+    const hasPostTactic = threat.mitre_tactics.some(tactic => {
+      const lower = tactic.toLowerCase();
+      return postCompromiseTactics.some(keyword => lower.includes(keyword));
+    });
+    
+    const stage = hasPostTactic ? 'Post-compromise' : 'Pre-compromise';
+    const quadrant = getQuadrant(threat);
+    
+    // Determine defender function reasoning
+    let defenderFunc: string;
+    let reasoning: string;
+    
+    if (threat.status === 'mitigated') {
+      defenderFunc = 'Protect (preventive)';
+      reasoning = 'Status is mitigated - preventive measures have been applied';
+    } else {
+      // Check if this threat was assigned to Protect quadrant
+      const defenderFn = getDefenderFunction(threat.status, threat.id);
+      if (defenderFn === 'protect') {
+        defenderFunc = 'Protect (preventive)';
+        reasoning = 'Assigned to Protect quadrant based on threat characteristics (even though status is active/new)';
+      } else {
+        defenderFunc = 'Detect/Respond (monitoring)';
+        reasoning = 'Status is active/new - requires monitoring and incident response';
+      }
+    }
+    
+    return {
+      stage,
+      function: defenderFunc,
+      tactics: threat.mitre_tactics.slice(0, 3),
+      quadrant: QUADRANT_INFO[quadrant].title,
+      reasoning
+    };
+  };
+
   return (
-    <div className="w-full h-full flex flex-col items-center justify-center relative">
-      <canvas
-        ref={canvasRef}
-        className={isDragging ? "cursor-grabbing" : "cursor-grab"}
-        onMouseDown={handleMouseDown}
-        onMouseMove={handleMouseMove}
-        onMouseUp={handleMouseUp}
-        onMouseLeave={handleMouseLeave}
-        onClick={handleClick}
-        onWheel={handleWheel}
-        onContextMenu={(e) => e.preventDefault()} // Prevent context menu on right click
-      />
-      
-      {/* Zoom Controls */}
-      <div className="absolute top-4 right-4 flex flex-col gap-2 bg-card/90 backdrop-blur-sm border border-border rounded-lg p-2 shadow-lg">
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={handleZoomIn}
-          className="h-8 w-8"
-          title="Zoom In"
-        >
-          <ZoomIn className="h-4 w-4" />
-        </Button>
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={handleZoomOut}
-          className="h-8 w-8"
-          title="Zoom Out"
-        >
-          <ZoomOut className="h-4 w-4" />
-        </Button>
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={handleResetZoom}
-          className="h-8 w-8"
-          title="Reset Zoom"
-        >
-          <RotateCcw className="h-4 w-4" />
-        </Button>
-        <div className="text-xs text-center text-muted-foreground pt-1 border-t border-border mt-1">
-          {Math.round(zoom * 100)}%
-        </div>
-      </div>
-      
-      {/* Tooltip */}
-      {hoveredThreat && (
-        <div
-          className="fixed bg-card border border-border rounded-lg p-3 pointer-events-none z-50 max-w-xs shadow-xl backdrop-blur-sm"
-          style={{
-            left: mousePos.x + 15,
-            top: mousePos.y + 15,
-          }}
-        >
-          <div className="space-y-1">
-            <p className="font-semibold text-sm">{hoveredThreat.threat_name}</p>
-            <div className="flex gap-2 text-xs">
-              <Badge variant="outline" className="text-xs">
-                {capitalizeFirst(hoveredThreat.severity)}
-              </Badge>
-              <Badge variant="outline" className="text-xs">
-                {capitalizeFirst(hoveredThreat.status)}
-              </Badge>
-            </div>
-            <p className="text-xs text-muted-foreground">
-              Asset: {getPrimaryAsset(hoveredThreat)}
-            </p>
-            <p className="text-xs text-muted-foreground">
-              Source: {hoveredThreat.source}
-            </p>
-            <p className="text-xs text-muted-foreground">
-              First seen: {new Date(hoveredThreat.first_seen).toLocaleDateString()}
-            </p>
+    <>
+      <div ref={containerRef} className="w-full h-full flex flex-col items-center justify-center relative">
+        <canvas
+          ref={canvasRef}
+          className={isDragging ? "cursor-grabbing" : "cursor-grab"}
+          style={{ width: size, height: size }}
+          onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseUp={handleMouseUp}
+          onMouseLeave={handleMouseLeave}
+          onClick={handleClick}
+          onWheel={handleWheel}
+          onContextMenu={(e) => e.preventDefault()}
+        />
+        
+        {/* Zoom Controls */}
+        <div className="absolute top-4 right-4 flex flex-col gap-2 bg-card/90 backdrop-blur-sm border border-border rounded-lg p-2 shadow-lg">
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={handleZoomIn}
+            className="h-8 w-8"
+            title="Zoom In"
+          >
+            <ZoomIn className="h-4 w-4" />
+          </Button>
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={handleZoomOut}
+            className="h-8 w-8"
+            title="Zoom Out"
+          >
+            <ZoomOut className="h-4 w-4" />
+          </Button>
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={handleResetZoom}
+            className="h-8 w-8"
+            title="Reset Zoom"
+          >
+            <RotateCcw className="h-4 w-4" />
+          </Button>
+          <div className="text-xs text-center text-muted-foreground pt-1 border-t border-border mt-1">
+            {Math.round(zoom * 100)}%
           </div>
         </div>
-      )}
-    </div>
+
+        {/* Spotlight Button */}
+        <div className="absolute bottom-4 left-4">
+          <Button
+            variant="outline"
+            size="icon"
+            onClick={() => setIsModalOpen(true)}
+            className="bg-card/90 backdrop-blur-sm h-8 w-8"
+            title="Open Spotlight View"
+          >
+            <Maximize2 className="h-4 w-4" />
+          </Button>
+        </div>
+        
+        {/* Tooltip */}
+        {hoveredThreat && (
+          <div
+            className="fixed bg-card border border-border rounded-lg p-3 pointer-events-none z-50 max-w-sm shadow-xl backdrop-blur-sm"
+            style={{
+              left: mousePos.x + 15,
+              top: mousePos.y + 15,
+            }}
+          >
+            <div className="space-y-2">
+              <p className="font-semibold text-sm">{hoveredThreat.threat_name}</p>
+              <div className="flex gap-2 text-xs flex-wrap">
+                <Badge variant="outline" className="text-xs">
+                  {capitalizeFirst(hoveredThreat.severity)}
+                </Badge>
+                <Badge variant="outline" className="text-xs">
+                  {capitalizeFirst(hoveredThreat.status)}
+                </Badge>
+                <Badge variant="secondary" className="text-xs">
+                  {getQuadrantDisplayName(hoveredThreat)}
+                </Badge>
+              </div>
+              
+              {/* Quadrant Reasoning */}
+              <div className="border-t border-border pt-2 mt-2">
+                <p className="text-xs font-semibold text-foreground mb-1">Quadrant Reasoning:</p>
+                {(() => {
+                  const reasoning = getQuadrantReasoning(hoveredThreat);
+                  return (
+                    <div className="space-y-1">
+                      <p className="text-xs text-muted-foreground">
+                        <span className="font-medium">Stage:</span> {reasoning.stage}
+                      </p>
+                      <p className="text-xs text-muted-foreground">
+                        <span className="font-medium">Function:</span> {reasoning.function}
+                      </p>
+                      {reasoning.tactics.length > 0 && (
+                        <p className="text-xs text-muted-foreground">
+                          <span className="font-medium">Tactics:</span> {reasoning.tactics.join(', ')}
+                          {hoveredThreat.mitre_tactics.length > 3 && '...'}
+                        </p>
+                      )}
+                      <p className="text-xs text-muted-foreground italic mt-1">
+                        {reasoning.reasoning}
+                      </p>
+                    </div>
+                  );
+                })()}
+              </div>
+
+              {/* Threat Details */}
+              <div className="border-t border-border pt-2 mt-2">
+                <p className="text-xs text-muted-foreground">
+                  <span className="font-medium">Asset:</span> {getPrimaryAsset(hoveredThreat)}
+                </p>
+                <p className="text-xs text-muted-foreground">
+                  <span className="font-medium">Source:</span> {hoveredThreat.source}
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Spotlight Modal */}
+      <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+        <DialogContent className="max-w-[95vw] max-h-[95vh] p-0 [&>button]:z-10">
+          <SpotlightLayout
+            title="Threat Radar - Quadrant View"
+            filters={
+              <div className="space-y-6">
+                {/* Status Filter */}
+                <div>
+                  <h3 className="text-sm font-semibold mb-3">Status</h3>
+                  <div className="space-y-2">
+                    {(['new', 'active', 'mitigated'] as StatusType[]).map((status) => (
+                      <div key={status} className="flex items-center space-x-2">
+                        <Checkbox
+                          id={`status-${status}`}
+                          checked={spotlightFilters.statuses.includes(status)}
+                          onCheckedChange={(checked) => {
+                            setSpotlightFilters(prev => ({
+                              ...prev,
+                              statuses: checked
+                                ? [...prev.statuses, status]
+                                : prev.statuses.filter(s => s !== status)
+                            }));
+                          }}
+                        />
+                        <Label htmlFor={`status-${status}`} className="text-sm cursor-pointer">
+                          {capitalizeFirst(status)}
+                        </Label>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Severity Filter */}
+                <div>
+                  <h3 className="text-sm font-semibold mb-3">Severity</h3>
+                  <div className="space-y-2">
+                    {(['critical', 'high', 'medium', 'low'] as SeverityLevel[]).map((severity) => (
+                      <div key={severity} className="flex items-center space-x-2">
+                        <Checkbox
+                          id={`severity-${severity}`}
+                          checked={spotlightFilters.severities.includes(severity)}
+                          onCheckedChange={(checked) => {
+                            setSpotlightFilters(prev => ({
+                              ...prev,
+                              severities: checked
+                                ? [...prev.severities, severity]
+                                : prev.severities.filter(s => s !== severity)
+                            }));
+                          }}
+                        />
+                        <Label htmlFor={`severity-${severity}`} className="text-sm cursor-pointer">
+                          {capitalizeFirst(severity)}
+                        </Label>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                {/* Quadrant Legend */}
+                <div>
+                  <h3 className="text-sm font-semibold mb-3">Quadrants</h3>
+                  <div className="space-y-3 text-xs">
+                    <div className="p-2 bg-muted/50 rounded">
+                      <p className="font-medium text-primary">Pre × Protect</p>
+                      <p className="text-muted-foreground">Patch, harden, WAF rules</p>
+                    </div>
+                    <div className="p-2 bg-muted/50 rounded">
+                      <p className="font-medium text-primary">Post × Protect</p>
+                      <p className="text-muted-foreground">Eradication, durable fixes</p>
+                    </div>
+                    <div className="p-2 bg-muted/50 rounded">
+                      <p className="font-medium text-primary">Pre × Detect/Respond</p>
+                      <p className="text-muted-foreground">Early-warning, hunts</p>
+                    </div>
+                    <div className="p-2 bg-muted/50 rounded">
+                      <p className="font-medium text-primary">Post × Detect/Respond</p>
+                      <p className="text-muted-foreground">Live IR, forensics</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            }
+          >
+            <div ref={modalContainerRef} className="relative w-full h-full flex items-center justify-center">
+              <canvas
+                ref={modalCanvasRef}
+                className={isDragging ? "cursor-grabbing" : "cursor-grab"}
+                style={{ width: modalSize, height: modalSize, display: 'block' }}
+                onMouseDown={handleMouseDown}
+                onMouseMove={handleMouseMove}
+                onMouseUp={handleMouseUp}
+                onMouseLeave={handleMouseLeave}
+                onClick={handleClick}
+                onWheel={handleWheel}
+                onContextMenu={(e) => e.preventDefault()}
+              />
+              {/* Zoom Controls */}
+              <div className="absolute bottom-4 right-4 flex flex-col gap-2 bg-card/90 backdrop-blur-sm border border-border rounded-lg p-2 shadow-lg">
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={handleZoomIn}
+                  className="h-8 w-8"
+                  title="Zoom In"
+                >
+                  <ZoomIn className="h-4 w-4" />
+                </Button>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={handleZoomOut}
+                  className="h-8 w-8"
+                  title="Zoom Out"
+                >
+                  <ZoomOut className="h-4 w-4" />
+                </Button>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={handleResetZoom}
+                  className="h-8 w-8"
+                  title="Reset Zoom"
+                >
+                  <RotateCcw className="h-4 w-4" />
+                </Button>
+                <div className="text-xs text-center text-muted-foreground pt-1 border-t border-border mt-1">
+                  {Math.round(zoom * 100)}%
+                </div>
+              </div>
+            </div>
+          </SpotlightLayout>
+        </DialogContent>
+      </Dialog>
+    </>
   );
 };
 

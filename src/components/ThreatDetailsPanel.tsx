@@ -71,31 +71,31 @@ const ThreatDetailsPanel = ({ threat, onClose, onOpenActModal }: ThreatDetailsPa
   };
 
   return (
-    <div className="w-[420px] glass-card rounded-2xl h-[calc(100vh-8rem)] flex flex-col animate-slide-in-right">
+    <div className="w-full sm:w-[320px] md:w-[360px] lg:w-[400px] xl:w-[420px] glass-card rounded-none h-full flex flex-col animate-slide-in-right">
       {/* Header */}
-      <div className="p-6 border-b border-border">
-        <div className="flex items-start justify-between mb-3">
-          <div className="flex-1">
-            <h2 className="text-xl font-bold mb-1">{threat.threat_name}</h2>
-            <p className="text-sm text-muted-foreground">({getPrimaryAsset()})</p>
+      <div className="p-4 sm:p-5 lg:p-6 border-b border-border">
+        <div className="flex items-start justify-between gap-2 mb-2 sm:mb-3">
+          <div className="flex-1 min-w-0">
+            <h2 className="text-base sm:text-lg lg:text-xl font-bold mb-1 break-words leading-tight">{threat.threat_name}</h2>
+            <p className="text-xs sm:text-sm text-muted-foreground break-words">({getPrimaryAsset()})</p>
           </div>
-          <Button variant="ghost" size="icon" onClick={onClose}>
-            <X className="h-5 w-5" />
+          <Button variant="ghost" size="icon" onClick={onClose} className="shrink-0 -mt-1 -mr-1">
+            <X className="h-4 w-4 sm:h-5 sm:w-5" />
           </Button>
         </div>
-        <div className="flex gap-2">
-          <Badge className={getSeverityColor()}>{capitalizeFirst(threat.severity)}</Badge>
-          <Badge className={getStatusColor()}>{capitalizeFirst(threat.status)}</Badge>
+        <div className="flex flex-wrap gap-1.5 sm:gap-2">
+          <Badge className={`${getSeverityColor()} text-xs`}>{capitalizeFirst(threat.severity)}</Badge>
+          <Badge className={`${getStatusColor()} text-xs`}>{capitalizeFirst(threat.status)}</Badge>
         </div>
       </div>
 
       {/* Content */}
       <ScrollArea className="flex-1">
-        <div className="p-6 space-y-6">
+        <div className="p-4 sm:p-5 lg:p-6 space-y-4 sm:space-y-5 lg:space-y-6">
           {/* Meta Grid */}
           <div>
-            <h3 className="font-semibold mb-3 text-sm">Threat Intelligence</h3>
-            <div className="grid grid-cols-2 gap-3 text-sm">
+            <h3 className="font-semibold mb-2 sm:mb-3 text-xs sm:text-sm">Threat Intelligence</h3>
+            <div className="grid grid-cols-2 gap-2 sm:gap-3 text-xs sm:text-sm">
               <div>
                 <p className="text-muted-foreground text-xs mb-1">Source</p>
                 <p className="font-medium">{threat.source}</p>
@@ -256,17 +256,17 @@ const ThreatDetailsPanel = ({ threat, onClose, onOpenActModal }: ThreatDetailsPa
       </ScrollArea>
 
       {/* Footer Actions */}
-      <div className="p-6 border-t border-border space-y-2">
-        <Button onClick={() => onOpenActModal(threat)} className="w-full" size="lg">
+      <div className="p-4 sm:p-5 lg:p-6 border-t border-border space-y-2">
+        <Button onClick={() => onOpenActModal(threat)} className="w-full" size="default">
           Act
         </Button>
         <div className="flex gap-2">
-          <Button variant="outline" size="sm" className="flex-1" onClick={viewAdvisory}>
-            <ExternalLink className="h-4 w-4 mr-2" />
+          <Button variant="outline" size="sm" className="flex-1 text-xs sm:text-sm" onClick={viewAdvisory}>
+            <ExternalLink className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
             View Advisory
           </Button>
-          <Button variant="outline" size="sm" className="flex-1" onClick={copyLink}>
-            <Copy className="h-4 w-4 mr-2" />
+          <Button variant="outline" size="sm" className="flex-1 text-xs sm:text-sm" onClick={copyLink}>
+            <Copy className="h-3 w-3 sm:h-4 sm:w-4 mr-1 sm:mr-2" />
             Copy Link
           </Button>
         </div>

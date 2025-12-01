@@ -2,6 +2,7 @@
 
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useState } from "react";
+import { ThemeProvider } from "@/hooks/use-theme";
 
 export function QueryClientProviderWrapper({ children }: { children: React.ReactNode }) {
   const [queryClient] = useState(() => new QueryClient({
@@ -14,7 +15,9 @@ export function QueryClientProviderWrapper({ children }: { children: React.React
   
   return (
     <QueryClientProvider client={queryClient}>
-      {children}
+      <ThemeProvider>
+        {children}
+      </ThemeProvider>
     </QueryClientProvider>
   );
 }

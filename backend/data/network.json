@@ -1,0 +1,288 @@
+{
+    "metadata": {
+      "scope": "Threat→Breach and Threat→Product relationships only",
+      "source_pdfs": [
+        "ThreatIntelReports.pdf",
+        "Breachadvisories.pdf",
+        "productadvisories.pdf"
+      ],
+      "note": "Nodes include every threat, breach, and product mentioned across the three PDFs. Relationships are created when a clear criterion from your diagram is satisfied and evidence is present in the PDFs."
+    },
+    "nodes": {
+      "threats": [
+        {
+          "id": "Aisuru Operators",
+          "type": "threat",
+          "from": "ThreatIntelReports.pdf"
+        },
+        {
+          "id": "NGate malware operators (Unknown actor)",
+          "type": "threat",
+          "from": "ThreatIntelReports.pdf"
+        },
+        {
+          "id": "Silent Lynx APT",
+          "type": "threat",
+          "from": "ThreatIntelReports.pdf"
+        },
+        {
+          "id": "Clop ransomware group",
+          "type": "threat",
+          "from": "Breachadvisories.pdf"
+        },
+        {
+          "id": "Unknown state-sponsored actor (SonicWall breach)",
+          "type": "threat",
+          "from": "Breachadvisories.pdf"
+        },
+        {
+          "id": "Unknown attacker(s) (Nikkei Slack breach)",
+          "type": "threat",
+          "from": "Breachadvisories.pdf"
+        },
+        {
+          "id": "Unknown actor(s) exploiting CWP CVE-2025-48703",
+          "type": "threat",
+          "from": "productadvisories.pdf"
+        },
+        {
+          "id": "Unknown actor(s) exploiting Triofox CVE-2025-12480",
+          "type": "threat",
+          "from": "productadvisories.pdf"
+        },
+        {
+          "id": "Unknown actor(s) exploiting CentreStack/Triofox CVE-2025-11371",
+          "type": "threat",
+          "from": "productadvisories.pdf"
+        }
+      ],
+      "breaches": [
+        {
+          "id": "Washington Post breach (2025)",
+          "type": "breach",
+          "from": "Breachadvisories.pdf"
+        },
+        {
+          "id": "SonicWall MySonicWall cloud backup breach (2025)",
+          "type": "breach",
+          "from": "Breachadvisories.pdf"
+        },
+        {
+          "id": "Nikkei Publishing Slack breach (2025)",
+          "type": "breach",
+          "from": "Breachadvisories.pdf"
+        }
+      ],
+      "products": [
+        {
+          "id": "Oracle E-Business Suite",
+          "type": "product",
+          "from": "Breachadvisories.pdf"
+        },
+        {
+          "id": "MySonicWall Cloud Backup Service",
+          "type": "product",
+          "from": "Breachadvisories.pdf"
+        },
+        {
+          "id": "Slack",
+          "type": "product",
+          "from": "Breachadvisories.pdf"
+        },
+        {
+          "id": "Control Web Panel (CWP, a.k.a. CentOS Web Panel)",
+          "type": "product",
+          "from": "productadvisories.pdf",
+          "cves": [
+            "CVE-2025-48703"
+          ]
+        },
+        {
+          "id": "Gladinet Triofox",
+          "type": "product",
+          "from": "productadvisories.pdf",
+          "cves": [
+            "CVE-2025-12480",
+            "CVE-2025-11371"
+          ]
+        },
+        {
+          "id": "Gladinet CentreStack",
+          "type": "product",
+          "from": "productadvisories.pdf",
+          "cves": [
+            "CVE-2025-11371"
+          ]
+        },
+        {
+          "id": "Google Chrome",
+          "type": "product",
+          "from": "productadvisories.pdf",
+          "cves": [
+            "CVE-2025-12433",
+            "CVE-2025-12434",
+            "CVE-2025-12435",
+            "CVE-2025-12436",
+            "CVE-2025-12437",
+            "CVE-2025-12438",
+            "CVE-2025-12439",
+            "CVE-2025-12440",
+            "CVE-2025-12441",
+            "CVE-2025-12443",
+            "CVE-2025-12444",
+            "CVE-2025-12445",
+            "CVE-2025-12446",
+            "CVE-2025-12447"
+          ]
+        },
+        {
+          "id": "Windows PowerShell",
+          "type": "product",
+          "from": "ThreatIntelReports.pdf"
+        },
+        {
+          "id": "GitHub (payload hosting)",
+          "type": "product",
+          "from": "ThreatIntelReports.pdf"
+        },
+        {
+          "id": "Android devices",
+          "type": "product",
+          "from": "ThreatIntelReports.pdf"
+        },
+        {
+          "id": "SOHO routers & gateways",
+          "type": "product",
+          "from": "ThreatIntelReports.pdf"
+        },
+        {
+          "id": "IoT devices (IP cameras, DVRs, home gateways, routers)",
+          "type": "product",
+          "from": "ThreatIntelReports.pdf"
+        },
+        {
+          "id": "Residential broadband CPE & unmanaged devices",
+          "type": "product",
+          "from": "ThreatIntelReports.pdf"
+        }
+      ]
+    },
+    "edges": {
+      "threat_to_breach": [
+        {
+          "source": "Clop ransomware group",
+          "target": "Washington Post breach (2025)",
+          "criteria": "Same campaign / actor / tooling",
+          "reasoning": "The breach advisory explicitly attributes the Washington Post incident to the Clop ransomware group; therefore the threat node (Clop) is linked to the breach node under the 'same actor' criterion.",
+          "confidence": "high"
+        },
+        {
+          "source": "Unknown state-sponsored actor (SonicWall breach)",
+          "target": "SonicWall MySonicWall cloud backup breach (2025)",
+          "criteria": "Same campaign / actor / tooling",
+          "reasoning": "The breach write-up identifies a state-sponsored actor as responsible for compromising the MySonicWall cloud backup service and exfiltrating customer data.",
+          "confidence": "high"
+        },
+        {
+          "source": "Unknown attacker(s) (Nikkei Slack breach)",
+          "target": "Nikkei Publishing Slack breach (2025)",
+          "criteria": "Same campaign / actor / tooling",
+          "reasoning": "The breach summary reports unknown attackers used malware to steal Slack credentials, leading to the compromise; we represent them as an 'Unknown attacker(s)' threat node linked to the Nikkei breach.",
+          "confidence": "high"
+        }
+      ],
+      "threat_to_product": [
+        {
+          "source": "Clop ransomware group",
+          "target": "Oracle E-Business Suite",
+          "criteria": "Affected product / exploitation path (breach described against specific product)",
+          "reasoning": "The Washington Post incident is described as an 'Oracle E-Business Suite Compromised — Advanced Attack by the Clop ransomware group', directly tying the actor to the Oracle EBS product.",
+          "confidence": "high"
+        },
+        {
+          "source": "Unknown state-sponsored actor (SonicWall breach)",
+          "target": "MySonicWall Cloud Backup Service",
+          "criteria": "Affected product / exploitation path",
+          "reasoning": "The SonicWall advisory specifies that attackers compromised the MySonicWall cloud backup service; we therefore link the state-sponsored actor node to this product node.",
+          "confidence": "high"
+        },
+        {
+          "source": "Unknown attacker(s) (Nikkei Slack breach)",
+          "target": "Slack",
+          "criteria": "Affected product / exploitation path",
+          "reasoning": "The advisory states Slack credentials were compromised via malware, making Slack the affected product/platform in this breach.",
+          "confidence": "high"
+        },
+        {
+          "source": "Silent Lynx APT",
+          "target": "Windows PowerShell",
+          "criteria": "TTP overlap (use of specific tooling in exploitation path)",
+          "reasoning": "The threat report lists Windows PowerShell as an affected/used product in Silent Lynx campaigns, indicating its use in execution within the attack chain.",
+          "confidence": "medium"
+        },
+        {
+          "source": "Silent Lynx APT",
+          "target": "GitHub (payload hosting)",
+          "criteria": "TTP overlap (exploitation of legitimate services)",
+          "reasoning": "Silent Lynx relies on exploiting legitimate services like GitHub for payload hosting; thus we connect the actor to GitHub as an abused platform.",
+          "confidence": "high"
+        },
+        {
+          "source": "Aisuru Operators",
+          "target": "SOHO routers & gateways",
+          "criteria": "Affected product (botnet composition) / TTP overlap (exploitation of weak creds)",
+          "reasoning": "Aisuru is a Mirai-class botnet that compromises routers and SOHO gateways, commonly via default/weak credentials and exposed admin interfaces.",
+          "confidence": "high"
+        },
+        {
+          "source": "Aisuru Operators",
+          "target": "IoT devices (IP cameras, DVRs, home gateways, routers)",
+          "criteria": "Affected product (botnet composition)",
+          "reasoning": "The threat report lists compromised IoT devices (including IP cameras and DVRs) as primary components of the Aisuru botnet.",
+          "confidence": "high"
+        },
+        {
+          "source": "Aisuru Operators",
+          "target": "Residential broadband CPE & unmanaged devices",
+          "criteria": "Affected product (botnet composition)",
+          "reasoning": "Aisuru’s affected products include residential broadband CPE and unmanaged devices, which are pulled into the botnet for proxy/DDoS use.",
+          "confidence": "medium"
+        },
+        {
+          "source": "NGate malware operators (Unknown actor)",
+          "target": "Android devices",
+          "criteria": "TTP overlap (Android malware using NFC relay)",
+          "reasoning": "NGate is explicitly described as an Android-based malware whose attack chain runs on victim Android devices to relay NFC transactions.",
+          "confidence": "high"
+        },
+        {
+          "source": "Unknown actor(s) exploiting CWP CVE-2025-48703",
+          "target": "Control Web Panel (CWP, a.k.a. CentOS Web Panel)",
+          "criteria": "CVE overlap (active exploitation of CVE-2025-48703)",
+          "reasoning": "The CWP advisory states CVE-2025-48703 is in CISA’s KEV catalog, indicating active exploitation in the wild; actors are not named, so the threat is modeled as an unknown actor abusing this CVE.",
+          "confidence": "high"
+        },
+        {
+          "source": "Unknown actor(s) exploiting Triofox CVE-2025-12480",
+          "target": "Gladinet Triofox",
+          "criteria": "CVE overlap (active exploitation of CVE-2025-12480)",
+          "reasoning": "The Triofox advisory explicitly notes active exploitation of CVE-2025-12480; actors are unspecified, so we model them as unknown threat actor(s).",
+          "confidence": "high"
+        },
+        {
+          "source": "Unknown actor(s) exploiting CentreStack/Triofox CVE-2025-11371",
+          "target": "Gladinet CentreStack",
+          "criteria": "CVE overlap (active/exploited zero-day CVE-2025-11371)",
+          "reasoning": "The advisory describes CVE-2025-11371 as an exploited zero-day flaw affecting CentreStack and Triofox; actors are not named.",
+          "confidence": "high"
+        },
+        {
+          "source": "Unknown actor(s) exploiting CentreStack/Triofox CVE-2025-11371",
+          "target": "Gladinet Triofox",
+          "criteria": "CVE overlap (active/exploited zero-day CVE-2025-11371)",
+          "reasoning": "Same exploited zero-day CVE-2025-11371 also impacts Triofox; linked under the CVE overlap criterion.",
+          "confidence": "high"
+        }
+      ]
+    }
+  }

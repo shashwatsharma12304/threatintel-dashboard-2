@@ -11,6 +11,14 @@ import {
   getUniqueAssets,
   getUniqueSources,
 } from '@/lib/api';
+import {
+  getThreatsFromRadarData,
+  calculateKpisFromRadarData,
+  getActivityDataFromRadarData,
+  getAssetImpactsFromRadarData,
+  getUniqueAssetsFromRadarData,
+  getUniqueSourcesFromRadarData,
+} from '@/lib/radarData';
 import KpiCards from '@/components/KpiCards';
 import FiltersSidebar from '@/components/FiltersSidebar';
 import RadarCanvas from '@/components/RadarCanvas';
@@ -21,6 +29,8 @@ import ActModal from '@/components/ActModal';
 import NotificationsPanel from '@/components/NotificationsPanel';
 import CriticalAlertBar from '@/components/CriticalAlertBar';
 import KpiThreatsModal from '@/components/KpiThreatsModal';
+import NetworkGraph from '@/components/NetworkGraph';
+import { ThemeToggle } from '@/components/ThemeToggle';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetTrigger, SheetContent } from '@/components/ui/sheet';
 import { Menu, BarChart2 } from 'lucide-react';
@@ -29,6 +39,7 @@ const Index = () => {
   const [threats, setThreats] = useState<Threat[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedThreatId, setSelectedThreatId] = useState<string | null>(null);
+  const [highlightedThreatId, setHighlightedThreatId] = useState<string | null>(null);
   const [actModalOpen, setActModalOpen] = useState(false);
   const [actModalThreat, setActModalThreat] = useState<Threat | null>(null);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -53,19 +64,19 @@ const Index = () => {
   const [availableSources, setAvailableSources] = useState<string[]>([]);
   const [currentTime, setCurrentTime] = useState<string>('');
 
-  // Fetch all data
+  // Fetch all data - using hardcoded radar data
   useEffect(() => {
     const loadData = async () => {
       setLoading(true);
       try {
-        const [threatsData, kpisData, activityDataData, assetImpactsData, assetsData, sourcesData] = await Promise.all([
-          getThreats(filters),
-          calculateKpis(),
-          getActivityData(),
-          getAssetImpacts(),
-          getUniqueAssets(),
-          getUniqueSources(),
-        ]);
+        // Use hardcoded radar data
+        const threatsData = getThreatsFromRadarData();
+        const kpisData = calculateKpisFromRadarData();
+        const activityDataData = getActivityDataFromRadarData();
+        const assetImpactsData = getAssetImpactsFromRadarData();
+        const assetsData = getUniqueAssetsFromRadarData();
+        const sourcesData = getUniqueSourcesFromRadarData();
+        
         setThreats(threatsData);
         setKpis(kpisData);
         setActivityData(activityDataData);
@@ -81,21 +92,20 @@ const Index = () => {
     loadData();
   }, [filters]);
 
-  // Subscribe to live updates
+  // Subscribe to live updates - disabled for hardcoded data
   useEffect(() => {
-    const unsubscribe = subscribeToUpdates(async () => {
-      const [threatsData, kpisData, activityDataData, assetImpactsData] = await Promise.all([
-        getThreats(filters),
-        calculateKpis(),
-        getActivityData(),
-        getAssetImpacts(),
-      ]);
-      setThreats(threatsData);
-      setKpis(kpisData);
-      setActivityData(activityDataData);
-      setAssetImpacts(assetImpactsData);
-    });
-    return unsubscribe;
+    // Using hardcoded data, no live updates needed
+    // const unsubscribe = subscribeToUpdates(async () => {
+    //   const threatsData = getThreatsFromRadarData();
+    //   const kpisData = calculateKpisFromRadarData();
+    //   const activityDataData = getActivityDataFromRadarData();
+    //   const assetImpactsData = getAssetImpactsFromRadarData();
+    //   setThreats(threatsData);
+    //   setKpis(kpisData);
+    //   setActivityData(activityDataData);
+    //   setAssetImpacts(assetImpactsData);
+    // });
+    // return unsubscribe;
   }, [filters]);
 
   // Update time on client side only to avoid hydration mismatch
@@ -110,11 +120,14 @@ const Index = () => {
 
   const handleThreatClick = (threatId: string, multiSelect: boolean) => {
     // Single selection - clicking a threat selects it and opens the details panel
-    setSelectedThreatId(prev => prev === threatId ? null : threatId);
+    const isTogglingOff = selectedThreatId === threatId;
+    setSelectedThreatId(isTogglingOff ? null : threatId);
+    setHighlightedThreatId(isTogglingOff ? null : threatId);
   };
 
   const handleCloseDetailsPanel = () => {
     setSelectedThreatId(null);
+    setHighlightedThreatId(null);
   };
 
   const handleOpenActModal = (threat: Threat) => {
@@ -183,6 +196,7 @@ const Index = () => {
               criticalThreats={threats} 
               onThreatClick={(threatId) => handleThreatClick(threatId, false)}
             />
+            <ThemeToggle />
             <div className="text-sm text-muted-foreground">
               Last updated: {currentTime || '--:--:--'}
             </div>
@@ -190,45 +204,67 @@ const Index = () => {
         </header>
 
         {/* Dashboard Grid */}
-        <main className="flex-1 overflow-y-auto p-4 space-y-4">
-          <KpiCards 
-            data={kpis} 
-            threats={threats}
-            onCardClick={handleKpiCardClick}
-          />
-          
-          <div className="grid grid-cols-3 gap-4 h-[calc(100%-120px)] relative">
-            {/* Radar takes 2/3 width */}
-            <div className="col-span-2 bg-black rounded-lg flex items-center justify-center p-4 card-shadow">
-              <RadarCanvas
+        <main className="flex-1 p-4 overflow-hidden flex gap-4">
+          {/* Left: Main visualization area */}
+          <div className="flex-1 flex flex-col gap-4 min-w-0">
+            {/* Top: Radar and Network - 65% */}
+            <div className="flex-[65] grid grid-cols-2 gap-4 min-h-0">
+              {/* Radar Visualization - 50% width */}
+              <div className="bg-card rounded-lg p-4 card-shadow overflow-hidden">
+                <div className="w-full h-full">
+                  <RadarCanvas
+                    threats={threats}
+                    selectedThreatIds={selectedThreatId ? [selectedThreatId] : []}
+                    onThreatClick={handleThreatClick}
+                    activeSeverityFilter='All'
+                    onSeverityFilterChange={() => {}}
+                  />
+                </div>
+              </div>
+
+              {/* Network Graph - 50% width */}
+              <div className="bg-card rounded-lg p-4 card-shadow overflow-hidden">
+                <div className="w-full h-full">
+                  <NetworkGraph 
+                    threats={threats}
+                    highlightedThreatId={highlightedThreatId}
+                    onNodeClick={(nodeId, nodeType) => {
+                      if (nodeType === 'threat') {
+                        handleThreatClick(nodeId, false);
+                      }
+                    }} 
+                  />
+                </div>
+              </div>
+            </div>
+
+            {/* Bottom: Activity and Assets - 35% */}
+            <div className="flex-[35] grid grid-cols-2 gap-4 min-h-0">
+              {/* Activity Chart */}
+              <div className="bg-card rounded-lg p-4 card-shadow overflow-hidden">
+                <div className="w-full h-full">
+                  <ActivityChart data={activityData} />
+                </div>
+              </div>
+
+              {/* Assets Chart */}
+              <div className="bg-card rounded-lg p-4 card-shadow overflow-hidden">
+                <div className="w-full h-full">
+                  <AssetsChart data={assetImpacts} onAssetClick={handleAssetClick} />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Right: Vertical KPI sidebar */}
+          <div className="w-44 lg:w-48 xl:w-52 shrink-0">
+            <div className="h-full bg-card rounded-lg p-4 card-shadow">
+              <KpiCards 
+                data={kpis} 
                 threats={threats}
-                selectedThreatIds={selectedThreatId ? [selectedThreatId] : []}
-                onThreatClick={handleThreatClick}
-                activeSeverityFilter='All'
-                onSeverityFilterChange={() => {}}
+                onCardClick={handleKpiCardClick}
               />
             </div>
-
-            {/* Charts take 1/3 width */}
-            <div className="col-span-1 flex flex-col gap-4">
-              <div className="flex-1 bg-card rounded-lg p-4 card-shadow">
-                <ActivityChart data={activityData} />
-              </div>
-              <div className="flex-1 bg-card rounded-lg p-4 card-shadow">
-                <AssetsChart data={assetImpacts} onAssetClick={handleAssetClick} />
-              </div>
-            </div>
-
-            {/* Threat Details Panel - slides in from right */}
-            {selectedThreat && (
-              <div className="absolute right-0 top-0 bottom-0 flex items-center z-50">
-                <ThreatDetailsPanel
-                  threat={selectedThreat}
-                  onClose={handleCloseDetailsPanel}
-                  onOpenActModal={handleOpenActModal}
-                />
-              </div>
-            )}
           </div>
 
           {/* Act Modal */}
@@ -251,8 +287,21 @@ const Index = () => {
           />
         </main>
       </div>
+
+      {/* Right Sidebar - Threat Details Panel */}
+      <div className={`transition-all duration-300 h-full ${selectedThreat ? 'w-96' : 'w-0'} overflow-hidden`}>
+        {selectedThreat && (
+          <ThreatDetailsPanel
+            threat={selectedThreat}
+            onClose={handleCloseDetailsPanel}
+            onOpenActModal={handleOpenActModal}
+          />
+        )}
+      </div>
     </div>
   );
 };
 
 export default Index;
+
+
